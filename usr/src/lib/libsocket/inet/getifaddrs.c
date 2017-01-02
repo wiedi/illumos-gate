@@ -21,6 +21,7 @@
 
 /*
  * Copyright (c) 2010, Oracle and/or its affiliates. All rights reserved.
+ * Copyright 2017 Sebastian Wiedenroth. All rights reserved.
  */
 
 #include <netdb.h>
@@ -78,6 +79,7 @@ freeifaddrs(struct ifaddrs *ifa)
 		free(curr->ifa_addr);
 		free(curr->ifa_netmask);
 		free(curr->ifa_dstaddr);
+		free(curr->ifa_data);
 		free(curr);
 	}
 }
@@ -96,7 +98,8 @@ getallifaddrs(sa_family_t af, struct ifaddrs **ifap, int64_t flags)
 	struct lifreq lifrl;
 	int ret;
 	int s, n, numifs;
-	struct ifaddrs *curr, *prev;
+	struct ifaddrs *curr, *prev, *iter;
+	boolean_t seen;
 	sa_family_t lifr_af;
 	int sock4;
 	int sock6;
@@ -196,6 +199,58 @@ retry:
 			    sizeof (struct sockaddr_storage));
 		}
 
+		if (af != AF_UNSPEC)
+			continue;
+
+		/* Skip duplicate AF_LINK entries */
+		seen = B_FALSE;
+		for (iter = *ifap; iter != NULL; iter = iter->ifa_next) {
+			if (iter->ifa_addr->sa_family == AF_LINK &&
+			    strcmp(iter->ifa_name, lifrp->lifr_name) == 0) {
+				seen = B_TRUE;
+				break;
+			}
+		}
+		if (seen)
+			continue;
+
+		/* Get hwaddr if available and create AF_LINK entry */
+		if (ioctl(s, SIOCGLIFHWADDR, (caddr_t)&lifrl) < 0)
+			continue;
+
+		curr = calloc(1, sizeof (struct ifaddrs));
+		if (curr == NULL)
+			goto fail;
+
+		curr->ifa_flags = prev->ifa_flags;
+		prev->ifa_next = curr;
+		prev = curr;
+
+		if ((curr->ifa_name = strdup(lifrp->lifr_name)) == NULL)
+			goto fail;
+
+		curr->ifa_addr = malloc(sizeof (struct sockaddr_storage));
+		if (curr->ifa_addr == NULL)
+			goto fail;
+
+		(void) memcpy(curr->ifa_addr, &lifrl.lifr_addr,
+		    sizeof (struct sockaddr_storage));
+
+		curr->ifa_data = calloc(1, sizeof (if_data_t));
+		if (curr->ifa_data == NULL)
+			goto fail;
+
+		((if_data_t *)curr->ifa_data)->ifi_type = lifrl.lifr_type;
+
+		/* Get MTU */
+		if (ioctl(s, SIOCGLIFMTU, (caddr_t)&lifrl) < 0)
+			goto fail;
+		((if_data_t *)curr->ifa_data)->ifi_mtu = lifrl.lifr_mtu;
+
+		/* Get metric */
+		if (ioctl(s, SIOCGLIFMETRIC, (caddr_t)&lifrl) < 0)
+			goto fail;
+		((if_data_t *)curr->ifa_data)->ifi_metric = lifrl.lifr_metric;
 	}
 	free(buf);
 	close(sock4);

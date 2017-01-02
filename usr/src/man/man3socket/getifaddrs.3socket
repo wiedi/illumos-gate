@@ -12,7 +12,7 @@
 .\"
 .\" Copyright (c) 2013, Joyent, Inc. All rights reserved.
 .\"
-.TH GETIFADDRS 3SOCKET "Apr 18, 2013"
+.TH GETIFADDRS 3SOCKET "Dec 30, 2016"
 .SH NAME
 getifaddrs, freeifaddrs \- get interface addresses
 .SH SYNOPSIS
@@ -138,8 +138,3 @@ MT-Level	MT-Safe
 On an illumos system, this function lists only interfaces with the \fBIFF_UP\fR
 flag set; see \fBif_tcp\fR(7P) and \fBifconfig\fR(1M) for more information.
 
-.SH BUGS
-.LP
-At present, this function only lists addresses from the \fBAF_INET\fR and
-\fBAF_INET6\fR families.  Other families, such as \fBAF_LINK\fR, are not
-included.
