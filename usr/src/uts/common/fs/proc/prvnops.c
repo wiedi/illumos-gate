@@ -23,6 +23,9 @@
  * Copyright (c) 1989, 2010, Oracle and/or its affiliates. All rights reserved.
  * Copyright 2016 Joyent, Inc.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*	Copyright (c) 1984,	 1986, 1987, 1988, 1989 AT&T	*/
 /*	  All Rights Reserved  	*/
@@ -3100,7 +3103,7 @@ prgetattr(vnode_t *vp, vattr_t *vap, int flags, cred_t *cr,
 			 */
 			mutex_exit(&p->p_lock);
 			AS_LOCK_ENTER(as, RW_WRITER);
-#ifdef _LP64
+#if defined(_LP64) && defined(_SYSCALL32_IMPL)
 			vap->va_size = iam32bit?
 			    prpdsize32(as) : prpdsize(as);
 #else
@@ -3116,7 +3119,7 @@ prgetattr(vnode_t *vp, vattr_t *vap, int flags, cred_t *cr,
 		else {
 			mutex_exit(&p->p_lock);
 			AS_LOCK_ENTER(as, RW_WRITER);
-#ifdef _LP64
+#if defined(_LP64) && defined(_SYSCALL32_IMPL)
 			vap->va_size = iam32bit?
 			    oprpdsize32(as) : oprpdsize(as);
 #else

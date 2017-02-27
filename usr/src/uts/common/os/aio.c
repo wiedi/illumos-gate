@@ -23,6 +23,9 @@
  * Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * Kernel asynchronous I/O.
@@ -294,6 +297,7 @@ kaioc(
 }
 #endif
 
+#ifdef _SYSCALL32_IMPL
 static int
 kaio(
 	ulong_t *uap,
@@ -388,6 +392,7 @@ kaio(
 	rvp->r_val1 = rval;
 	return (error);
 }
+#endif
 
 /*
  * wake up LWPs in this process that are sleeping in
@@ -2887,6 +2892,7 @@ driver_aio_read(vnode_t *vp, struct aio_req *aio, cred_t *cred_p)
 	return ((*cb->cb_aread)(dev, aio, cred_p));
 }
 
+#ifdef _SYSCALL32_IMPL
 /*
  * This routine is called when a largefile call is made by a 32bit
  * process on a ILP32 or LP64 kernel. All 64bit processes are large
@@ -3250,6 +3256,7 @@ done:
 	}
 	return (error);
 }
+#endif
 
 #ifdef  _SYSCALL32_IMPL
 static void
@@ -3363,6 +3370,7 @@ aio_req_setupLF(
 	return (0);
 }
 
+#ifdef _SYSCALL32_IMPL
 /*
  * This routine is called when a non largefile call is made by a 32bit
  * process on a ILP32 or LP64 kernel.
@@ -3755,6 +3763,7 @@ done:
 	}
 	return (error);
 }
+#endif
 
 
 #ifdef  _SYSCALL32_IMPL
