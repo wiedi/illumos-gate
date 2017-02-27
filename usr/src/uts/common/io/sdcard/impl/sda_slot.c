@@ -22,6 +22,9 @@
  * Copyright (c) 2008, 2010, Oracle and/or its affiliates. All rights reserved.
  * Copyright 2011 Nexenta Systems, Inc.  All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * SD card slot support.
@@ -41,7 +44,6 @@
 
 static void sda_slot_insert(void *);
 static sda_err_t sda_slot_check_response(sda_cmd_t *);
-static void sda_slot_handle_detect(sda_slot_t *);
 static void sda_slot_handle_transfer(sda_slot_t *, sda_err_t);
 static void sda_slot_handle_fault(sda_slot_t *, sda_fault_t);
 static void sda_slot_abort(sda_slot_t *, sda_err_t);
