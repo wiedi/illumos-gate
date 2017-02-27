@@ -30,6 +30,10 @@
  * Copyright (c) 2013, Joyent, Inc. All rights reserved.
  */
 
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
+
 #include <sys/types.h>
 #include <sys/param.h>
 #include <sys/sysmacros.h>
@@ -145,10 +149,17 @@ char initargs[BOOTARGS_MAX] = "";		/* also referenced by zone0 */
 int
 exec_init(const char *initpath, const char *args)
 {
+#if !defined _MULTI_DATAMODEL
+	caddr_t ucp;
+	caddr_t *uap;
+	caddr_t *argv;
+	caddr_t exec_fnamep;
+#else
 	caddr32_t ucp;
 	caddr32_t *uap;
 	caddr32_t *argv;
 	caddr32_t exec_fnamep;
+#endif
 	char *scratchargs;
 	int i, sarg;
 	size_t argvlen, alen;
@@ -181,7 +192,11 @@ exec_init(const char *initpath, const char *args)
 			in_arg = B_TRUE;
 		}
 	}
+#if !defined _MULTI_DATAMODEL
+	argvlen = sizeof (caddr_t) * (argc + 1);
+#else
 	argvlen = sizeof (caddr32_t) * (argc + 1);
+#endif
 	argv = kmem_zalloc(argvlen, KM_SLEEP);
 
 	/*
@@ -213,7 +228,11 @@ exec_init(const char *initpath, const char *args)
 	 * stack ptr, and sarg is the string index of the start of the
 	 * argument.
 	 */
+#if !defined _MULTI_DATAMODEL
+	ucp = (caddr_t)(uintptr_t)p->p_usrstack;
+#else
 	ucp = (caddr32_t)(uintptr_t)p->p_usrstack;
+#endif
 
 	argc = 0;
 	in_arg = B_FALSE;
@@ -234,7 +253,11 @@ exec_init(const char *initpath, const char *args)
 	ucp -= alen;
 	error |= copyout(scratchargs, (caddr_t)(uintptr_t)ucp, alen);
 
+#if !defined _MULTI_DATAMODEL
+	uap = (caddr_t *)P2ALIGN((uintptr_t)ucp, sizeof (caddr_t));
+#else
 	uap = (caddr32_t *)P2ALIGN((uintptr_t)ucp, sizeof (caddr32_t));
+#endif
 	uap--;	/* advance to be below the word we're in */
 	uap -= (argc + 1);	/* advance argc words down, plus one for NULL */
 	error |= copyout(argv, uap, argvlen);
@@ -258,6 +281,7 @@ exec_init(const char *initpath, const char *args)
 	lwp->lwp_arg[0] = (uintptr_t)exec_fnamep;
 	lwp->lwp_arg[1] = (uintptr_t)uap;
 	lwp->lwp_arg[2] = NULL;
+	lwp->lwp_arg[3] = 0;
 	curthread->t_post_sys = 1;
 	curthread->t_sysnum = SYS_execve;
 
@@ -322,15 +346,24 @@ start_init_common()
 	p->p_zone->zone_proc_initpid = p->p_pid;
 
 	p->p_cstime = p->p_stime = p->p_cutime = p->p_utime = 0;
+#if !defined _MULTI_DATAMODEL
+	p->p_usrstack = (caddr_t)USRSTACK;
+	p->p_model = DATAMODEL_NATIVE;
+#else
 	p->p_usrstack = (caddr_t)USRSTACK32;
 	p->p_model = DATAMODEL_ILP32;
+#endif
 	p->p_stkprot = PROT_ZFOD & ~PROT_EXEC;
 	p->p_datprot = PROT_ZFOD & ~PROT_EXEC;
 	p->p_stk_ctl = INT32_MAX;
 
 	p->p_as = as_alloc();
 	p->p_as->a_proc = p;
+#if !defined _MULTI_DATAMODEL
+	p->p_as->a_userlimit = (caddr_t)USERLIMIT;
+#else
 	p->p_as->a_userlimit = (caddr_t)USERLIMIT32;
+#endif
 	(void) hat_setup(p->p_as->a_hat, HAT_INIT);
 
 	init_core();
