@@ -21,6 +21,9 @@
 /*
  * Copyright (c) 2003, 2010, Oracle and/or its affiliates. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -710,7 +713,7 @@ datadm_sp_entry_match(datadm_sp_entry_t *sp1, datadm_sp_entry_t *sp2)
 	if (sp1->spe_threadsafe != sp2->spe_threadsafe) {
 		return (0);
 	}
-	if (sp2->spe_default != sp2->spe_default) {
+	if (sp1->spe_default != sp2->spe_default) {
 		return (0);
 	}
 	if (!datadm_str_match(sp1->spe_libpath, sp2->spe_libpath)) {
