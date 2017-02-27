@@ -21,6 +21,9 @@
 /*
  * Copyright (c) 2005, 2010, Oracle and/or its affiliates. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 
 /*
@@ -47,6 +50,7 @@
 static kmutex_t	usba_print_mutex;
 static char usba_print_buf[USBA_PRINT_BUF_LEN];
 kmutex_t usbai_mutex;
+usb_dev_cap_t usb_cap;
 
 /*
  * debug stuff

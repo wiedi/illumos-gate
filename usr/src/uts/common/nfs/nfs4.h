@@ -22,6 +22,9 @@
 /*
  * Copyright 2015 Nexenta Systems, Inc.  All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * Copyright 2010 Sun Microsystems, Inc.  All rights reserved.
@@ -366,17 +369,17 @@ typedef struct rfs4_dss_path {
 } rfs4_dss_path_t;
 
 /* array of paths passed-in from nfsd command-line; stored in nvlist */
-char		**rfs4_dss_newpaths;
-uint_t		rfs4_dss_numnewpaths;
+extern char		**rfs4_dss_newpaths;
+extern uint_t		rfs4_dss_numnewpaths;
 
 /*
  * Circular doubly-linked list of paths for currently-served RGs.
  * No locking required: only changed on warmstart. Managed with insque/remque.
  */
-rfs4_dss_path_t	*rfs4_dss_pathlist;
+extern rfs4_dss_path_t	*rfs4_dss_pathlist;
 
 /* nvlists of all DSS paths: current, and before last warmstart */
-nvlist_t *rfs4_dss_paths, *rfs4_dss_oldpaths;
+extern nvlist_t *rfs4_dss_paths, *rfs4_dss_oldpaths;
 
 /*
  * The server maintains a set of state on a per client basis that

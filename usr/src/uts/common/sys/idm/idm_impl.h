@@ -24,6 +24,9 @@
 /*
  * Copyright 2014 Nexenta Systems, Inc.  All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #ifndef	_IDM_IMPL_H_
 #define	_IDM_IMPL_H_
@@ -462,7 +465,7 @@ typedef struct {
 	kmem_cache_t	*idm_so_128k_buf_cache;
 } idm_global_t;
 
-idm_global_t	idm; /* Global state */
+extern idm_global_t	idm; /* Global state */
 
 int
 idm_idpool_create(idm_idpool_t	*pool);

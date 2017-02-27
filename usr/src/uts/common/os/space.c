@@ -24,6 +24,9 @@
  * Use is subject to license terms.
  * Copyright 2016 Nexenta Systems, Inc.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * The intent of this file is to contain any data that must remain
@@ -92,8 +95,6 @@ int	__lintzero;		/* Alway zero for shutting up lint */
 
 pfn_t	physmax;
 pgcnt_t	physinstalled;
-
-struct var v;
 
 #include <sys/systm.h>
 #include <sys/conf.h>

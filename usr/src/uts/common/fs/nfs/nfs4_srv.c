@@ -24,6 +24,9 @@
  * Copyright (c) 2003, 2010, Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2012, 2016 by Delphix. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  *	Copyright (c) 1983,1984,1985,1986,1987,1988,1989  AT&T.
@@ -155,7 +158,6 @@ u_longlong_t	nfs4_srv_caller_id;
 uint_t		nfs4_srv_vkey = 0;
 
 verifier4	Write4verf;
-verifier4	Readdir4verf;
 
 void	rfs4_init_compound_state(struct compound_state *);
 
