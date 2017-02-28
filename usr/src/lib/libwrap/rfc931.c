@@ -2,6 +2,9 @@
  * Copyright 2004 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #pragma ident	"%Z%%M%	%I%	%E% SMI"
 
@@ -88,9 +91,9 @@ char   *dest;
     char    user[256];			/* XXX */
     char    buffer[512];		/* XXX */
     char   *cp;
-    char   *result = unknown;
+    char   *volatile result = unknown;
     FILE   *fp;
-    unsigned saved_timeout = 0;
+    volatile unsigned saved_timeout = 0;
     struct sigaction nact, oact;
 
     /*
