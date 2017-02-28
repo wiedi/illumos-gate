@@ -2,6 +2,9 @@
  * Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * BSD 3 Clause License
@@ -77,7 +80,7 @@
  */
 #define	BMAP_BPW	(BMAP_WSIZE * 8)
 #define	BMAP_BPW_SHIFT	5
-#define	BMAP_BPW_MASK	(~(~0 << BMAP_BPW_SHIFT))
+#define	BMAP_BPW_MASK	(~(~0ul << BMAP_BPW_SHIFT))
 
 
 /*
