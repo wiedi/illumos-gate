@@ -23,6 +23,9 @@
  * Copyright (c) 2010, Oracle and/or its affiliates. All rights reserved.
  * Copyright 2017 Nexenta Systems, Inc.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #include <arpa/inet.h>
 #include <errno.h>
@@ -506,7 +509,7 @@ print_prop(show_prop_state_t *statep, uint_t flags, char *buf, size_t bufsize)
 	char			*ifname = statep->sps_ifname;
 	char			*propval = statep->sps_propval;
 	uint_t			proto = statep->sps_proto;
-	size_t			propsize = MAXPROPVALLEN;
+	uint_t			propsize = MAXPROPVALLEN;
 	char			*object;
 	ipadm_status_t		status;
 
@@ -543,7 +546,7 @@ cont:
  * Callback function for show-*prop subcommands.
  */
 static boolean_t
-print_prop_cb(ofmt_arg_t *ofarg, char *buf, size_t bufsize)
+print_prop_cb(ofmt_arg_t *ofarg, char *buf, uint_t bufsize)
 {
 	show_prop_state_t	*statep = ofarg->ofmt_cbarg;
 	const char		*propname = statep->sps_pname;
