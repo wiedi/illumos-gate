@@ -22,6 +22,9 @@
  * Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 
 
@@ -31,6 +34,7 @@
 #include "Trace.h"
 #include "Exceptions.h"
 #include "sun_fc.h"
+#include <unistd.h>
 
 
 #ifdef  __cplusplus
