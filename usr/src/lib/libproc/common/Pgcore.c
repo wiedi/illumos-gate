@@ -28,6 +28,9 @@
  * Copyright 2015 Joyent, Inc.
  * Copyright (c) 2013 by Delphix. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #define	_STRUCTURED_PROC	1
 
@@ -295,7 +298,7 @@ mkprpsinfo(struct ps_prochandle *P, prpsinfo_t *psp)
 	psp->pr_dmodel = P->psinfo.pr_dmodel;
 }
 
-#ifdef _LP64
+#if defined _LP64 && defined _MULTI_DATAMODEL
 
 static void
 mkprstatus32(struct ps_prochandle *P, const lwpstatus_t *lsp,
@@ -476,7 +479,7 @@ old_per_lwp(void *data, const lwpstatus_t *lsp, const lwpsinfo_t *lip)
 		if (write_note(pgc->pgc_fd, NT_PRFPREG, &lsp->pr_fpreg,
 		    sizeof (prfpregset_t), pgc->pgc_doff) != 0)
 			return (1);
-#ifdef _LP64
+#if defined _LP64 && defined _MULTI_DATAMODEL
 	} else {
 		prstatus32_t pr32;
 		prfpregset32_t pf32;
@@ -525,7 +528,7 @@ new_per_lwp(void *data, const lwpstatus_t *lsp, const lwpsinfo_t *lip)
 		if (write_note(pgc->pgc_fd, NT_LWPSTATUS, lsp,
 		    sizeof (lwpstatus_t), pgc->pgc_doff) != 0)
 			return (1);
-#ifdef _LP64
+#if defined _LP64 && defined _MULTI_DATAMODEL
 	} else {
 		lwpsinfo32_t li32;
 		lwpstatus32_t ls32;
@@ -587,7 +590,7 @@ new_per_lwp(void *data, const lwpstatus_t *lsp, const lwpsinfo_t *lip)
 		if (write_note(pgc->pgc_fd, NT_SPYMASTER, &ps,
 		    sizeof (psinfo_t), pgc->pgc_doff) != 0)
 			return (1);
-#ifdef _LP64
+#if defined _LP64 && defined _MULTI_DATAMODEL
 	} else {
 		psinfo32_t ps32;
 		psinfo_n_to_32(&ps, &ps32);
@@ -938,7 +941,7 @@ exclude:
 			return (1);
 
 		*pgc->pgc_poff += sizeof (phdr);
-#ifdef _LP64
+#if defined _LP64 && defined _MULTI_DATAMODEL
 	} else {
 		Elf32_Phdr phdr32;
 
@@ -1240,7 +1243,7 @@ Pfgcore(struct ps_prochandle *P, int fd, core_content_t content)
 		    P->nauxv * sizeof (P->auxv[0]), &doff) != 0) {
 			goto err;
 		}
-#ifdef _LP64
+#if defined _LP64 && defined _MULTI_DATAMODEL
 	} else {
 		prpsinfo32_t pi32;
 		auxv32_t *av32;
@@ -1322,7 +1325,7 @@ Pfgcore(struct ps_prochandle *P, int fd, core_content_t content)
 		    P->nauxv * sizeof (P->auxv[0]), &doff) != 0) {
 			goto err;
 		}
-#ifdef _LP64
+#if defined _LP64 && defined _MULTI_DATAMODEL
 	} else {
 		psinfo32_t pi32;
 		pstatus32_t ps32;

@@ -27,6 +27,9 @@
  * Copyright (c) 2013, Joyent, Inc. All rights reserved.
  * Copyright (c) 2013 by Delphix. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #include <sys/types.h>
 #include <sys/uio.h>
@@ -411,7 +414,7 @@ Plwp_stack(struct ps_prochandle *P, lwpid_t lwpid, stack_t *stkp)
 	if (P->status.pr_dmodel == PR_MODEL_NATIVE) {
 		if (Pread(P, stkp, sizeof (*stkp), addr) != sizeof (*stkp))
 			return (-1);
-#ifdef _LP64
+#if defined _LP64 && defined _MULTI_DATAMODEL
 	} else {
 		stack32_t stk32;
 
@@ -459,7 +462,7 @@ Plwp_main_stack(struct ps_prochandle *P, lwpid_t lwpid, stack_t *stkp)
 
 		if (stkp->ss_flags & SS_ONSTACK)
 			goto on_altstack;
-#ifdef _LP64
+#if defined _LP64 && defined _MULTI_DATAMODEL
 	} else {
 		stack32_t stk32;
 
@@ -483,7 +486,7 @@ on_altstack:
 		if (Pread(P, stkp, sizeof (*stkp),
 		    (uintptr_t)&ctxp->uc_stack) != sizeof (*stkp))
 			return (-1);
-#ifdef _LP64
+#if defined _LP64 && defined _MULTI_DATAMODEL
 	} else {
 		ucontext32_t *ctxp = (void *)ls.pr_oldcontext;
 		stack32_t stk32;

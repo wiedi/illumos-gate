@@ -25,6 +25,9 @@
  * Copyright (c) 2014, 2016 by Delphix. All rights reserved.
  * Copyright 2016 Igor Kozhukhov <ikozhukhov@gmail.com>
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * Routines to manage ZFS mounts.  We separate all the nasty routines that have
@@ -595,7 +598,7 @@ _zfs_init_libshare(void)
 	char path[MAXPATHLEN];
 	char isa[MAXISALEN];
 
-#if defined(_LP64)
+#if defined(_LP64) && defined(_MULTI_DATAMODEL)
 	if (sysinfo(SI_ARCHITECTURE_64, isa, MAXISALEN) == -1)
 		isa[0] = '\0';
 #else
