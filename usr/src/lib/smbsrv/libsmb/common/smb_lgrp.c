@@ -24,6 +24,9 @@
  * Copyright (c) 2008, 2010, Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2013 RackTop Systems.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #include <stdlib.h>
 #include <strings.h>
@@ -1404,7 +1407,7 @@ smb_lgrp_gtbl_exists(sqlite *db, char *gname)
 	int rc;
 
 	if (db == NULL)
-		return (NULL);
+		return B_FALSE;
 
 	sql = sqlite_mprintf("SELECT name FROM groups WHERE name = '%s'",
 	    gname);

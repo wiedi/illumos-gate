@@ -23,6 +23,9 @@
  * Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*	Copyright (c) 1988 AT&T	*/
 /*	  All Rights Reserved  	*/
@@ -285,7 +288,7 @@ _ttyname_common(struct stat64 *fsp, char *buffer, uint_t match_mask)
 		 * Is /dev/pts then just do a quick check. We don't have
 		 * to stat the entire /dev/pts dir.
 		 */
-		if (strcmp(PTS, srch_dirs[dirno].name) == NULL) {
+		if (strcmp(PTS, srch_dirs[dirno].name) == 0) {
 			if ((pt = ispts(fsp, match_mask)) != NULL) {
 				is_pts = 1;
 				found = 1;
