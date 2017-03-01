@@ -23,6 +23,9 @@
  * Copyright 2015 Nexenta Systems, Inc.  All rights reserved.
  * Copyright (c) 1989, 2010, Oracle and/or its affiliates. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*	Copyright (c) 1983, 1984, 1985, 1986, 1987, 1988, 1989 AT&T	*/
 /*	  All Rights Reserved  	*/
@@ -93,6 +96,8 @@ extern void daemonize_fini(int);
 
 extern int _nfssys(int, void *);
 
+extern void daemonize_fini(int fd);
+extern void netgrp_cache_flush(void);
 struct sh_list *share_list;
 
 rwlock_t sharetab_lock;		/* lock to protect the cached sharetab */

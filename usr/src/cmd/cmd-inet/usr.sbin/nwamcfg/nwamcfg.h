@@ -23,6 +23,9 @@
  * Copyright 2010 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #ifndef _NWAMCFG_H
 #define	_NWAMCFG_H
@@ -173,7 +176,8 @@ extern void properr(const char *);
 extern boolean_t saw_error;
 
 extern FILE *yyin;
-
+void help_wrap();
+void command_usage(int command);
 #ifdef __cplusplus
 }
 #endif

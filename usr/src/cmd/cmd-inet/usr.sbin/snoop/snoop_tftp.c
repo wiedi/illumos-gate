@@ -23,6 +23,9 @@
  * Copyright 2005 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #pragma ident	"%Z%%M%	%I%	%E% SMI"
 
@@ -33,6 +36,8 @@
 extern char *dlc_header;
 char *tftperror();
 char *show_type();
+int add_transient(int port, int (*proc)(int, char *, int));
+void del_transient(int port);
 
 int
 interpret_tftp(int flags, struct tftphdr *tftp, int fraglen)
