@@ -2,6 +2,9 @@
  * Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * Copyright (c) 1988, 1989, 1991, 1994, 1995, 1996, 1997
@@ -1798,7 +1801,7 @@ select_src_addr(union any_in_addr *dst_addr, union any_in_addr *src_addr,
 	struct sockaddr *sock;
 	struct sockaddr_in *sin;
 	struct sockaddr_in6 *sin6;
-	size_t sock_len;
+	socklen_t sock_len;
 
 	sock = (struct sockaddr *)malloc(sizeof (struct sockaddr_in6));
 	if (sock == NULL) {
