@@ -23,6 +23,9 @@
  * Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #include <stdio.h>
 #include <unistd.h>
@@ -562,19 +565,21 @@ void
 show_pktinfo(flags, num, src, dst, ptvp, tvp, drops, len)
 	int flags, num, drops, len;
 	char *src, *dst;
-	struct timeval *ptvp, *tvp;
+	struct timeval32 *ptvp, *tvp;
 {
 	struct tm *tm;
-	static struct timeval tvp0;
+	static struct timeval32 tvp0;
 	int sec, usec;
 	char *lp = line;
 	int i, start;
+	time_t tv_sec;
 
 	if (flags & F_NUM) {
 		(void) sprintf(lp, "%3d ", num);
 		lp += strlen(lp);
 	}
-	tm = localtime(&tvp->tv_sec);
+	tv_sec = tvp->tv_sec;
+	tm = localtime(&tv_sec);
 
 	if (flags & F_TIME) {
 		if (flags & F_ATIME) {
