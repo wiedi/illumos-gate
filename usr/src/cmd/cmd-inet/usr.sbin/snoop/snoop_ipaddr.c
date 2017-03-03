@@ -22,6 +22,9 @@
  * Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -320,7 +323,7 @@ load_names(fname)
 		if (inet_pton(AF_INET6, addr, (void *)&addrv6) == 1) {
 			family = AF_INET6;
 			naddr = (void *)&addrv6;
-		} else if ((addrv4 = inet_addr(addr)) != (ulong_t)-1) {
+		} else if ((addrv4 = inet_addr(addr)) != (in_addr_t)-1) {
 			family = AF_INET;
 			naddr = (void *)&addrv4;
 		}
