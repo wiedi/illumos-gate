@@ -24,6 +24,9 @@
  * Copyright 2016 Nexenta Systems, Inc.  All rights reserved.
  * Copyright (c) 1998, 2010, Oracle and/or its affiliates. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * Devfsadm replaces drvconfig, audlinks, disks, tapes, ports, devlinks
@@ -8417,7 +8420,7 @@ build_and_enq_event(char *class, char *subclass, char *node_path,
 	nvlist_t *nvl;
 
 	vprint(CHATTY_MID, "build_and_enq_event(%s, %s, %s, 0x%8.8x)\n",
-	    class, subclass, node_path, (int)node);
+	    class, subclass, node_path, (int)(intptr_t)node);
 
 	if (node != DI_NODE_NIL)
 		nvl = build_event_attributes(class, subclass, node_path, node,

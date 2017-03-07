@@ -30,6 +30,9 @@
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #pragma ident	"%Z%%M%	%I%	%E% SMI"
 #define RCSID	"$Id: utils.c,v 1.10 2000/03/27 01:36:48 paulus Exp $"
@@ -516,7 +519,7 @@ log_packet(p, len, prefix, level)
 {
     (void) strlcpy(line, prefix, sizeof(line));
     linep = line + strlen(line);
-    format_packet(p, len, pr_log, (void *)level);
+    format_packet(p, len, pr_log, (void *)(intptr_t)level);
     if (linep != line)
 	syslog(level, "%s", line);
 }
@@ -585,7 +588,7 @@ pr_log __V((void *arg, const char *fmt, ...))
     va_end(pvar);
 
     if (linep + n + 1 > line + sizeof(line)) {
-	syslog((int)arg, "%s", line);
+	syslog((intptr_t)arg, "%s", line);
 	linep = line;
     }
     (void) strlcpy(linep, buf, line + sizeof(line) - linep);

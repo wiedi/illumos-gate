@@ -26,6 +26,9 @@
 /*
  * Copyright 2015, Joyent, Inc. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * svcadm - request adminstrative actions for service instances
@@ -1678,7 +1681,7 @@ out:
 static int
 set_fmri_enabled(void *data, scf_walkinfo_t *wip)
 {
-	int flags = (int)data;
+	int flags = (int)(intptr_t)data;
 
 	assert(wip->inst != NULL);
 	assert(wip->pg == NULL);
@@ -1914,7 +1917,7 @@ set_fmri_action(void *action, scf_walkinfo_t *wip)
 static int
 force_degraded(void *data, scf_walkinfo_t *wip)
 {
-	int flags = (int)data;
+	int flags = (int)(intptr_t)data;
 	char state[MAX_SCF_STATE_STRING_SZ];
 
 	if (inst_get_state(wip->inst, state, wip->fmri, NULL) != 0) {
@@ -1940,7 +1943,7 @@ force_degraded(void *data, scf_walkinfo_t *wip)
 static int
 force_maintenance(void *data, scf_walkinfo_t *wip)
 {
-	int flags = (int)data;
+	int flags = (int)(intptr_t)data;
 	const char *prop;
 
 	if (svcsearch) {
@@ -2351,7 +2354,7 @@ again:
 		 * the errors the first time.
 		 */
 		if ((err = scf_walk_fmri(h, argc, argv, WALK_FLAGS,
-		    set_fmri_enabled, (void *)flags, &error, pr_warn)) != 0) {
+		    set_fmri_enabled, (void *)(uintptr_t)flags, &error, pr_warn)) != 0) {
 
 			pr_warn(gettext("failed to iterate over "
 			    "instances: %s\n"), scf_strerror(err));
@@ -2359,7 +2362,7 @@ again:
 
 		} else if (wait && exit_status == 0 &&
 		    (err = scf_walk_fmri(h, argc, argv, WALK_FLAGS,
-		    wait_fmri_enabled, (void *)flags, &error, quiet)) != 0) {
+		    wait_fmri_enabled, (void *)(uintptr_t)flags, &error, quiet)) != 0) {
 
 			pr_warn(gettext("failed to iterate over "
 			    "instances: %s\n"), scf_strerror(err));
@@ -2404,7 +2407,7 @@ again:
 		 * the errors the first time.
 		 */
 		if ((err = scf_walk_fmri(h, argc, argv, WALK_FLAGS,
-		    set_fmri_enabled, (void *)flags, &exit_status,
+		    set_fmri_enabled, (void *)(uintptr_t)flags, &exit_status,
 		    pr_warn)) != 0) {
 
 			pr_warn(gettext("failed to iterate over "
@@ -2413,7 +2416,7 @@ again:
 
 		} else if (wait && exit_status == 0 &&
 		    (err = scf_walk_fmri(h, argc, argv, WALK_FLAGS,
-		    wait_fmri_disabled, (void *)flags, &error, quiet)) != 0) {
+		    wait_fmri_disabled, (void *)(uintptr_t)flags, &error, quiet)) != 0) {
 
 			pr_warn(gettext("failed to iterate over "
 			    "instances: %s\n"), scf_strerror(err));

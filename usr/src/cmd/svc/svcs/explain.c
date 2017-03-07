@@ -24,6 +24,9 @@
  * Use is subject to license terms.
  * Copyright (c) 2015, Joyent, Inc. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * Service state explanation.  For select services, display a description, the
@@ -1178,7 +1181,7 @@ determine_causes(inst_t *svcp, void *canfailp)
 	if (svcp->active) {
 		(void) fprintf(stderr, gettext("Dependency cycle detected:\n"
 		    "  svc:/%s:%s\n"), svcp->svcname, svcp->instname);
-		return ((int)canfailp != 0 ? UU_WALK_ERROR : UU_WALK_NEXT);
+		return (canfailp != 0 ? UU_WALK_ERROR : UU_WALK_NEXT);
 	}
 
 	if (svcp->causes != NULL)
@@ -1247,7 +1250,7 @@ determine_causes(inst_t *svcp, void *canfailp)
 			if (r != 0) {
 				assert(r == ELOOP);
 				svcp->active = 0;
-				return ((int)canfailp != 0 ?
+				return (canfailp != 0 ?
 				    UU_WALK_ERROR : UU_WALK_NEXT);
 			}
 		} else {
@@ -1270,7 +1273,7 @@ determine_causes(inst_t *svcp, void *canfailp)
 				if (r != 0) {
 					assert(r == ELOOP);
 					svcp->active = 0;
-					return ((int)canfailp != 0 ?
+					return (canfailp != 0 ?
 					    UU_WALK_ERROR : UU_WALK_NEXT);
 				}
 			} else {
@@ -2087,7 +2090,7 @@ print_service_cb(void *verbose, scf_walkinfo_t *wip)
 	assert(r == 0);
 	assert(ip != NULL);
 
-	print_service(ip, (int)verbose);
+	print_service(ip, (int)(intptr_t)verbose);
 
 	return (0);
 }
@@ -2117,7 +2120,7 @@ explain(int verbose, int argc, char **argv)
 		/* Call print_service() for each operand. */
 
 		err = scf_walk_fmri(h, argc, argv, SCF_WALK_MULTIPLE,
-		    print_service_cb, (void *)verbose, &exit_status, uu_warn);
+		    print_service_cb, (void *)(intptr_t)verbose, &exit_status, uu_warn);
 		if (err != 0) {
 			uu_warn(gettext(
 			    "failed to iterate over instances: %s\n"),

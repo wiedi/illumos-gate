@@ -24,6 +24,9 @@
  * Copyright (c) 2013, Joyent Inc. All rights reserved.
  * Copyright (c) 2015, 2016 by Delphix. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * Copyright 2011 Nexenta Systems, Inc.  All rights reserved.
@@ -203,7 +206,7 @@ autofs_cleanup(zoneid_t zoneid)
 	/*
 	 * Ask autofs to unmount all trigger nodes in the given zone.
 	 */
-	return (_autofssys(AUTOFS_UNMOUNTALL, (void *)zoneid));
+	return (_autofssys(AUTOFS_UNMOUNTALL, (void *)(uintptr_t)zoneid));
 }
 
 static void

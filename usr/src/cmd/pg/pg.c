@@ -23,6 +23,9 @@
  * Copyright (c) 1989, 2010, Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2016 by Delphix. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*	Copyright (c) 1984, 1986, 1987, 1988, 1989 AT&T	*/
 /*	  All Rights Reserved  	*/
@@ -1583,10 +1586,10 @@ FILE *f;
 			zero = ozero;
 			compact();
 		}
-		diff = (int)((int)zero - (int)ozero);
-		dot = (LINE *)((int)dot + diff);
-		dol = (LINE *)((int)dol + diff);
-		contig = (LINE *)((int)contig + diff);
+		diff = (int)((intptr_t)zero - (intptr_t)ozero);
+		dot = (LINE *)((intptr_t)dot + diff);
+		dol = (LINE *)((intptr_t)dol + diff);
+		contig = (LINE *)((intptr_t)contig + diff);
 	}
 	dol++;
 	if (!pipe_in)

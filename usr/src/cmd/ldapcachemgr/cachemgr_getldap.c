@@ -21,6 +21,9 @@
 /*
  * Copyright (c) 1999, 2010, Oracle and/or its affiliates. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #include <assert.h>
 #include <errno.h>
@@ -643,7 +646,7 @@ getldap_get_rootDSE(void *arg)
 	}
 	(void) mutex_unlock(&sig_mutex);
 
-	thr_exit((void *) exitrc);
+	thr_exit((void *)(intptr_t)exitrc);
 
 	return ((void *) NULL);
 }
@@ -838,7 +841,7 @@ getldap_set_serverInfo(server_info_t *head, int reset_bindtime, info_op_t op)
 
 	for (i = 0; i < num_threads; i++) {
 		if (thr_join(tid[i], NULL, &status) == 0) {
-			if ((int)status == NS_LDAP_SUCCESS)
+			if ((intptr_t)status == NS_LDAP_SUCCESS)
 				atleast1 = 1;
 		}
 	}

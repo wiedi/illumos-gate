@@ -11,6 +11,9 @@
  * Copyright (c) 1996,1998,2001 by Sun Microsystems, Inc.
  * All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #pragma ident	"%Z%%M%	%I%	%E% SMI"
 
@@ -582,7 +585,7 @@ dumpsymtable(filename, checkpt)
 	ino_t i;
 	struct entry temp, *tentry;
 	int mynum = 1;
-	uint_t stroff;
+	uintptr_t stroff;
 	FILE *fp;
 	struct symtableheader hdr;
 
