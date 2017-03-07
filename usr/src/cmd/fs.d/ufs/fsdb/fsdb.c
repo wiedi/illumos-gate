@@ -3455,7 +3455,7 @@ puta()
 	short		terror = 0;
 	long		maxchars, s_err, nbytes, temp;
 	u_offset_t	taddr = addr;
-	long		tcount = 0, item, olditem = 0;
+	volatile long	tcount = 0, item, olditem = 0;
 
 	if (wrtflag == O_RDONLY) {
 		printf("not opened for write '-w'\n");

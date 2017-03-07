@@ -22,6 +22,9 @@
  * Copyright 2005 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #pragma ident	"%Z%%M%	%I%	%E% SMI"
 
@@ -106,16 +109,16 @@ main(int argc, char *argv[])
 	char *value;
 	int longjmp_return;
 
-	char *mountpoint = NULL;
-	int mountfd = -1;
-	char *backpath = NULL;
+	char *volatile mountpoint = NULL;
+	volatile int mountfd = -1;
+	char * volatile backpath = NULL;
 
-	int delete = 0;
-	int stats = 0;
-	u_offset_t maxsize = 0;
-	uint_t chunksize = 0;
-	int rawfile = 0;
-	int dounlink = 0;
+	volatile int delete = 0;
+	volatile int stats = 0;
+	volatile u_offset_t maxsize = 0;
+	volatile uint_t chunksize = 0;
+	volatile int rawfile = 0;
+	volatile int dounlink = 0;
 
 	if ((progname = strrchr(argv[0], '/')) != NULL)
 		++progname;
