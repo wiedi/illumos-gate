@@ -79,7 +79,7 @@ static int	slist_widest_str(slist_t *slist);
 static void	ljust_print(char *str, int width);
 static int	sup_inputchar(void);
 static void	sup_pushchar(int c);
-static int	geti64(char *str, uint64_t *iptr, uint64_t *wild);
+static int	geti64(char *str, diskaddr_t *iptr, diskaddr_t *wild);
 
 #else	/* __STDC__ */
 /*
@@ -97,7 +97,7 @@ static int	slist_widest_str(slist_t *slist);
 static void	ljust_print(char *str, int width);
 static int	sup_inputchar(void);
 static void	sup_pushchar(int c);
-static int	geti64(char *str, uint64_t *iptr, uint64_t *wild);
+static int	geti64(char *str, diskaddr_t *iptr, diskaddr_t *wild);
 
 #endif	/* __STDC__ */
 
@@ -310,7 +310,7 @@ geti(str, iptr, wild)
 static int
 geti64(str, iptr, wild)
 	char		*str;
-	uint64_t	*iptr, *wild;
+	diskaddr_t	*iptr, *wild;
 {
 	char	*str2;
 
@@ -453,7 +453,7 @@ input(type, promptstr, delim, param, deflt, cmdflag)
 	int		cmdflag;
 {
 	int		interactive, help, i, length, index, tied;
-	blkaddr_t	bn;
+	blkaddr32_t	bn;
 	diskaddr_t	bn64;
 	char		**str, **strings;
 	TOKEN		token, cleantoken;
@@ -463,7 +463,7 @@ input(type, promptstr, delim, param, deflt, cmdflag)
 	char		*s;
 	int		value;
 	int		cyls, cylno;
-	uint64_t	blokno;
+	diskaddr_t	blokno;
 	float		nmegs;
 	float		ngigs;
 	char		shell_argv[MAXPATHLEN];
@@ -815,8 +815,8 @@ reprompt:
 		 * Convert token to a disk block number.
 		 */
 		if (cur_label == L_TYPE_EFI) {
-		    if (geti64(cleantoken, (uint64_t *)&bn64,
-			(uint64_t *)NULL))
+		    if (geti64(cleantoken, &bn64,
+			NULL))
 			    break;
 		} else {
 		    if (getbn(cleantoken, &bn64))
@@ -885,7 +885,7 @@ reprompt:
 		/*
 		 * Convert the token into an integer.
 		 */
-		if (geti64(cleantoken, (uint64_t *)&bn64, (uint64_t *)NULL)) {
+		if (geti64(cleantoken, &bn64, NULL)) {
 			break;
 		}
 		/*
@@ -1589,7 +1589,7 @@ or g(gigabytes)\n");
 			/*
 			 * Token is number of blocks
 			 */
-			if (geti64(cleantoken, &blokno, (uint64_t *)NULL)) {
+			if (geti64(cleantoken, &blokno, NULL)) {
 			    break;
 			}
 			if (blokno > bounds->upper) {
@@ -1605,7 +1605,7 @@ or g(gigabytes)\n");
 			 */
 
 			/* convert token to integer */
-			if (geti64(cleantoken, &blokno, (uint64_t *)NULL)) {
+			if (geti64(cleantoken, &blokno, NULL)) {
 				break;
 			}
 
