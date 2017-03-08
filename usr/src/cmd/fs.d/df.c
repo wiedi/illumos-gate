@@ -25,6 +25,9 @@
 /*
  * Copyright (c) 1989, 2010, Oracle and/or its affiliates. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 
 #include <dlfcn.h>
@@ -49,7 +52,7 @@
 #include <sys/int_limits.h>
 #include <sys/zone.h>
 #include <libzfs.h>
-
+#include <zone.h>
 #include "fslib.h"
 
 extern char *default_fstype(char *);

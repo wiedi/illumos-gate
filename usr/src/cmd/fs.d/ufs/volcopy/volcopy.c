@@ -67,6 +67,8 @@
 #include "volcopy.h"
 
 #include <locale.h>
+#include <string.h>
+#include <wait.h>
 
 /*
  * main I/O information structure, contains information for the

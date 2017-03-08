@@ -22,6 +22,9 @@
 /*
  * Copyright 2015 Nexenta Systems, Inc.  All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*	Copyright (c) 1984, 1986, 1987, 1988, 1989 AT&T	*/
 /*	  All Rights Reserved  	*/
@@ -55,6 +58,7 @@
 #include	<stropts.h>
 #include	<sys/conf.h>
 #include	<locale.h>
+#include	<signal.h>
 #include	"fslib.h"
 
 #define	VFS_PATH	"/usr/lib/fs"

@@ -31,6 +31,7 @@
 
 #include <fcntl.h>
 #include <arpa/tftp.h>
+#include <stdio.h>
 #include "snoop.h"
 
 extern char *dlc_header;

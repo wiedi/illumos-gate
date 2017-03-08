@@ -52,6 +52,7 @@
 #include <wait.h>
 #include <libw.h>
 #include <regexpr.h>
+#include <sys/termio.h>
 
 
 /*
