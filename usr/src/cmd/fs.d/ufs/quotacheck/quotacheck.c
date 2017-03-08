@@ -102,7 +102,7 @@ extern int	optind;
 extern char	*optarg;
 extern int	fsync(int);
 
-static void acct();
+static void _acct();
 static void bread();
 static void usage();
 static int chkquota();
@@ -514,7 +514,7 @@ chkquota(char *fsdev, char *fsfile, char *qffile)
 	for (cg = 0; cg < sblock.fs_ncg; cg++) {
 		dp = NULL;
 		for (i = 0; i < sblock.fs_ipg; i++)
-			acct(ginode());
+			_acct(ginode());
 	}
 	for (uid = 0; uid <= MAXUID && uid >= 0; uid++) {
 		(void) fread(&dqbuf, sizeof (struct dqblk), 1, qf);
@@ -597,7 +597,7 @@ chkquota(char *fsdev, char *fsfile, char *qffile)
 }
 
 void
-acct(struct dinode *ip)
+_acct(struct dinode *ip)
 {
 	struct fileusage *fup;
 
