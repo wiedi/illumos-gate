@@ -6353,7 +6353,9 @@ process_actions(scf_handle_t *h, scf_propertygroup_t *pg, scf_instance_t *inst)
 			}
 		}
 
-		r = scf_value_get_integer(val, &action_ts[i]);
+		int64_t tmp;
+		r = scf_value_get_integer(val, &tmp);
+		action_ts[i] = tmp;
 		assert(r == 0);
 	}
 
