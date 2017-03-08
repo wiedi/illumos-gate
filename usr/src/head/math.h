@@ -25,6 +25,9 @@
  * Copyright 2004 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #ifndef _MATH_H
 #define	_MATH_H
@@ -342,6 +345,12 @@ extern float modff __P((float, float *));
 
 #if defined(__cplusplus) && defined(__GNUC__)
 #undef	exception
+#endif
+
+#if !defined(_STRICT_STDC)
+extern int finitef __P((float));
+extern int finite __P((double));
+
 #endif
 
 #ifdef __cplusplus
