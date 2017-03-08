@@ -2,6 +2,9 @@
  * Copyright 2005 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * Copyright (c) 1983 Regents of the University of California.
@@ -72,7 +75,7 @@ char *
 re_comp(s)
 char *s;
 {
-	if ((int)recomp != 0)
+	if (recomp != NULL)
 		free(recomp);
 	recomp = regcmp(s, (char *)0);
 	if (recomp == NULL)
@@ -86,7 +89,7 @@ static int
 re_exec(s)
 char *s;
 {
-	if ((int)recomp == 0)
+	if (recomp == NULL)
 		return (-1);
 	if (regex(recomp, s) == NULL)
 		return (0);
