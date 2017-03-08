@@ -32,6 +32,9 @@
  * Copyright (c) 2008, 2010, Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2012, OmniTI Computer Consulting, Inc. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #include <errno.h>
 #include <string.h>
@@ -4529,7 +4532,7 @@ pkinit_C_Decrypt(pkinit_identity_crypto_context id_cryptoctx,
     rv = id_cryptoctx->p11->C_Decrypt(id_cryptoctx->session, pEncryptedData,
 	ulEncryptedDataLen, pData, pulDataLen);
     if (rv == CKR_OK) {
-	pkiDebug("pData %x *pulDataLen %d\n", (int) pData, (int) *pulDataLen);
+	pkiDebug("pData %x *pulDataLen %d\n", (int) (intptr_t)pData, (int) *pulDataLen);
     }
     return rv;
 }
@@ -4588,8 +4591,8 @@ pkinit_decode_data_pkcs11(krb5_context context,
     len = data_len;
 #ifdef SILLYDECRYPT
     pkiDebug("session %x edata %x edata_len %d data %x datalen @%x %d\n",
-	    (int) id_cryptoctx->session, (int) data, (int) data_len, (int) cp,
-	    (int) &len, (int) len);
+	    (int) id_cryptoctx->session, (int)(intptr_t)data, (int) data_len, (int) (intptr_t) cp,
+	    (int)  (intptr_t)&len, (int) len);
     if ((r = pkinit_C_Decrypt(id_cryptoctx, data, (CK_ULONG) data_len,
 	    cp, &len)) != CKR_OK) {
 #else

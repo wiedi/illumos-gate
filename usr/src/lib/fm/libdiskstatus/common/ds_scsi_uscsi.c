@@ -23,6 +23,9 @@
  * Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #pragma ident	"%Z%%M%	%I%	%E% SMI"
 
@@ -41,7 +44,7 @@
 #include <errno.h>
 #include <stdarg.h>
 #include <limits.h>
-#include <utility.h>
+//#include <utility.h>
 #include <unistd.h>
 #include <stropts.h>
 #include <alloca.h>
@@ -52,6 +55,8 @@
 #define	MSGBUFLEN 64
 #define	USCSI_DEFAULT_TIMEOUT	45
 #define	USCSI_TIMEOUT_MAX	INT_MAX
+
+#define	MIN(x, y)		((x) < (y) ? (x) : (y))
 
 static diskaddr_t scsi_extract_sense_info_descr(
     struct scsi_descr_sense_hdr *sdsp, int rqlen);

@@ -1117,6 +1117,7 @@ Pfgcore(struct ps_prochandle *P, int fd, core_content_t content)
 #elif defined(__i386) || defined(__amd64)
 		ehdr.e_machine = EM_386;
 		ehdr.e_ident[EI_DATA] = ELFDATA2LSB;
+#elif defined(__alpha) || defined(__aarch64)
 #else
 #error "unknown machine type"
 #endif
@@ -1174,6 +1175,12 @@ Pfgcore(struct ps_prochandle *P, int fd, core_content_t content)
 		ehdr.e_ident[EI_DATA] = ELFDATA2MSB;
 #elif defined(__i386) || defined(__amd64)
 		ehdr.e_machine = EM_AMD64;
+		ehdr.e_ident[EI_DATA] = ELFDATA2LSB;
+#elif defined(__alpha)
+		ehdr.e_machine = EM_ALPHA;
+		ehdr.e_ident[EI_DATA] = ELFDATA2LSB;
+#elif defined(__aarch64)
+		ehdr.e_machine = EM_AARCH64;
 		ehdr.e_ident[EI_DATA] = ELFDATA2LSB;
 #else
 #error "unknown machine type"

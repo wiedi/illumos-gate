@@ -7,6 +7,9 @@
  * Copyright (c) 2012, OmniTI Computer Consulting, Inc. All rights reserved.
  */
 /*
+ * Copyright 2017 Hayashi Naoyuki
+ */
+/*
  * Written by Dr Stephen N Henson (shenson@bigfoot.com) for the OpenSSL
  * project 2000.
  */
@@ -91,6 +94,7 @@
 #include <openssl/ocsp.h>
 #include <openssl/des.h>
 #include <openssl/rand.h>
+#include <openssl/evp.h>
 
 #define	PRINT_ANY_EXTENSION (\
 	KMF_X509_EXT_KEY_USAGE |\

@@ -23,6 +23,9 @@
  * Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #pragma ident	"%Z%%M%	%I%	%E% SMI"
 
@@ -117,7 +120,7 @@ plock(int op)				/* desired operation */
 		 * memcntl backs them out automatically.
 		 */
 		e = memcntl(NULL, 0, MC_LOCKAS, (caddr_t)MCL_CURRENT,
-		    PROC_TEXT|PRIVATE, (int)NULL);
+		    PROC_TEXT|PRIVATE, (intptr_t)NULL);
 		if (!e)
 			lock_state |= TXTLOCK;
 		lmutex_unlock(&plock_lock);
@@ -144,7 +147,7 @@ plock(int op)				/* desired operation */
 		 * memcntl undoes the locks internally.
 		 */
 		e = memcntl(NULL, 0, MC_LOCKAS, (caddr_t)MCL_CURRENT,
-		    PROC_DATA|PRIVATE, (int)NULL);
+		    PROC_DATA|PRIVATE, (intptr_t)NULL);
 		if (e) {
 			lmutex_unlock(&plock_lock);
 			return (-1);
@@ -160,7 +163,7 @@ plock(int op)				/* desired operation */
 		if (e) {
 			e = errno;
 			(void) memcntl(NULL, 0, MC_UNLOCKAS,
-			    (caddr_t)MCL_CURRENT, PROC_DATA|PRIVATE, (int)NULL);
+			    (caddr_t)MCL_CURRENT, PROC_DATA|PRIVATE, (intptr_t)NULL);
 			errno = e;
 			lmutex_unlock(&plock_lock);
 			return (-1);
