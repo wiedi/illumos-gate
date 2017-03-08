@@ -23,6 +23,9 @@
  * Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*	Copyright (c) 1984, 1986, 1987, 1988, 1989 AT&T */
 /*	All Rights Reserved   */
@@ -754,7 +757,7 @@ __key_get_conv_2_svc(uid, arg, res)
 
 	if (debugging)
 		(void) fprintf(stderr, "get_conv(%d, %.*s) = ", uid,
-			sizeof (arg), arg);
+			sizeof (keybuf), arg);
 
 
 	res->status = pk_get_conv_key(uid, arg, res);
