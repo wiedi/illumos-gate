@@ -65,11 +65,11 @@ CFLAGS +=	-I..
 CFLAGS64 +=	-I..
 LDLIBS +=	-lsocket -lnsl -lnsctl -lc -lunistat -ldscfg
 
-$(LINTLIB) :=	SRCS = ../common/llib-lrdc
-$(LINTLIB) :=	LINTFLAGS = -nvx
-$(LINTLIB) :=	LINTFLAGS64 = -nvx
+$(LINTLIB) : 	SRCS = ../common/llib-lrdc
+$(LINTLIB) : 	LINTFLAGS = -nvx
+$(LINTLIB) : 	LINTFLAGS64 = -nvx
 
-$(LINT_INTER) :=	SRCS += ../common/llib-lrdc
+$(LINT_INTER) : 	SRCS += ../common/llib-lrdc
 
 .KEEP_STATE:
 

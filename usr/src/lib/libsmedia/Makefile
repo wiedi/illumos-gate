@@ -29,15 +29,15 @@
 
 
 SUBDIRS = plugins library
-def             :=      TARGET= def
-all             :=      TARGET= all
-install         :=      TARGET= install
-clean           :=      TARGET= clean
-clobber         :=      TARGET= clobber
-lint            :=      TARGET= lint
-modlintlib      :=      TARGET= modlintlib
-clean.lint      :=      TARGET= clean.lint
-_msg      	:=      TARGET= catalog
+def             :       TARGET= def
+all             :       TARGET= all
+install         :       TARGET= install
+clean           :       TARGET= clean
+clobber         :       TARGET= clobber
+lint            :       TARGET= lint
+modlintlib      :       TARGET= modlintlib
+clean.lint      :       TARGET= clean.lint
+_msg      	:       TARGET= catalog
 
 all install clean clobber lint _msg : $(SUBDIRS)
 

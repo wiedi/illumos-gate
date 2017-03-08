@@ -57,7 +57,7 @@ CERRWARN +=	-_gcc=-Wno-unused-function
 CERRWARN +=	-_gcc=-Wno-uninitialized
 
 # DYNLIB libraries do not have lint libs and are not linted
-$(DYNLIB) :=	LDLIBS += -lkrb5
+$(DYNLIB) : 	LDLIBS += -lkrb5
 
 include ../../Makefile.targ
 include ../../../Makefile.targ

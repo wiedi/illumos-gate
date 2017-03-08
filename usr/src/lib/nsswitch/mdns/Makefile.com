@@ -39,4 +39,4 @@ C99MODE =       $(C99_ENABLE)
 LDLIBS +=	-lnsl -ldns_sd -lscf
 DYNLIB1 =	nss_mdns.so$(VERS)
 
-lint	:=  LDLIBS = $(LDLIBS.lib) -lc -lnsl -lscf -ldns_sd
+lint	:   LDLIBS = $(LDLIBS.lib) -lc -lnsl -lscf -ldns_sd

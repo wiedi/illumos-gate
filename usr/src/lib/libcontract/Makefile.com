@@ -43,7 +43,7 @@ include ../../Makefile.rootfs
 LIBS =		$(DYNLIB) $(LINTLIB)
 SRCDIR = 	../common
 
-$(LINTLIB) :=	SRCS = $(SRCDIR)/llib-lcontract
+$(LINTLIB) : 	SRCS = $(SRCDIR)/llib-lcontract
 LDLIBS +=	-lnvpair -lc
 
 CPPFLAGS +=	-I$(SRCDIR) -D_REENTRANT

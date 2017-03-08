@@ -33,7 +33,7 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-ldevinfo -lc
 
 SRCDIR =	../common
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CFLAGS +=	$(CCVERBOSE)
 CERRWARN +=	-_gcc=-Wno-type-limits

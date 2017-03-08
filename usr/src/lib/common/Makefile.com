@@ -47,9 +47,9 @@ ROOTOBJECTS64=	$(OBJECTS:%=$(ROOTLIB64)/%)
 
 ASFLAGS +=	-P -D__STDC__ -D_ASM -DPIC
 
-values-xpg6.o := CPPFLAGS += -I$(SRC)/lib/libc/inc
-$(VALUES) := CFLAGS += $(C_PICFLAGS)
-$(VALUES) := CFLAGS64 += $(C_PICFLAGS64)
+values-xpg6.o :  CPPFLAGS += -I$(SRC)/lib/libc/inc
+$(VALUES) :  CFLAGS += $(C_PICFLAGS)
+$(VALUES) :  CFLAGS64 += $(C_PICFLAGS64)
 
 .KEEP_STATE:
 

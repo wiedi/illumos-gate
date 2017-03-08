@@ -34,10 +34,10 @@ AVS_SUBDIRS = ncall \
 	      ns/unistat
 
 # install rules
-install_h:= TARGET= install_h
-check:=	    TARGET= check
-clean:=     TARGET= clean
-clobber:=   TARGET= clobber
+install_h:  TARGET= install_h
+check: 	    TARGET= check
+clean:      TARGET= clean
+clobber:    TARGET= clobber
 
 # standards checking rules
 

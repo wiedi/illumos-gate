@@ -60,7 +60,7 @@ CLOBBERFILES += $(LINTLIB) $(LINTOUT) $(POFILE)
 #
 # Don't lint derived files
 #
-lint    :=      SRCS= $(PRIV_OBJ:%.o=$(SRCDIR)/%.c)
+lint    :       SRCS= $(PRIV_OBJ:%.o=$(SRCDIR)/%.c)
 
 all:	$(LIBS)
 

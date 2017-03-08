@@ -41,8 +41,8 @@ CFLAGS 		+= $(CCVERBOSE) $(C_PICFLAGS)
 CPPFLAGS	+= -I../common -I../../common/inc -D_REENTRANT
 DYNFLAGS 	+= $(ZINTERPOSE)
 
-$(LINTLIB) lint :=	LINTFLAGS += -erroff=E_BAD_PTR_CAST_ALIGN
-$(LINTLIB) lint :=	LINTFLAGS64 += -erroff=E_BAD_PTR_CAST_ALIGN
+$(LINTLIB) lint : 	LINTFLAGS += -erroff=E_BAD_PTR_CAST_ALIGN
+$(LINTLIB) lint : 	LINTFLAGS64 += -erroff=E_BAD_PTR_CAST_ALIGN
 
 CERRWARN	+= -_gcc=-Wno-uninitialized
 

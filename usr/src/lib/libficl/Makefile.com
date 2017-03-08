@@ -56,7 +56,7 @@ pics/%.o:	$(FICLDIR)/softcore/%.c $(HEADERS)
 	$(COMPILE.c) -o $@ $<
 	$(POST_PROCESS_O)
 
-$(LINTLIB) := SRCS=	../$(LINTSRC)
+$(LINTLIB) : SRCS=	../$(LINTSRC)
 
 all: $(LIBS)
 

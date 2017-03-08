@@ -40,7 +40,7 @@ CMDS = $(SRCS:%=$(ROOTBIN)/%)
 
 CERRWARN += -_gcc=-Wno-implicit-function-declaration
 
-$(CMDS) := FILEMODE = 0555
+$(CMDS) :  FILEMODE = 0555
 
 all: $(SRCS)
 

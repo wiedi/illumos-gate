@@ -33,7 +33,7 @@ include ../../Makefile.rootfs
 
 SRCDIR =	../common
 
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc

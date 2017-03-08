@@ -43,18 +43,18 @@ ROOTCMDDIR =	$(ROOTLIB_HAL)
 LDLIBS +=	-lc -lm -ldbus-1 -ldbus-glib-1 -lglib-2.0 -lgobject-2.0 \
 		-ldevinfo -lsysevent -lnvpair -lkstat -lcfgadm
 
-all install $(PROG) :=	LDLIBS += -lexpat
+all install $(PROG) : 	LDLIBS += -lexpat
 
 CPPFLAGS +=	$(HAL_DBUS_CPPFLAGS) $(HAL_GLIB_CPPFLAGS) $(HAL_CONFIG_CPPFLAGS)
 C99MODE =	$(C99_ENABLE)
 
 CLOBBERFILES += hald_marshal.c hald_marshal.h
 
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-$(PROG) :=	TARGET= all
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+$(PROG) : 	TARGET= all
 
 .KEEP_STATE:
 

@@ -37,7 +37,7 @@ POFILE =	$(PROG)_all.po
 LDLIBS +=	-lcontract -lscf -luutil -lumem -lnvpair -lzonecfg
 CPPFLAGS += -I ../common
 
-lint := LINTFLAGS = -mux
+lint :  LINTFLAGS = -mux
 CERRWARN += -_gcc=-Wno-unused-label
 CERRWARN += -_gcc=-Wno-uninitialized
 CERRWARN += -_gcc=-Wno-parentheses

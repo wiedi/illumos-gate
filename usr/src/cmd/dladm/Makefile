@@ -50,7 +50,7 @@ LINTFLAGS +=	-erroff=E_TRAILING_COMMA_IN_ENUM
 lint :=		ZLAZYLOAD=
 lint :=		ZNOLAZYLOAD=
 
-$(ROOTCFGDIR)/secobj.conf := FILEMODE= 660
+$(ROOTCFGDIR)/secobj.conf : FILEMODE= 660
 
 .KEEP_STATE:
 

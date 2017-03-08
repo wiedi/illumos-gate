@@ -66,9 +66,9 @@ CPPFLAGS =	-I. -I../common -I../../include -I../../include/$(MACH) \
 		$(CPPFLAGS.master) -I$(ELFCAP)
 
 # PICS64 is unique to our environment
-$(PICS64) :=	sparc_CFLAGS += -xregs=no%appl -K pic
-$(PICS64) :=	sparcv9_CFLAGS += -xregs=no%appl -K pic
-$(PICS64) :=	CPPFLAGS += -DPIC -D_REENTRANT
+$(PICS64) : 	sparc_CFLAGS += -xregs=no%appl -K pic
+$(PICS64) : 	sparcv9_CFLAGS += -xregs=no%appl -K pic
+$(PICS64) : 	CPPFLAGS += -DPIC -D_REENTRANT
 
 LDFLAGS +=	$(ZIGNORE)
 DYNFLAGS +=	$(ZIGNORE)
@@ -127,7 +127,7 @@ CHKMSGFLAGS =	$(SGSMSGTARG:%=-m %) $(SGSMSGCHK:%=-m %)
 # Native targets should use the minimum of ld(1) flags to allow building on
 # previous releases.  We use mapfiles to scope, but don't bother versioning.
 
-native :=	DYNFLAGS = -R$(SGSLIBDIR) -L$(SGSLIBDIR) $(ZNOVERSION) \
+native :	DYNFLAGS = -R$(SGSLIBDIR) -L$(SGSLIBDIR) $(ZNOVERSION) \
 			$(HSONAME)
 
 # Comment out the following two lines to have the sgs built from the system
@@ -162,13 +162,13 @@ LINTFLAGS64 =	-m -errtags=yes -erroff=E_SUPPRESSION_DIRECTIVE_UNUSED \
 # dependencies, nor is the stardard C lint library processed.  All dependency
 # verification is carried out through linting the sources themselves.
 #
-$(LINTLIB) :=	LINTFLAGS += -n
-$(LINTLIB) :=	LINTFLAGS64 += -n
+$(LINTLIB) : 	LINTFLAGS += -n
+$(LINTLIB) : 	LINTFLAGS64 += -n
 
-$(LINTLIB32) :=	LINTFLAGS += -n
-$(LINTLIB32) :=	LINTFLAGS64 += -n
-$(LINTLIB64) :=	LINTFLAGS += -n
-$(LINTLIB64) :=	LINTFLAGS64 += -n
+$(LINTLIB32) : 	LINTFLAGS += -n
+$(LINTLIB32) : 	LINTFLAGS64 += -n
+$(LINTLIB64) : 	LINTFLAGS += -n
+$(LINTLIB64) : 	LINTFLAGS64 += -n
 
 #
 # These libraries have two resulting lint libraries.  If a dependency is

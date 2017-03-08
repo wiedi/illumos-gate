@@ -28,11 +28,11 @@ include		../Makefile.lib
 SUBDIRS=	$(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
 
-all :=		TARGET = all
-clean :=	TARGET = clean
-clobber :=	TARGET = clobber
-install :=	TARGET = install
-lint :=		TARGET = lint
+all : 		TARGET = all
+clean : 	TARGET = clean
+clobber : 	TARGET = clobber
+install : 	TARGET = install
+lint : 		TARGET = lint
 
 #
 # Definitions for message catalog
@@ -47,7 +47,7 @@ DTDS =		dtd/zonecfg.dtd.1
 DTDDIR =	$(ROOT)/usr/share/lib/xml
 ROOTDTDS=	$(DTDS:%=$(DTDDIR)/%)
 
-$(ROOTDTDS) :=	FILEMODE = 444
+$(ROOTDTDS) : 	FILEMODE = 444
 
 $(DTDDIR)/%: %
 	$(INS.file)

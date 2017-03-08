@@ -40,7 +40,7 @@ include ../../Makefile.lib
 
 LIBS=		$(DYNLIB) $(LINTLIB)
 SRCS=		$(SASLOBJS:%.o=../lib/%.c) $(COMMONOBJS:%.o=$(PLUGDIR)/%.c)
-$(LINTLIB):= 	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB):  	SRCS = $(SRCDIR)/$(LINTSRC)
 LDLIBS +=	-lsocket -lc -lmd
 LINTFLAGS +=	-DPIC
 LINTFLAGS64 +=	-DPIC

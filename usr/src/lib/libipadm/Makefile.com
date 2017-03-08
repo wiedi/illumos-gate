@@ -38,7 +38,7 @@ LDLIBS +=	-lc -lnsl -linetutil -lsocket -ldlpi -lnvpair -ldhcpagent \
 	        -ldladm -lsecdb
 
 SRCDIR =	../common
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CFLAGS +=	$(CCVERBOSE)
 CERRWARN +=	-_gcc=-Wno-switch

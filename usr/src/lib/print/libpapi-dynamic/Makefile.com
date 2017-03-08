@@ -36,7 +36,7 @@ ROOTLIBDIR=	$(ROOT)/usr/lib
 
 LIBS =			$(DYNLIB)
 
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 MAPFILES =	$(SRCDIR)/mapfile
 

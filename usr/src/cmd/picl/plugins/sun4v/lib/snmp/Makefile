@@ -78,11 +78,11 @@ ALWAYS_LINT_DEFS +=	-erroff=E_EMPTY_TRANSLATION_UNIT
 
 SUBDIRS=
 
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
 
 all:  $(DYNLIB) $(LIBLINKS)
 

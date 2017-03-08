@@ -91,7 +91,7 @@ CMNDIR=		$(SRC)/common/smbclnt
 SRCS=		$(OBJ_LIB:%.o=$(SRCDIR)/%.c) \
 		$(OBJ_CMN:%.o=$(CMNDIR)/%.c)
 
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 C99MODE=	$(C99_ENABLE)
 

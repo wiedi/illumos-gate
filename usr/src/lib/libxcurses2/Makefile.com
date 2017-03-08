@@ -89,7 +89,7 @@ ROOTLIBDIR=	$(ROOT)/usr/xpg4/lib
 ROOTLIBDIR64=	$(ROOT)/usr/xpg4/lib/$(MACH64)
 ROOTLIBS=	$(LIBS:%=$(ROOTLIBDIR)/%)
 
-$(LINTLIB):= SRCS=../src/libc/llib-lcurses
+$(LINTLIB):  SRCS=../src/libc/llib-lcurses
 
 LINTSRC=	$(LINTLIB:%.ln=%)
 

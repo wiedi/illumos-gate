@@ -75,14 +75,14 @@ CPPFLAGS +=	$(INCS) -D_LARGEFILE64_SOURCE=1 -D_REENTRANT
 $(NOT_RELEASE_BUILD)CPPFLAGS += -DDEBUG
 
 # There's no lint library for zlib, so only include this when building
-$(DYNLIB) := LDLIBS +=	-lz
+$(DYNLIB) :  LDLIBS +=	-lz
 
 LINTFLAGS +=	-erroff=E_STATIC_UNUSED
 LINTFLAGS64 +=	-erroff=E_STATIC_UNUSED
 
 SRCS=	$(OBJS_COMMON:%.o=$(SRCDIR)/%.c)	\
 	$(OBJS_SHARED:%.o=$(SRC)/common/zfs/%.c)
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

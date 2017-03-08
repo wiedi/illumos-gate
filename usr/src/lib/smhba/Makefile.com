@@ -51,7 +51,7 @@ CERRWARN +=	-_gcc=-Wno-unused-function
 
 LDLIBS +=	-lc
 
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 $(ROOTETC)/%:	../common/%
 	$(INS.file)

@@ -139,7 +139,7 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 
 # definitions for lint
 
-$(LINTLIB):= SRCS=../screen/llib-lcurses
+$(LINTLIB):  SRCS=../screen/llib-lcurses
 
 LINTOUT=	lint.out
 LINTSRC=	$(LINTLIB:%.ln=%)
@@ -173,14 +173,14 @@ lint: lintcheck
 # Install rules for libtermlib.so links.
 # Augments the rule in Makefile.targ
 #
-$(ROOTLIBDIR)/$(LIBLINKS) := INS.liblink= \
+$(ROOTLIBDIR)/$(LIBLINKS) :  INS.liblink= \
 	$(RM) $@; $(SYMLINK) $(LIBLINKPATH)$(LIBLINKS)$(VERS) $@; \
 	cd $(ROOTLIBDIR); \
 		$(RM) libtermlib.so libtermlib.so$(VERS); \
 		$(SYMLINK) libcurses.so$(VERS) libtermlib.so$(VERS); \
 		$(SYMLINK) libtermlib.so$(VERS) libtermlib.so;
 
-$(ROOTLIBDIR64)/$(LIBLINKS) := INS.liblink64= \
+$(ROOTLIBDIR64)/$(LIBLINKS) :  INS.liblink64= \
 	$(RM) $@; $(SYMLINK) $(LIBLINKPATH)$(LIBLINKS)$(VERS) $@; \
 	cd $(ROOTLIBDIR64); \
 		$(RM) libtermlib.so libtermlib.so$(VERS);\
@@ -191,13 +191,13 @@ $(ROOTLIBDIR64)/$(LIBLINKS) := INS.liblink64= \
 # Install rules for libtermlib.ln links.
 # Augments a pattern rule in Makefile.targ
 #
-$(ROOTLIBDIR)/$(LINTLIB) := INS.file= \
+$(ROOTLIBDIR)/$(LINTLIB) :  INS.file= \
 	-$(RM) $@; $(INS) -s -m $(FILEMODE) -f $(@D) $(LINTLIB); \
 	cd $(ROOTLIBDIR); \
 		$(RM) llib-ltermlib.ln ; \
 		$(SYMLINK) ./llib-lcurses.ln llib-ltermlib.ln;
 
-$(ROOTLIBDIR64)/$(LINTLIB) := INS.file= \
+$(ROOTLIBDIR64)/$(LINTLIB) :  INS.file= \
 	-$(RM) $@; $(INS) -s -m $(FILEMODE) -f $(@D) $(LINTLIB); \
 	cd $(ROOTLIBDIR64); \
 		$(RM) llib-ltermlib.ln ; \

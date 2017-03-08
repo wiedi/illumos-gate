@@ -46,7 +46,7 @@ LDLIBS +=	-lelf $(CONVLIBDIR) $(CONV_LIB) -lsendfile
 LINTFLAGS=	-x
 LINTFLAGS64=	-x
 
-$(XPG4) :=	CPPFLAGS += -DXPG4
+$(XPG4) : 	CPPFLAGS += -DXPG4
 
 BLTDEFS =	msg.h
 BLTDATA =	msg.c

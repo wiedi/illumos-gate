@@ -32,11 +32,11 @@ TEXT_DOMAIN=	SUNW_OST_OSCMD
 POFILE= 	audit_remote.po
 MSGFILES=	audit_remote.c transport.c
 
-all	:=	TARGET= all
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-install	:=	TARGET= install
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+install	: 	TARGET= install
+lint	: 	TARGET= lint
 
 .KEEP_STATE:
 

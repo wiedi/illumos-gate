@@ -31,11 +31,11 @@ $(BUILD64)SUBDIRS += $(MACH64)
 XGETTEXT=	$(GNUXGETTEXT)
 XGETFLAGS=	$(GNUXGETFLAGS)
 
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
 
 MSGFILES =	`$(FIND) . -name '*.py' -o -name '*.c'`
 POFILE =	libbe_py.po

@@ -34,12 +34,12 @@ SUBDIRS=	$(MACH) $(BUILD64) $(MACH64)
 
 # conditional statements
 
-all :=		TARGET= all
-install :=	TARGET= install
-install_lib :=	TARGET= install_lib
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
+all : 		TARGET= all
+install : 	TARGET= install
+install_lib : 	TARGET= install_lib
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
 
 .KEEP_STATE:
 

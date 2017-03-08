@@ -56,8 +56,8 @@ CPPFLAGS +=	-I.. \
 CPPFLAGS += 	-D_REENTRANT
 CFLAGS +=	$(CCVERBOSE)
 
-$(LINTLIB) :=	LINTFLAGS = -nvx -I..
-$(LINTLIB) :=	LINTFLAGS64 = -nvx -m64 -I..
+$(LINTLIB) : 	LINTFLAGS = -nvx -I..
+$(LINTLIB) : 	LINTFLAGS64 = -nvx -m64 -I..
 
 XGETFLAGS += -a
 POFILE=	picl.po

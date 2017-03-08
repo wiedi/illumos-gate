@@ -35,7 +35,7 @@ LIBS +=		$(LIBRARY) $(LINTLIB)
 CFLAGS +=	$(CCVERBOSE)
 LDFLAGS =	-r
 LDLIBS +=	-lsa -lfakeboot
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 #
 # Reset ROOTLIBDIR to an alternate directory so that we don't clash with

@@ -34,14 +34,14 @@ include ../../../Makefile.lib
 SED=    sed
 GREP=   grep
 
-all :=          TARGET= all
-clean :=        TARGET= clean
-clobber :=      TARGET= clobber
-delete :=       TARGET= delete
-install :=      TARGET= install
-lint :=         TARGET= lint
-catalog :=      TARGET= catalog
-package :=      TARGET= package
+all :           TARGET= all
+clean :         TARGET= clean
+clobber :       TARGET= clobber
+delete :        TARGET= delete
+install :       TARGET= install
+lint :          TARGET= lint
+catalog :       TARGET= catalog
+package :       TARGET= package
 
 .KEEP_STATE:
 all:            $(SUBDIRS)

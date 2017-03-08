@@ -58,7 +58,7 @@ CERRWARN +=		-_gcc=-Wno-unused-variable
 CLOBBERFILES += ypupdated_prot.h
 
 #conditional assignments
-$(INETSVC)   := FILEMODE=555
+$(INETSVC)   :  FILEMODE=555
 
 #install rules
 

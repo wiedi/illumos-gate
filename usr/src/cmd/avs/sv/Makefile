@@ -32,16 +32,16 @@ LPROG = $(PROG:%=%.li)
 
 SUBDIRS= etc
 
-svadm	:= POBJS = svadm.o
-svboot	:= POBJS = svboot.o
+svadm	:  POBJS = svadm.o
+svboot	:  POBJS = svboot.o
 
 OBJS=	svadm.o svboot.o
 SRCS=	$(OBJS:%.o=%.c)
 POFILE = sv_all.po
 POFILES = $(OBJS:%.o=%.po)
 
-svadm	:= LDLIBS += -lunistat -ldscfg
-svboot	:= LDLIBS += -lunistat -ldscfg
+svadm	:  LDLIBS += -lunistat -ldscfg
+svboot	:  LDLIBS += -lunistat -ldscfg
 
 CFLAGS += -v
 LINTFLAGS += -erroff=E_NAME_USED_NOT_DEF2
@@ -50,11 +50,11 @@ LINTFLAGS += -erroff=E_SEC_PRINTF_VAR_FMT
 ROOTLINK1 = $(ROOTUSRSBIN)/svadm
 ROOTLINK2 = $(ROOTUSRSBIN)/svboot
 
-all	:=	TARGET= all
-install	:=	TARGET= install
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+install	: 	TARGET= install
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+lint	: 	TARGET= lint
 
 .KEEP_STATE:
 

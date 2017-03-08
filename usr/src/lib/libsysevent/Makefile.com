@@ -44,7 +44,7 @@ CPPFLAGS +=	-D_REENTRANT -I..
 CFLAGS +=	$(CCVERBOSE)
 LDLIBS +=	-lnvpair -lc
 
-$(LINTLIB) :=	SRCS = ../llib-lsysevent
+$(LINTLIB) : 	SRCS = ../llib-lsysevent
 
 .KEEP_STATE:
 

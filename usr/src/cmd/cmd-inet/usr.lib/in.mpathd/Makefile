@@ -53,7 +53,7 @@ CERRWARN += -_gcc=-Wno-uninitialized
 #
 CTFCONVERT_HOOK = && $(CTFCONVERT_O)
 CTFMERGE_HOOK = && $(CTFMERGE) -L VERSION -o $@ $(OBJS)
-$(OBJS) := CFLAGS += $(CTF_FLAGS)
+$(OBJS) :  CFLAGS += $(CTF_FLAGS)
 
 .KEEP_STATE:
 

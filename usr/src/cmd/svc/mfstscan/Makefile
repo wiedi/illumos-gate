@@ -47,7 +47,7 @@ CLOBBERFILES += $(POFILES)
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-unused-label
 
-lint := LINTFLAGS = -ux -erroff=E_GLOBAL_COULD_BE_STATIC2
+lint :  LINTFLAGS = -ux -erroff=E_GLOBAL_COULD_BE_STATIC2
 
 .KEEP_STATE:
 

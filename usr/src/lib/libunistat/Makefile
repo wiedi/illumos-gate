@@ -29,15 +29,15 @@ UTSBASE= ../../uts
 
 SUBDIRS=	$(MACH)
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-delete :=	TARGET= delete
-install :=	TARGET= install
-lint :=		TARGET= lint
-lintinter :=		TARGET= lintinter
-_msg :=		TARGET= _msg
-package :=	TARGET= package
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+delete : 	TARGET= delete
+install : 	TARGET= install
+lint : 		TARGET= lint
+lintinter : 		TARGET= lintinter
+_msg : 		TARGET= _msg
+package : 	TARGET= package
 
 LIBRARY= 	libunistat.a
 

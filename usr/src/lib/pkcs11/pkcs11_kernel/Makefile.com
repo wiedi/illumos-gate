@@ -62,12 +62,12 @@ ECCDIR=		$(SRC)/common/crypto/ecc
 ST_DIR=		$(SRC)/lib/pkcs11/pkcs11_softtoken/common
 
 lint \
-pics/kernelAttributeUtil.o := \
+pics/kernelAttributeUtil.o :  \
 	CPPFLAGS += -I$(AESDIR) -I$(BLOWFISHDIR) -I$(ARCFOURDIR) -I$(DESDIR) \
 	-I$(ECCDIR)
-pics/kernelKeys.o := \
+pics/kernelKeys.o :  \
 	CPPFLAGS += -I$(ECCDIR)
-pics/kernelSoftCommon.o := \
+pics/kernelSoftCommon.o :  \
 	CPPFLAGS = -I$(ST_DIR) $(CPPFLAGS.master)
 
 include $(SRC)/lib/Makefile.lib
@@ -95,9 +95,9 @@ ROOTLIBDIR64=   $(ROOT)/usr/lib/security/$(MACH64)
 all:    $(LIBS)
 
 # we don't need to lint ST_OBJECTS since they are linted elsewhere.
-lintcheck := SRCS = $(CORESRCS)
-lintother := OSRCS = ../common/kernelSoftCommon.c
-lintother := CPPFLAGS = -I$(ST_DIR) $(CPPFLAGS.master)
+lintcheck :  SRCS = $(CORESRCS)
+lintother :  OSRCS = ../common/kernelSoftCommon.c
+lintother :  CPPFLAGS = -I$(ST_DIR) $(CPPFLAGS.master)
 
 lintother: $$(OSRCS)
 	$(LINT.c) $(LINTCHECKFLAGS) $(OSRCS) $(LDLIBS)

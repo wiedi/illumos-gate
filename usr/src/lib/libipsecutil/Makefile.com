@@ -32,10 +32,10 @@ LIBS +=		$(DYNLIB) $(LINTLIB)
 
 SRCDIR =	../common
 
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 LDLIBS +=	-ltecla -lsocket -lnsl -lc
 LAZYLIBS = $(ZLAZYLOAD) -ltsol $(ZNOLAZYLOAD)
-lint := LAZYLIBS = -ltsol
+lint :  LAZYLIBS = -ltsol
 LDLIBS += $(LAZYLIBS)
 
 CFLAGS +=	$(CCVERBOSE)

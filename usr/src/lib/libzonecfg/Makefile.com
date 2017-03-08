@@ -32,13 +32,13 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc -lsocket -lnsl -luuid -lnvpair -lsysevent -lsec -lbrand \
 		-lpool -lscf -lproc -luutil -lbsm -lsecdb
 # DYNLIB libraries do not have lint libs and are not linted
-$(DYNLIB) :=	LDLIBS += -lxml2
+$(DYNLIB) : 	LDLIBS += -lxml2
 
 SRCDIR =	../common
 CPPFLAGS +=	-I$(ADJUNCT_PROTO)/usr/include/libxml2 -I$(SRCDIR) -D_REENTRANT
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-parentheses
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

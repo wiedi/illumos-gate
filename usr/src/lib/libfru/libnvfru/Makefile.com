@@ -52,8 +52,8 @@ CFLAGS +=	$(CCVERBOSE)
 
 CERRWARN +=	-_gcc=-Wno-switch
 
-$(LINTLIB) :=	LINTFLAGS = -nvx -I..
-$(LINTLIB) :=	LINTFLAGS64 = -nvx -m64 -I..
+$(LINTLIB) : 	LINTFLAGS = -nvx -I..
+$(LINTLIB) : 	LINTFLAGS64 = -nvx -m64 -I..
 
 XGETFLAGS += -a
 

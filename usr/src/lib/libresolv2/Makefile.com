@@ -97,7 +97,7 @@ SRCS=		$(BSDOBJS:%.o=../common/bsd/%.c) \
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 
-$(LINTLIB):= 	SRCS = ../common/llib-lresolv
+$(LINTLIB):  	SRCS = ../common/llib-lresolv
 
 # Local Libresolv definitions
 

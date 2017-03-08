@@ -42,7 +42,7 @@ CPPFLAGS += $(CPPFLAGS_$(MACH))
 
 FILEMODE= 0555
 
-lint := LINTFLAGS = -muxs -I$(STATCOMMONDIR)
+lint :  LINTFLAGS = -muxs -I$(STATCOMMONDIR)
 
 #
 # Maddeningly, lint both chokes on "%hhx" in a format string and refuses to be

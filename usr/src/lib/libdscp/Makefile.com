@@ -35,7 +35,7 @@ include	../../Makefile.rootfs
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc -lsocket -lnsl
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CPPFLAGS +=	-I..
 CFLAGS +=	$(CCVERBOSE)

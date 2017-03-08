@@ -37,7 +37,7 @@ LINTFLAGS +=    -um
 #
 # set-uid root program.
 #
-$(ROOTPROG) := FILEMODE = 04555
+$(ROOTPROG) :  FILEMODE = 04555
 
 all: $(PROG) 
 

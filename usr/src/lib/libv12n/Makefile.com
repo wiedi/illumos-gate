@@ -41,7 +41,7 @@ CFLAGS64 += $(CCVERBOSE) $(C_BIGPICFLAGS)
 
 CERRWARN += -_gcc=-Wno-uninitialized
 
-$(LINTLIB) :=	SRCS = ../common/llib-lv12n
+$(LINTLIB) : 	SRCS = ../common/llib-lv12n
 
 .KEEP_STATE:
 

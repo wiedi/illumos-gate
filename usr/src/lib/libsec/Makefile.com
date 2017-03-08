@@ -59,7 +59,7 @@ include ../../Makefile.rootfs
 SRCS=		$(OBJS_COMMON:%.o=$(SRCDIR)/%.c) \
 		 $(OBJS_SHARED:%.o=$(SRC)/common/acl/%.c)
 
-$(LINTLIB):= SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB):  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

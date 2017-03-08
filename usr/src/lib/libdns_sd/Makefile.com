@@ -30,7 +30,7 @@ OBJECTS =	dnssd_clientlib.o dnssd_clientstub.o dnssd_ipc.o
 include ../../Makefile.lib
 
 LIBS =		$(DYNLIB) $(LINTLIB)
-$(LINTLIB):=    SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB):     SRCS = $(SRCDIR)/$(LINTSRC)
 
 SRCDIR =	../common
 

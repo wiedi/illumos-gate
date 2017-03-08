@@ -29,16 +29,16 @@ include ../Makefile.com
 
 PROG = $(DYNPROG)
 
-dscfglockd	:= POBJS = dscfglockd.o
+dscfglockd	:  POBJS = dscfglockd.o
 
-dscfgcli	:= POBJS = dscfgcli.o
+dscfgcli	:  POBJS = dscfgcli.o
 
 OBJS=	dscfglockd.o dscfgcli.o
 SRCS=	$(OBJS:%.o=%.c)
 POFILES= $(OBJS:%.o=%.po)
 
-dscfgcli	:= LDLIBS += -ldscfg -lnsl
-dscfglockd	:= LDLIBS += -lunistat -ldscfg -lsocket -lnsl
+dscfgcli	:  LDLIBS += -ldscfg -lnsl
+dscfglockd	:  LDLIBS += -lunistat -ldscfg -lsocket -lnsl
 
 CFLAGS += $(CCVERBOSE) -D_RDC_ -D_SYSCALL32
 CERRWARN += -_gcc=-Wno-switch
@@ -49,11 +49,11 @@ POFILE = dscfglockd_all.po
 LFILE = $(LINTDIR)/rdc.ln
 ROOTLINK = $(ROOTLIB)/dscfglockd
 
-all	:=	TARGET= all
-install	:=	TARGET= install
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+install	: 	TARGET= install
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+lint	: 	TARGET= lint
 
 .KEEP_STATE:
 

@@ -38,7 +38,7 @@ C99LMODE=	-Xc99=%all
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lldap -lresolv -lsocket -lnsl -lc
 SRCDIR =	../common
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CFLAGS +=	$(CCVERBOSE)
 CPPFLAGS +=	-D_REENTRANT -I$(SRCDIR)

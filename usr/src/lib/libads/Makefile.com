@@ -38,7 +38,7 @@ C99LMODE=	-Xc99=%all
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lnsl -lc
 SRCDIR =	../common
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CFLAGS +=	$(CCVERBOSE)
 CPPFLAGS +=	-D_REENTRANT -I$(SRCDIR) -I..
@@ -52,7 +52,7 @@ CERRWARN +=	-_gcc=-Wno-unused-variable
 
 all: $(LIBS)
 
-lint := OBJECTS = $(LINT_OBJECTS)
+lint :  OBJECTS = $(LINT_OBJECTS)
 
 lint: lintcheck
 

@@ -43,15 +43,15 @@ CPPFLAGS += -I../common -I.
 CFLAGS += $(CCVERBOSE) $(C_BIGPICFLAGS)
 CFLAGS64 += $(CCVERBOSE) $(C_BIGPICFLAGS)
 
-$(DYNLIB) := LDLIBS += $(MACH_LDLIBS)
-$(DYNLIB) := LDLIBS += -lnvpair -lc -lfmd_msg -lfmevent -lscf -ldiagcode
+$(DYNLIB) :  LDLIBS += $(MACH_LDLIBS)
+$(DYNLIB) :  LDLIBS += -lnvpair -lc -lfmd_msg -lfmevent -lscf -ldiagcode
 
 LINTFLAGS = -msux
 LINTFLAGS64 = -msux -m64
 
-$(LINTLIB) := SRCS = $(SRCDIR)/$(LINTSRC)
-$(LINTLIB) := LINTFLAGS = -nsvx
-$(LINTLIB) := LINTFLAGS64 = -nsvx -m64
+$(LINTLIB) :  SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  LINTFLAGS = -nsvx
+$(LINTLIB) :  LINTFLAGS64 = -nsvx -m64
 
 .KEEP_STATE:
 

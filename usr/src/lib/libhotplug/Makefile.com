@@ -34,7 +34,7 @@ LDLIBS +=	-lc -lnvpair
 
 SRCDIR =	../common
 CPPFLAGS +=	-I$(SRCDIR) -D_REENTRANT
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 CERRWARN +=	-_gcc=-Wno-parentheses
 

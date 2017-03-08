@@ -73,7 +73,7 @@ SRCS =		$(LOC_SRCS) $(COM_SRCS) $(DHCP_SRCS)
 
 # Must define location of lint library source.
 SRCDIR =	$(LOC_DIR)
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 # OpenSSL (incl. varying versions) requires us to turn these off
 LINTFLAGS   +=    -erroff=E_BAD_PTR_CAST_ALIGN,E_SUPPRESSION_DIRECTIVE_UNUSED

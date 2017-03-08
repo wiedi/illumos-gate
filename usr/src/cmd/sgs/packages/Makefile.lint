@@ -67,8 +67,8 @@ LINTLDIRS=	../libld \
 		../moe \
 		../pvs
 
-$(LSUBDIRS1) $(LSUBDIRS2) :=	TARGET = lint
-$(LINTLDIRS) :=	TARGET = lint
+$(LSUBDIRS1) $(LSUBDIRS2) : 	TARGET = lint
+$(LINTLDIRS) : 	TARGET = lint
 
 
 ../%:		FRC

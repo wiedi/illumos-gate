@@ -33,7 +33,7 @@ ROOTETC=	$(ROOT)/etc
 include ../../Makefile.lib
 
 IETCFILES=	$(CONFIGFILE:%=$(ROOTETC)/%)
-IETCFILES:=	FILEMODE= 644
+IETCFILES: 	FILEMODE= 644
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc
@@ -56,7 +56,7 @@ LINTFLAGS += -DSOLARIS
 LINTFLAGS64 += -DSOLARIS
 
 SRCDIR =	../common
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 $(ROOTETC)/%:	../common/%
 	$(INS.file)

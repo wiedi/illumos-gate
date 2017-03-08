@@ -58,7 +58,7 @@ CERRWARN +=	-_gcc=-Wno-uninitialized
 ROOTSYMLINK=	$(ROOT)/usr/ucb/$(PROG)
 
 # conditional assignments
-$(ROOTPROG) :=      FILEMODE=       04555
+$(ROOTPROG) :       FILEMODE=       04555
 
 .KEEP_STATE:
 

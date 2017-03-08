@@ -34,8 +34,8 @@ OBJS=	nscadm.o nskernd.o
 SRCS=	$(OBJS:%.o=%.c)
 POFILES= $(OBJS:%.o=%.po)
 
-nscadm	:= POBJS = nscadm.o
-nskernd	:= POBJS = nskernd.o
+nscadm	:  POBJS = nscadm.o
+nskernd	:  POBJS = nskernd.o
 
 CFLAGS += -v
 CPPFLAGS += -DBUILD_REV_STR='"5.11"'
@@ -48,14 +48,14 @@ LFILE = $(LINTDIR)/nsctl.ln
 ROOTLIBLINK = $(ROOTLIB)/nskernd
 ROOTSBINLINK = $(ROOTUSRSBIN)/nscadm
 
-all	:=	TARGET= all
-install	:=	TARGET= install
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+install	: 	TARGET= install
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+lint	: 	TARGET= lint
 
-nscadm	:=	LDLIBS += $(NSCADM_LDLIBS)
-nskernd	:=	LDLIBS += $(NSKERND_LDLIBS)
+nscadm	: 	LDLIBS += $(NSCADM_LDLIBS)
+nskernd	: 	LDLIBS += $(NSKERND_LDLIBS)
 
 .KEEP_STATE:
 

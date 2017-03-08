@@ -49,9 +49,9 @@ LINTFLAGS64 = -msux -m64
 
 CLOBBERFILES += fmd_msg_test fmd_msg_test.core fmd_msg_test.out
 
-$(LINTLIB) := SRCS = $(SRCDIR)/$(LINTSRC)
-$(LINTLIB) := LINTFLAGS = -nsvx
-$(LINTLIB) := LINTFLAGS64 = -nsvx -m64
+$(LINTLIB) :  SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  LINTFLAGS = -nsvx
+$(LINTLIB) :  LINTFLAGS64 = -nsvx -m64
 
 .KEEP_STATE:
 

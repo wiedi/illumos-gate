@@ -76,7 +76,7 @@ SRCDIR =	../common
 LIBS =	 	$(DYNLIB) $(LINTLIB)
 
 LINTSRC= $(LINTLIB:%.ln=%)
-$(LINTLIB) :=	SRCS = ../common/$(LINTSRC)
+$(LINTLIB) : 	SRCS = ../common/$(LINTSRC)
 ROOTLINTDIR=	$(ROOTLIBDIR)
 ROOTLINT=	$(LINTSRC:%=$(ROOTLINTDIR)/%)
 

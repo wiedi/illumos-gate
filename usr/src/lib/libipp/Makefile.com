@@ -34,7 +34,7 @@ OBJECTS =	libipp.o
 include ../../Makefile.lib
 
 LIBS =		$(DYNLIB) $(LINTLIB)
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 LDLIBS +=	-lc -lnvpair
 
 CFLAGS +=	$(CCVERBOSE)

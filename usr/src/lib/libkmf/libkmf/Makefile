@@ -31,12 +31,12 @@ SUBDIRS=        $(MACH)
 
 $(BUILD64)SUBDIRS += $(MACH64)
 
-all :=          TARGET= all
-check :=        TARGET= check
-clean :=        TARGET= clean
-clobber :=      TARGET= clobber
-install :=      TARGET= install
-lint	:=	TARGET= lint
+all :           TARGET= all
+check :         TARGET= check
+clean :         TARGET= clean
+clobber :       TARGET= clobber
+install :       TARGET= install
+lint	: 	TARGET= lint
 
 .KEEP_STATE:
 

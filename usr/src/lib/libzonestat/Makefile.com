@@ -33,7 +33,7 @@ LDLIBS +=	-lcmdutils -lumem -lc
 
 SRCDIR =	../common
 CPPFLAGS +=	-I../common -mt -D_POSIX_PTHREAD_SEMANTICS
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 CERRWARN +=	-_gcc=-Wno-uninitialized
 

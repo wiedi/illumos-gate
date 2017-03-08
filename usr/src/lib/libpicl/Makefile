@@ -31,12 +31,12 @@ SUBDIRS = $(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
 
 # conditional assignments
-all :=      	TARGET= all
-install :=      TARGET= install
-clean :=        TARGET= clean
-clobber :=      TARGET= clobber
-lint :=         TARGET= lint
-_msg :=         TARGET= _msg
+all :       	TARGET= all
+install :       TARGET= install
+clean :         TARGET= clean
+clobber :       TARGET= clobber
+lint :          TARGET= lint
+_msg :          TARGET= _msg
 
 # definitions for install_h target
 HDRS=           picl.h

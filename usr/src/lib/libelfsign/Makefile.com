@@ -34,7 +34,7 @@ include $(SRC)/lib/Makefile.rootfs
 SRCDIR =	../common
 
 LIBS =		$(DYNLIB) $(LINTLIB)
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 LDLIBS +=	-lmd -lelf -lkmf -lcryptoutil -lc
 

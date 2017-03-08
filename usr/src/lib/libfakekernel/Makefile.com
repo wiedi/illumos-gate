@@ -44,7 +44,7 @@ SRCDIR=		../common
 LIBS =		$(DYNLIB) $(LINTLIB)
 SRCS=   $(COBJS:%.o=$(SRCDIR)/%.c)
 
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 C99MODE =       -xc99=%all
 C99LMODE =      -Xc99=%all

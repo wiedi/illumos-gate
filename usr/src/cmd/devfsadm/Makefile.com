@@ -101,10 +101,10 @@ CERRWARN += -_gcc=-Wno-parentheses
 
 # Define the dependencies required by devfsadm and all shared objects.
 LDLIBS +=		-ldevinfo
-devfsadm :=		LDLIBS += -lgen -lsysevent -lnvpair -lzonecfg -lbsm
-SUNW_md_link.so :=	LDLIBS += -lmeta
-SUNW_disk_link.so :=	LDLIBS += -ldevid
-SUNW_sgen_link.so :=	LDLIBS += -ldevid
+devfsadm : 		LDLIBS += -lgen -lsysevent -lnvpair -lzonecfg -lbsm
+SUNW_md_link.so : 	LDLIBS += -lmeta
+SUNW_disk_link.so : 	LDLIBS += -ldevid
+SUNW_sgen_link.so : 	LDLIBS += -ldevid
 
 # All libraries are built from the same SUNW_%.so rule (see below), and define
 # their own SONAME using -h explicitly.  Null the generic -h macro that gets
@@ -135,13 +135,13 @@ ROOTETC_DEVLINKTAB = $(DEVLINKTAB:%=$(ROOTETC)/%)
 
 FILEMODE= 755
 
-$(ROOTETC_DEVLINKTAB) := FILEMODE = 644
+$(ROOTETC_DEVLINKTAB) :  FILEMODE = 644
 
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
 
 
 .KEEP_STATE:

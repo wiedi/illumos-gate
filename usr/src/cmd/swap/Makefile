@@ -36,11 +36,11 @@ $(BUILD64)SUBDIRS += $(MACH64)
 
 CPPFLAGS += -D_LARGEFILE64_SOURCE
 
-all	:=	TARGET = all
-install	:=	TARGET = install
-clean	:=	TARGET = clean
-clobber	:=	TARGET = clobber
-lint	:=	TARGET = lint
+all	: 	TARGET = all
+install	: 	TARGET = install
+clean	: 	TARGET = clean
+clobber	: 	TARGET = clobber
+lint	: 	TARGET = lint
 
 ROOTSYMLINK = 	$(ROOTETCPROG)
 

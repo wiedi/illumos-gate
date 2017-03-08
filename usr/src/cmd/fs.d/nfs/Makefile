@@ -48,12 +48,12 @@ SUBDIRS=	$(SUBDIR1) $(SUBDIR2) $(SUBDIR3)
 POFILES=        $(SUBDIR2:%=%/%.po)
 POFILE=         nfs.po
 
-all:=		TARGET= all
-install:=	TARGET= install
-clean:=		TARGET= clean
-clobber:=	TARGET= clobber
-lint:=		TARGET= lint
-catalog:=       TARGET= catalog
+all: 		TARGET= all
+install: 	TARGET= install
+clean: 		TARGET= clean
+clobber: 	TARGET= clobber
+lint: 		TARGET= lint
+catalog:        TARGET= catalog
 
 .KEEP_STATE:
 

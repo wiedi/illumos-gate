@@ -38,12 +38,12 @@ POFILES=	inetd/inetd.po ncaconfd/ncaconfd.po vrrpd/vrrpd.po \
 		wanboot/wanboot.po
 POFILE=		usr.lib.po
 
-all:=		TARGET= all
-install:=	TARGET= install
-clean:=		TARGET= clean
-clobber:=	TARGET= clobber
-lint:=		TARGET= lint
-_msg:=		TARGET= _msg
+all: 		TARGET= all
+install: 	TARGET= install
+clean: 		TARGET= clean
+clobber: 	TARGET= clobber
+lint: 		TARGET= lint
+_msg: 		TARGET= _msg
 
 .KEEP_STATE:
 

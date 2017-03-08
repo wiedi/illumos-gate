@@ -38,7 +38,7 @@ INCS +=		-I../common -I$(SRC)/uts/common
 LDLIBS +=	-lc
 
 SRCDIR =	../common
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 C99MODE =	$(C99_ENABLE)
 

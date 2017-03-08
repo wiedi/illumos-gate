@@ -36,8 +36,8 @@ CHECKHDRS= $(HDRS:%.h=%.check)
 $(ROOTDIRS)/%: %
 	$(INS.file)
 
-install_h	:= TARGET= install_h
-check		:= TARGET= check
+install_h	:  TARGET= install_h
+check		:  TARGET= check
 
 .KEEP_STATE:
 

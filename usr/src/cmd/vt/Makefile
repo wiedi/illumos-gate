@@ -35,8 +35,8 @@ include ../Makefile.cmd
 CFLAGS += $(CCVERBOSE)
 CERRWARN += -_gcc=-Wno-uninitialized
 
-vtdaemon := LDLIBS += -lpam -lbsm
-lint_vtdaemon := LDLIBS += -lpam -lbsm
+vtdaemon :  LDLIBS += -lpam -lbsm
+lint_vtdaemon :  LDLIBS += -lpam -lbsm
 
 .KEEP_STATE:
 

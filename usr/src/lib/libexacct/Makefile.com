@@ -38,15 +38,15 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS += 	-lc
 
 SRCDIR =	../common
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CFLAGS += 	$(CCVERBOSE)
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CPPFLAGS +=	-D_FILE_OFFSET_BITS=64
 
-debug :=	CPPFLAGS += -DLIBEXACCT_DEBUG
-debug :=	COPTFLAG = -g
-debug :=	COPTFLAG64 = -g
+debug : 	CPPFLAGS += -DLIBEXACCT_DEBUG
+debug : 	COPTFLAG = -g
+debug : 	COPTFLAG64 = -g
 
 .KEEP_STATE:
 

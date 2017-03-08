@@ -64,12 +64,12 @@ ROOTLINT=	$(LINTSRC:%=$(ROOTLINTDIR)/%)
 
 CLEANFILES +=	$(LINTOUT) $(LINTLIB) $(LINTOUT_INTER) $(LINT_INTER) 
 
-all:=	  TARGET= all
-clean:=   TARGET= clean
-clobber:= TARGET= clobber
-install:= TARGET= install
-lint:=	  TARGET= lint
-lintinter:=	  TARGET= lintinter
+all: 	  TARGET= all
+clean:    TARGET= clean
+clobber:  TARGET= clobber
+install:  TARGET= install
+lint: 	  TARGET= lint
+lintinter: 	  TARGET= lintinter
 
 MODS=	dsw \
 	rdc \
@@ -101,20 +101,20 @@ CFLAGS64 +=	$(CCVERBOSE) $(DFLAGS) -I. -DLIBSPCS_CLIENT\
 		-DLIBUNISTAT_LOCALE=\"/usr/install/unistat/locale\"
 LDLIBS +=	-lc
 
-$(LINTLIB) :=	SRCS = ../common/llib-lunistat
-$(LINTLIB) :=	LINTFLAGS = -nvx -DLIBSPCS_CLIENT -I$(JAVAINC) -I$(JAVAINCSOL)\
+$(LINTLIB) : 	SRCS = ../common/llib-lunistat
+$(LINTLIB) : 	LINTFLAGS = -nvx -DLIBSPCS_CLIENT -I$(JAVAINC) -I$(JAVAINCSOL)\
 		-DISSTATIC=static \
 		-DLIBUNISTAT_LOCALE=\"/usr/install/unistat/locale\"
-$(LINTLIB) :=	LINTFLAGS64 = -nvx -Xarch=v9 -DLIBSPCS_CLIENT \
+$(LINTLIB) : 	LINTFLAGS64 = -nvx -Xarch=v9 -DLIBSPCS_CLIENT \
 			-I$(JAVAINC) -I$(JAVAINCSOL) \
 			-DISSTATIC=static \
 		-DLIBUNISTAT_LOCALE=\"/usr/install/unistat/locale\"
 
-$(LINT_INTER) :=	SRCS += ../common/llib-lunistat
-$(LINT_INTER) :=	LINTFLAGS = -nvx -DLIBSPCS_CLIENT -I$(JAVAINC) -I$(JAVAINCSOL)\
+$(LINT_INTER) : 	SRCS += ../common/llib-lunistat
+$(LINT_INTER) : 	LINTFLAGS = -nvx -DLIBSPCS_CLIENT -I$(JAVAINC) -I$(JAVAINCSOL)\
 		-DISSTATIC=static \
 		-DLIBUNISTAT_LOCALE=\"/usr/install/unistat/locale\"
-$(LINT_INTER) :=	LINTFLAGS64 = -nvx -Xarch=v9 -DLIBSPCS_CLIENT \
+$(LINT_INTER) : 	LINTFLAGS64 = -nvx -Xarch=v9 -DLIBSPCS_CLIENT \
 			-I$(JAVAINC) -I$(JAVAINCSOL) \
 			-DISSTATIC=static \
 		-DLIBUNISTAT_LOCALE=\"/usr/install/unistat/locale\"

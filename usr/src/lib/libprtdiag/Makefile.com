@@ -56,7 +56,7 @@ DYNFLAGS	+= -Wl,-f/usr/platform/\$$PLATFORM/lib/$(DYNLIBPSR)
 MAPFILES =
 
 SRCDIR		= ../../common
-$(LINTLIB)	:= SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB)	:  SRCS = $(SRCDIR)/$(LINTSRC)
 USR_PSMLINT=	$(LINTSRC:%=$(USR_PSM_LIB_DIR)/%)
 
 #

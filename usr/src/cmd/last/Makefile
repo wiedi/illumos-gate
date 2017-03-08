@@ -33,7 +33,7 @@ ETCTOVARADM= ../var/adm
 
 include ../Makefile.cmd
 
-$(ROOTUTMPS):= FILEMODE= 644
+$(ROOTUTMPS):  FILEMODE= 644
 
 $(ROOTADM)/%: %
 	$(INS.file)

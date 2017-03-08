@@ -58,8 +58,8 @@ CFLAGS +=	$(CCVERBOSE)
 
 CERRWARN +=	-_gcc=-Wno-unused-variable
 
-$(LINTLIB) :=	LINTFLAGS = -nvx -I..
-$(LINTLIB) :=	LINTFLAGS64 = -nvx -m64 -I..
+$(LINTLIB) : 	LINTFLAGS = -nvx -I..
+$(LINTLIB) : 	LINTFLAGS64 = -nvx -m64 -I..
 
 XGETFLAGS += -a
 POFILE=	picl.po

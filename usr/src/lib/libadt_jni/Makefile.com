@@ -46,7 +46,7 @@ LDLIBS +=	-lc -lbsm
 CLEANFILES=	$(LINTOUT) $(LINTLIB)
 CLOBBERFILES +=
 
-$(LINTLIB) :=	SRCS=../common/llib-ladt_jni
+$(LINTLIB) : 	SRCS=../common/llib-ladt_jni
 
 LINTSRC=	$(LINTLIB:%.ln=%)
 ROOTLINTDIR=	$(ROOTLIBDIR)

@@ -31,14 +31,14 @@ include		$(SRC)/Makefile.master
 
 SUBDIRS=	$(MACH) 
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-delete :=	TARGET= delete
-install :=	TARGET= install
-lint :=		TARGET= lint
-package :=	TARGET= package
-_msg :=		TARGET= _msg
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+delete : 	TARGET= delete
+install : 	TARGET= install
+lint : 		TARGET= lint
+package : 	TARGET= package
+_msg : 		TARGET= _msg
 
 .KEEP_STATE:
 

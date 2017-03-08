@@ -58,8 +58,8 @@ DYNFLAGS +=	$(ZNOLAZYLOAD)
 LDLIBS +=	-L$(SRC)/lib/libpicltree/$(MACH)
 LDLIBS +=	-lc -lpicltree
 
-$(LINTLIB) :=	SRCS = ../llib-lpicld_pluginutil
-$(LINTLIB) :=	LINTFLAGS = -nvx -I..
+$(LINTLIB) : 	SRCS = ../llib-lpicld_pluginutil
+$(LINTLIB) : 	LINTFLAGS = -nvx -I..
 
 .KEEP_STATE:
 

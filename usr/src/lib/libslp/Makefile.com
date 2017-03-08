@@ -37,7 +37,7 @@ include ../../Makefile.lib
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc -lnsl -lsocket
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 SRCDIR =	../clib
 

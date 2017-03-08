@@ -46,9 +46,9 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lsecdb -lc
 
 SRCDIR =	../common
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
-lint:=		SRCS = \
+lint: 		SRCS = \
 	$(NONCOMMONOBJS:%.o=$(SRCDIR)/%.c) \
 	$(COMMONOBJS:%.o=$(COMMONDIR)/%.c)
 

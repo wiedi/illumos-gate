@@ -28,7 +28,7 @@
 
 # Override lint sources from Makefile.lib.
 
-$(LINTLIB) :=  SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :   SRCS = $(SRCDIR)/$(LINTSRC)
 
 # Override shared object build rule from Makefile.lib.  This rule uses $(LD)
 # directly to avoid .init and .fini sections being added.

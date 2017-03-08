@@ -31,7 +31,7 @@ include ../../Makefile.lib
 LIBS =		$(DYNLIB) $(LINTLIB)
 
 SRCDIR =	../common
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 SRPTMODDIR =	../../../uts/common/io/comstar/port/srpt
 

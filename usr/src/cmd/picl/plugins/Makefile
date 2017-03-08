@@ -41,12 +41,12 @@ SUBDIRS=	$(COMMON_SUBDIRS) $($(MACH)_SUBDIRS)
 
 MSGSUBDIRS=	$(COMMON_SUBDIRS) $($(MACH)_MSGSUBDIRS) 
 
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
-_msg :=		TARGET= _msg
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
+_msg : 		TARGET= _msg
 
 .KEEP_STATE:
 

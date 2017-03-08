@@ -31,11 +31,11 @@ HDRS =	libvscan.h
 HDRDIR =	common
 SUBDIRS=	$(MACH)
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-install :=	TARGET= install
-lint :=		TARGET= lint
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+install : 	TARGET= install
+lint : 		TARGET= lint
 
 POFILE =	libvscan.po
 MSGFILES =	common/libvscan.c

@@ -51,7 +51,7 @@ $(NOT_RELEASE_BUILD) CPPFLAGS += -DDEBUG
 CERRWARN +=	-_gcc=-Wno-switch
 
 SRCDIR =	../common
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

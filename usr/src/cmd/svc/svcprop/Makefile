@@ -33,7 +33,7 @@ include ../../Makefile.ctf
 
 LDLIBS +=	-lscf -luutil
 
-lint := LINTFLAGS = -ux
+lint :  LINTFLAGS = -ux
 
 CERRWARN += -_gcc=-Wno-uninitialized
 

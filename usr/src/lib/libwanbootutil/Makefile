@@ -55,11 +55,11 @@ POFILE =	libwanbootutil.po
 MSGFILES =	common/key_util.c
 XGETFLAGS =	-a -x libwanbootutil.xcl
 
-all := 		TARGET = all
-clean :=	TARGET = clean
-clobber :=	TARGET = clobber
-install	:=	TARGET = install
-lint :=		TARGET = lint
+all :  		TARGET = all
+clean : 	TARGET = clean
+clobber : 	TARGET = clobber
+install	: 	TARGET = install
+lint : 		TARGET = lint
 
 .KEEP_STATE:
 .PARALLEL:      $(ROOTHDRS)

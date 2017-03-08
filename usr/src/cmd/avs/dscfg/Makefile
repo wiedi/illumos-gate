@@ -52,11 +52,11 @@ LFILE = $(LINTDIR)/dscfg.ln
 ROOTLINK = $(ROOTUSRSBIN)/$(PROG)
 ROOTSHLINK = $(ROOTUSRSBIN)/$(SHFILES)
 
-all	:=	TARGET= all
-install	:=	TARGET= install
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+install	: 	TARGET= install
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+lint	: 	TARGET= lint
 
 all: $(SUBDIRS) $(PROG) $(SHFILES)
 

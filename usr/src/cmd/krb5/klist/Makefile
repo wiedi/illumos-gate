@@ -28,7 +28,7 @@ LDFLAGS += $(KRUNPATH)
 LDLIBS += $(KMECHLIB)
 CERRWARN += -_gcc=-Wno-unused-function
 
-$(GPROGS) := CPPFLAGS += -DSYSV -DSunOS=50 
+$(GPROGS) :  CPPFLAGS += -DSYSV -DSunOS=50 
 
 .KEEP_STATE:
 

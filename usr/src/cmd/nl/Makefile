@@ -40,7 +40,7 @@ LDLIBS += -lgen
 CFLAGS += $(CCVERBOSE)
 CERRWARN += -_gcc=-Wno-uninitialized
 CERRWARN += -_gcc=-Wno-unused-variable
-$(XPG4):= CPPFLAGS += -DXPG4
+$(XPG4):  CPPFLAGS += -DXPG4
 
 MAPFILE.INT =	../expr/mapfile-intf
 LDFLAGS +=	$(MAPFILE.INT:%=-M%)

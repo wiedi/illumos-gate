@@ -58,7 +58,7 @@ SRCS =		$(LOC_SRCS) $(CRYPTO_SRCS)
 
 # Must define location of lint library source.
 SRCDIR =	$(LOC_DIR)
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 # Library includes sources created via rpcgen. And rpcgen unfortunately
 # created unused function variables.

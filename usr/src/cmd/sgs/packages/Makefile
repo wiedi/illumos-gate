@@ -85,8 +85,8 @@ PKGDIRS=	../libcrle \
 		../moe \
 		../pvs
 
-$(SUBDIRS1) $(SUBDIRS2) :=	TARGET = install
-$(PKGDIRS) :=	TARGET = package
+$(SUBDIRS1) $(SUBDIRS2) : 	TARGET = install
+$(PKGDIRS) : 	TARGET = package
 
 ../%:		FRC
 		@ cd $@; pwd; $(MAKE) $(TARGET)

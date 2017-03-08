@@ -43,7 +43,7 @@ install: all
 
 include $(SRC)/cmd/fm/eversholt/Makefile.rootdirs
 
-all:= FILEMODE =	0444
+all:  FILEMODE =	0444
 
 all: $(ROOT_EFT_ROOT) $(USR_PLAT_EFT_FILES) $(ROOT_COMMON_EFT_FILES)
 
@@ -54,7 +54,7 @@ clean clobber:
 	$(USR_PLAT_EFT_FILES) $(ROOT_COMMON_EFT_FILES)
 
 ESCFLAGS= -D_ESC -I$(ROOT)/usr/include
-pciexrc.eft := ESCFLAGS += -I$(SRC)/uts/sun4v/io/px
+pciexrc.eft :  ESCFLAGS += -I$(SRC)/uts/sun4v/io/px
 
 %.eft: ../common/%.esc
 	$(ESC) $(ESCFLAGS) -o $@ $<

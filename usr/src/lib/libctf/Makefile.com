@@ -58,7 +58,7 @@ CERRWARN += -_gcc=-Wno-uninitialized
 
 LDLIBS += -lc
 
-$(LINTLIB) := SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS = $(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

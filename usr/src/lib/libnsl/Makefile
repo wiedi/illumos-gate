@@ -68,14 +68,14 @@ TEXT_DOMAIN= SUNW_OST_NETRPC
 POFILE= $(LIBRARY:.a=.po)
 POFILES= generic.po _errlst.po
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-delete :=	TARGET= delete
-install :=	TARGET= install
-lint :=		TARGET= lint
-_msg :=		TARGET= _msg
-package :=	TARGET= package
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+delete : 	TARGET= delete
+install : 	TARGET= install
+lint : 		TARGET= lint
+_msg : 		TARGET= _msg
+package : 	TARGET= package
 
 
 .KEEP_STATE:

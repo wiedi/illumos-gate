@@ -47,7 +47,7 @@ CPPFLAGS=	-I. -I../common -I../../include \
 		$(CPPFLAGS.master) -I$(ELFCAP)
 CFLAGS +=	$(C_PICFLAGS)
 
-lint :=		ZRECORD =
+lint : 		ZRECORD =
 LDLIBS +=	$(ZRECORD) -lmapmalloc -lc $(DLLIB)
 
 LINTFLAGS +=	-u -erroff=E_NAME_DECL_NOT_USED_DEF2

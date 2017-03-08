@@ -88,7 +88,7 @@ LINTFLAGS64 +=	-erroff=E_STATIC_UNUSED
 
 CERRWARN +=	-_gcc=-Wno-uninitialized
 
-$(LIBS):= PICS += $(SHAREDOBJS)
+$(LIBS):  PICS += $(SHAREDOBJS)
 
 .KEEP_STATE:
 

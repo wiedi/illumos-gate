@@ -48,7 +48,7 @@ CERRWARN +=	-_gcc=-Wno-parentheses
 SRCS=	$(OBJS_COMMON:%.o=$(SRCDIR)/%.c)			\
 	$(ISCSIT_OBJS_SHARED:%.o=$(SRC)/common/iscsit/%.c)	\
 	$(ISCSI_OBJS_SHARED:%.o=$(SRC)/common/iscsi/%.c)
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

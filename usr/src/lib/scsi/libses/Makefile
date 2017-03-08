@@ -37,12 +37,12 @@ HDRDIR =	common
 SUBDIRS =	$(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-install :=	TARGET= install
-lint :=		TARGET= lint
-install_h:=	TARGET = install_h
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+install : 	TARGET= install
+lint : 		TARGET= lint
+install_h: 	TARGET = install_h
 
 .KEEP_STATE:
 

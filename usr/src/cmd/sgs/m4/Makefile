@@ -34,11 +34,11 @@ SUBDIRS=	$(MACH)
 
 CSRC=		common/m4.c common/m4macs.c
 
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
 
 # for messaging catalog
 #

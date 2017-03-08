@@ -43,7 +43,7 @@ LIBS =          $(DYNLIB) $(LINTLIB)
 
 SRCDIR=		../common
 
-$(LINTLIB) :=	SRCS=$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS=$(SRCDIR)/$(LINTSRC)
 
 CPPFLAGS +=	-I../inc
 CFLAGS +=       $(CCVERBOSE)

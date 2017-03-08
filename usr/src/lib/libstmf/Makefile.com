@@ -43,7 +43,7 @@ CPPFLAGS +=	$(INCS) -D_REENTRANT
 
 CERRWARN +=	-_gcc=-Wno-unused-label
 
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

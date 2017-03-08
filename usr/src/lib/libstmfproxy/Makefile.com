@@ -41,7 +41,7 @@ C99LMODE=	-Xc99=%all
 LDLIBS +=	-lc -lsocket -lnsl
 CPPFLAGS +=	$(INCS) -D_REENTRANT
 
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

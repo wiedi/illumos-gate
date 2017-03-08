@@ -39,7 +39,7 @@ LIBS = $(DYNLIB) $(LINTLIB)
 
 SRCDIR =	../common
 SRCS = $(CMNOBJS:%.o=$(SRCDIR)/%.c)
-$(LINTLIB) := SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS = $(SRCDIR)/$(LINTSRC)
 
 ASFLAGS +=	-P -D__STDC__ -D_ASM -DPIC
 CPPFLAGS +=	-I../../libc/inc -D_REENTRANT

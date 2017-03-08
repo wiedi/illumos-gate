@@ -52,7 +52,7 @@ CERRWARN +=	-_gcc=-Wno-parentheses
 CERRWARN +=	-_gcc=-Wno-uninitialized
 LDLIBS +=	-lc -lsecdb -lproc -lpool
 
-$(LINTLIB) :=	SRCS = ../common/llib-lproject
+$(LINTLIB) : 	SRCS = ../common/llib-lproject
 
 .KEEP_STATE:
 

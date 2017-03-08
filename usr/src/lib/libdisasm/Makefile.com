@@ -113,7 +113,7 @@ ASFLAGS_standalone = -DDIS_STANDALONE
 ASFLAGS_library =
 ASFLAGS += -P $(ASFLAGS_$(CURTYPE)) -D_ASM
 
-$(LINTLIB) := SRCS = $(COMDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS = $(COMDIR)/$(LINTSRC)
 
 CERRWARN +=	-_gcc=-Wno-parentheses
 CERRWARN +=	-_gcc=-Wno-uninitialized

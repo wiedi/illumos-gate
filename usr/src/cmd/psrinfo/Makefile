@@ -33,7 +33,7 @@ include	../Makefile.cmd
 LDLIBS += -lkstat
 CERRWARN += -_gcc=-Wno-uninitialized
 XGETFLAGS +=  
-$(PROG).po	:= CPPFLAGS += -DXGETTEXT
+$(PROG).po	:  CPPFLAGS += -DXGETTEXT
 
 
 .KEEP_STATE:

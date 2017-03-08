@@ -56,7 +56,7 @@ INCS += -I../../../common
 CLEANFILES += ../common/zfs.h
 CLEANFILES += $(EXTPICS)
 
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 $(LINTLIB): ../common/zfs.h
 
 C99MODE=	-xc99=%all

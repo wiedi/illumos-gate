@@ -40,7 +40,7 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc
 
 SRCDIR =	../common
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

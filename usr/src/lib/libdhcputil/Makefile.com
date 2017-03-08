@@ -41,7 +41,7 @@ LDLIBS +=	-lc -lnsl -lgen -linetutil -ldlpi
 
 SRCDIR =	../common
 SRCS =		$(LOCOBJS:%.o=$(SRCDIR)/%.c) $(COMOBJS:%.o=$(COMDIR)/%.c)
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CFLAGS +=	$(CCVERBOSE)
 CERRWARN +=	-_gcc=-Wno-switch

@@ -30,13 +30,13 @@ include $(SRC)/lib/Makefile.lib
 SUBDIRS=	$(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-delete :=	TARGET= delete
-install :=	TARGET= install
-lint :=		TARGET= lint
-package :=	TARGET= package
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+delete : 	TARGET= delete
+install : 	TARGET= install
+lint : 		TARGET= lint
+package : 	TARGET= package
 
 .KEEP_STATE:
 

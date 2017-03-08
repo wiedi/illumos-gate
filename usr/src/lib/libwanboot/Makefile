@@ -50,11 +50,11 @@ MSGFILES =	$(SRC)/common/net/wanboot/bootconf_errmsg.c \
 		$(SRC)/common/net/wanboot/p12err.c
 XGETFLAGS =	-a -x libwanboot.xcl
 
-all := 		TARGET = all
-clean :=	TARGET = clean
-clobber :=	TARGET = clobber
-install	:=	TARGET = install
-lint :=		TARGET = lint
+all :  		TARGET = all
+clean : 	TARGET = clean
+clobber : 	TARGET = clobber
+install	: 	TARGET = install
+lint : 		TARGET = lint
 
 .KEEP_STATE:
 

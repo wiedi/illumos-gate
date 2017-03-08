@@ -37,7 +37,7 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc
 
 SRCDIR =	../common
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CFLAGS +=	$(CCVERBOSE)
 CPPFLAGS +=	-D_REENTRANT -D_LARGEFILE64_SOURCE -I../inc -I../../common/inc

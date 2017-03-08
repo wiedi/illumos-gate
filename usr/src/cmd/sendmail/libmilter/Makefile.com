@@ -52,7 +52,7 @@ CERRWARN +=	-_gcc=-Wno-type-limits
 
 LIBS=		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc -lsocket -lnsl
-$(LINTLIB) :=	SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

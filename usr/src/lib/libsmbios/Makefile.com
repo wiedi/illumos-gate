@@ -54,7 +54,7 @@ CPPFLAGS += -I../common -I$(COMMON_SRCDIR)
 CFLAGS += $(CCVERBOSE)
 LDLIBS += -ldevinfo -lc
 
-$(LINTLIB) := SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS = $(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

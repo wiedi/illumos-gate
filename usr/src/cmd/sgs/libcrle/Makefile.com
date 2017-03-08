@@ -38,7 +38,7 @@ include		$(SRC)/cmd/sgs/Makefile.com
 
 SRCDIR =	../common
 
-lint :=		ZRECORD =
+lint : 		ZRECORD =
 LDLIBS +=	$(ZRECORD) -lmapmalloc $(DLLIB) -lc
 
 LINTFLAGS +=	-u

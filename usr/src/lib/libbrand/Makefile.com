@@ -32,9 +32,9 @@ include ../../Makefile.lib
 
 LIBS=		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 CPPFLAGS +=	-I$(ADJUNCT_PROTO)/usr/include/libxml2 -I$(SRCDIR) -D_REENTRANT
-$(DYNLIB) :=	LDLIBS += -lxml2
+$(DYNLIB) : 	LDLIBS += -lxml2
 
 SRCDIR=		../common
 

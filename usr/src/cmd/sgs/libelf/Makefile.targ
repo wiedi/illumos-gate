@@ -105,7 +105,7 @@ pics/xlate.o:	xlate.c
 # for production use. For this reason, the necessary rules are commented
 # out with '###'. Remove the comments to use it.
 #
-###warlock := CFLAGS=
+###warlock :  CFLAGS=
 ###
 ###.PARALLEL: $(WARLOCKFILES)
 ###warlock: wlocks .WAIT warlock_files

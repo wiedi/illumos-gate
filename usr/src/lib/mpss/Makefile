@@ -31,11 +31,11 @@ $(BUILD64)SUBDIRS += $(MACH64)
 POFILE =	mpss.po
 MSGFILES =	common/mpss.c
 
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
 
 .KEEP_STATE:
 

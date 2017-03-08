@@ -31,7 +31,7 @@ include ../../Makefile.cmd
 SUBDIRS=
 PROG=	$(DYNPROG)
 
-ncalladm	:= POBJS = ncalladm.o
+ncalladm	:  POBJS = ncalladm.o
 
 OBJS=	ncalladm.o
 SRCS=	$(OBJS:%.o=%.c)
@@ -50,11 +50,11 @@ CFLAGS += $(CCVERBOSE) -D_SYSCALL32 -D__NCALL__
 CERRWARN += -_gcc=-Wno-uninitialized
 ROOTLINK = $(ROOTLIB)/$(PROG)
 
-all	:=	TARGET= all
-install	:=	TARGET= install
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+install	: 	TARGET= install
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+lint	: 	TARGET= lint
 
 .KEEP_STATE:
 

@@ -38,7 +38,7 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lpool -lproject -lsecdb -lnvpair -lsysevent -lscf -luutil -lc
 
 SRCDIR =	../common
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CFLAGS +=	$(CCVERBOSE) -Wp,-xc99=%all
 

@@ -64,7 +64,7 @@ LINTFLAGS +=	-erroff=E_NAME_MULTIPLY_DEF2 -erroff=E_FUNC_RET_MAYBE_IGNORED2
 LINTFLAGS64 +=	-erroff=E_NAME_MULTIPLY_DEF2 -erroff=E_FUNC_RET_MAYBE_IGNORED2
 
 LINTSRCS=	../common/llib-l$(LIBNAME)
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 INCLIST=	$(INCLIST_$(MACH)) -I../../include -I../../include/$(MACH)
 DEFLIST=	-DELF
@@ -72,20 +72,20 @@ DEFLIST=	-DELF
 # It is not very clean to base the conditional definitions as below, but
 # this will have to do for now.
 #
-#$(LIBOBJS_W):=	DEFLIST = -DEUC -DJLSLEX  -DWOPTION -D$*=$*_w
-objs/%_w.o:=	DEFLIST = -DEUC -DJLSLEX  -DWOPTION -D$*=$*_w
-pics/%_w.o:=	DEFLIST = -DEUC -DJLSLEX  -DWOPTION -D$*=$*_w
+#$(LIBOBJS_W): 	DEFLIST = -DEUC -DJLSLEX  -DWOPTION -D$*=$*_w
+objs/%_w.o: 	DEFLIST = -DEUC -DJLSLEX  -DWOPTION -D$*=$*_w
+pics/%_w.o: 	DEFLIST = -DEUC -DJLSLEX  -DWOPTION -D$*=$*_w
 
-#$(LIBOBJS_E):=	DEFLIST = -DEUC -DJLSLEX  -DEOPTION -D$*=$*_e
-objs/%_e.o:=	DEFLIST = -DEUC -DJLSLEX  -DEOPTION -D$*=$*_e
-pics/%_e.o:=	DEFLIST = -DEUC -DJLSLEX  -DEOPTION -D$*=$*_e
+#$(LIBOBJS_E): 	DEFLIST = -DEUC -DJLSLEX  -DEOPTION -D$*=$*_e
+objs/%_e.o: 	DEFLIST = -DEUC -DJLSLEX  -DEOPTION -D$*=$*_e
+pics/%_e.o: 	DEFLIST = -DEUC -DJLSLEX  -DEOPTION -D$*=$*_e
 
 CPPFLAGS=	$(INCLIST) $(DEFLIST) $(CPPFLAGS.master)
 BUILD.AR=	$(AR) $(ARFLAGS) $@ `$(LORDER) $(OBJS) | $(TSORT)`
 
 LINTPOUT=	lint.out
 
-$(ROOTPROG):=	FILEMODE = 0555
+$(ROOTPROG): 	FILEMODE = 0555
 
 ROOTFORMS=	$(FORMS:%=$(ROOTSHLIBCCS)/%)
 
@@ -96,8 +96,8 @@ DYNLINKLIBDIR=	$(ROOTLIBDIR)
 DYNLINKLIB=	$(LIBLINKS:%=$(DYNLINKLIBDIR)/%)
 
 # Need to make sure lib-make's are warning free
-$(DYNLIB) :=	CFLAGS += $(CCVERBOSE)
-$(DYNLIB) :=	CFLAGS64 += $(CCVERBOSE)
+$(DYNLIB) : 	CFLAGS += $(CCVERBOSE)
+$(DYNLIB) : 	CFLAGS64 += $(CCVERBOSE)
 
 LDLIBS += -lc
 

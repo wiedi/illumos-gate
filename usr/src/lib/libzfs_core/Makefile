@@ -34,11 +34,11 @@ HDRDIR=		common
 SUBDIRS=	$(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-install :=	TARGET= install
-lint :=		TARGET= lint
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+install : 	TARGET= install
+lint : 		TARGET= lint
 
 MSGFILES =	`$(GREP) -l gettext $(HDRDIR)/*.[ch]`
 POFILE =	libzfs_core.po

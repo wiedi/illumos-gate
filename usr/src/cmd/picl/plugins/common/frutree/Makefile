@@ -64,12 +64,12 @@ LDLIBS +=	-R/usr/lib/picl/plugins
 
 SUBDIRS=
 
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
-_msg :=		TARGET= _msg
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
+_msg : 		TARGET= _msg
 
 POFILE= piclfrutree.po
 

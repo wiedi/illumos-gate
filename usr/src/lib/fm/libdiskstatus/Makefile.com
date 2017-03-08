@@ -44,7 +44,7 @@ INCS +=		-I$(SRCDIR)
 LDLIBS +=	-lc -lnvpair
 CPPFLAGS +=	$(INCS)
 
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

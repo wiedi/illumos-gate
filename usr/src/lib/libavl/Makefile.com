@@ -33,7 +33,7 @@ include ../../Makefile.rootfs
 LIBS =		$(DYNLIB) $(LINTLIB)
 SRCS =		$(COMDIR)/avl.c
 
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 COMDIR = 	$(SRC)/common/avl
 

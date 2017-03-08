@@ -71,7 +71,7 @@ LDLIBS += \
 	-last \
 	-lc
 
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 SRCDIR =	../common
 
@@ -104,14 +104,14 @@ CERRWARN	+= -_gcc=-Wno-char-subscripts
 CERRWARN	+= -_gcc=-Wno-empty-body
 CERRWARN	+= -_gcc=-Wno-unused-value
 
-pics/ppcall.o 		:= CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
-pics/ppcontrol.o 	:= CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
-pics/ppcpp.o		:= CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
-pics/ppexpr.o		:= CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
-pics/pplex.o		:= CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
-pics/ppop.o 		:= CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
-pics/ppsearch.o 	:= CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
-pics/ppsearch.o 	:= CERRWARN += -_gcc=-Wno-sequence-point
+pics/ppcall.o 		:  CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
+pics/ppcontrol.o 	:  CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
+pics/ppcpp.o		:  CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
+pics/ppexpr.o		:  CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
+pics/pplex.o		:  CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
+pics/ppop.o 		:  CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
+pics/ppsearch.o 	:  CERRWARN += -erroff=E_INTEGER_OVERFLOW_DETECTED
+pics/ppsearch.o 	:  CERRWARN += -_gcc=-Wno-sequence-point
 
 .KEEP_STATE:
 

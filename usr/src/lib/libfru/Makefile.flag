@@ -43,9 +43,9 @@ LDLIBS +=	-lc
 
 CLEANFILES +=	pics/lex.fru.cc pics/y.tab.cc pics/y.tab.h
 
-$(LINTLIB) :=	SRCS = ../llib-lfru
-$(LINTLIB) :=	LINTFLAGS = -nvx -I../include
-$(LINTLIB) :=	LINTFLAGS64 = -nvx -m64 -I../include
+$(LINTLIB) : 	SRCS = ../llib-lfru
+$(LINTLIB) : 	LINTFLAGS = -nvx -I../include
+$(LINTLIB) : 	LINTFLAGS64 = -nvx -m64 -I../include
 
 CLOBBERFILES +=	$(DYNLIBCCC) libfru.so
 

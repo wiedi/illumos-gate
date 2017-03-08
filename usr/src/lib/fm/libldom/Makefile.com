@@ -44,16 +44,16 @@ CFLAGS64 += $(CCVERBOSE) $(C_BIGPICFLAGS)
 
 CERRWARN += -_gcc=-Wno-parentheses
 
-$(DYNLIB) := LDLIBS += $(MACH_LDLIBS)
-$(DYNLIB) := LDLIBS += -lfmd_agent -lnvpair -lscf -lmdesc -lc -lxml2 -lsocket \
+$(DYNLIB) :  LDLIBS += $(MACH_LDLIBS)
+$(DYNLIB) :  LDLIBS += -lfmd_agent -lnvpair -lscf -lmdesc -lc -lxml2 -lsocket \
 	-lumem
 
 LINTFLAGS = -msux
 LINTFLAGS64 = -msux -m64
 
-$(LINTLIB) := SRCS = $(SRCDIR)/$(LINTSRC)
-$(LINTLIB) := LINTFLAGS = -nsvx -I$(ROOT)/usr/platform/sun4v/include
-$(LINTLIB) := LINTFLAGS64 = -nsvx -m64 \
+$(LINTLIB) :  SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  LINTFLAGS = -nsvx -I$(ROOT)/usr/platform/sun4v/include
+$(LINTLIB) :  LINTFLAGS64 = -nsvx -m64 \
 	-I$(ROOT)/usr/platform/sun4v/include
 
 .KEEP_STATE:

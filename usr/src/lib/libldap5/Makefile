@@ -28,12 +28,12 @@ include			../Makefile.lib
 SUBDIRS =	$(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-install :=	TARGET= install
-lint :=		TARGET= lint
-_msg :=		TARGET= _msg
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+install : 	TARGET= install
+lint : 		TARGET= lint
+_msg : 		TARGET= _msg
 
 LIBRARY=        libldap.a
 TEXT_DOMAIN =   SUNW_OST_OSLIB

@@ -42,7 +42,7 @@ LINTSRC =       $(LINTLIB:%.ln=%)
 CFLAGS +=	$(CCVERBOSE)
 LDLIBS +=	-lc
 
-$(LINTLIB) :=	SRCS = ../common/llib-llgrp
+$(LINTLIB) : 	SRCS = ../common/llib-llgrp
 
 .KEEP_STATE:
 

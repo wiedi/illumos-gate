@@ -45,7 +45,7 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lscf -lnvpair -lexacct -lc
 
 SRCDIR =	../common
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CFLAGS +=	$(CCVERBOSE)
 CPPFLAGS +=	-D_REENTRANT -D_FILE_OFFSET_BITS=64 \

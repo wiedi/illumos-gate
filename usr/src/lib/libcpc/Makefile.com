@@ -36,7 +36,7 @@ SRCS = 	$(ASOBJS:%.o=../$(MACH)/%.s)	\
 	$(COBJS:%.o=../common/%.c)
 
 LIBS =		$(DYNLIB) $(LINTLIB)
-$(LINTLIB) :=	SRCS = ../common/llib-lcpc
+$(LINTLIB) : 	SRCS = ../common/llib-lcpc
 LDLIBS +=	-lpctx -lnvpair -lc
 
 SRCDIR =	../common

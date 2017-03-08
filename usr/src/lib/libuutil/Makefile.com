@@ -63,7 +63,7 @@ LINTS =		$(OBJECTS:%.o=%.ln)
 CLOBBERFILES += $(LINTS)
 
 SRCDIR =	../common
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 LDLIBS +=	-lc
 
 AVLDIR =	../../../common/avl

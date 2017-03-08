@@ -29,11 +29,11 @@ SUBDIRS=	$(MACH)
 XGETTEXT=	$(GNUXGETTEXT)
 XGETFLAGS=	$(GNUXGETFLAGS)
 
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
 
 MSGFIND =	$(FIND) . -name '*.py' -o -name '*.c'
 MSGFILES =	$(MSGFIND:sh)

@@ -36,7 +36,7 @@ CERRWARN += -_gcc=-Wno-uninitialized
 
 CFLAGS +=	$(CCVERBOSE)
 LDLIBS += -lproject
-$(XPG4) := CFLAGS += -DXPG4
+$(XPG4) :  CFLAGS += -DXPG4
 
 all: $(PROG) $(XPG4)
 

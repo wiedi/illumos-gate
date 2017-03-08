@@ -46,7 +46,7 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lbsm -lc -ldladm -lnsl -lnvpair -lscf -lsecdb -lsocket
 
 SRCDIR =	../common
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 CFLAGS +=       $(CCVERBOSE)
 CPPFLAGS +=	-I$(SRCDIR) -D_REENTRANT

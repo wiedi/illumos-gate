@@ -89,11 +89,11 @@ CERRWARN +=	-_gcc=-Wno-unused-function
 CERRWARN +=	-_gcc=-Wno-unused-variable
 CERRWARN +=	-_gcc=-Wno-uninitialized
 
-all:=           TARGET= all
-install:=       TARGET= install
-clean:=         TARGET= clean
-clobber:=       TARGET= clobber
-lint:=          TARGET= lint
+all:            TARGET= all
+install:        TARGET= install
+clean:          TARGET= clean
+clobber:        TARGET= clobber
+lint:           TARGET= lint
 
 # C Pre-Processor flags used by C, CC & lint
 CPPFLAGS +=	-DSUN -DSVR4 -DSOLARIS_LDAP_CMD \
@@ -104,19 +104,19 @@ CPPFLAGS +=	-DSUN -DSVR4 -DSOLARIS_LDAP_CMD \
 		-DHAVE_SASL_OPTIONS -DSOLARIS_LDAP_CMD
 LDLIBS +=	$(COMPLIB)
 
-ldapmodrdn :=	LDLIBS += -lldap
-ldapsearch :=	LDLIBS += -lldap
-ldapdelete :=	LDLIBS += -lldap
-ldapmodify :=	LDLIBS += -lldap
-ldaplist :=	LDLIBS += -lsldap
-ldapaddent :=	LDLIBS += -lsldap -lnsl -lsecdb
-ldapclient :=	LDLIBS += -lsldap -lscf
+ldapmodrdn : 	LDLIBS += -lldap
+ldapsearch : 	LDLIBS += -lldap
+ldapdelete : 	LDLIBS += -lldap
+ldapmodify : 	LDLIBS += -lldap
+ldaplist : 	LDLIBS += -lsldap
+ldapaddent : 	LDLIBS += -lsldap -lnsl -lsecdb
+ldapclient : 	LDLIBS += -lsldap -lscf
 
-ldaplist :=	C99MODE = $(C99_ENABLE)
-ldapaddent :=	C99MODE = $(C99_ENABLE)
-ldapclient :=	C99MODE = $(C99_ENABLE)
+ldaplist : 	C99MODE = $(C99_ENABLE)
+ldapaddent : 	C99MODE = $(C99_ENABLE)
+ldapclient : 	C99MODE = $(C99_ENABLE)
 
-lint :=		LDLIBS += -lldap
+lint : 		LDLIBS += -lldap
 
 .KEEP_STATE:
 
@@ -177,18 +177,18 @@ clean:
 # Not linted Mozilla upstream commands
 lint: lintns_ldaplist lintns_ldapaddent lintns_ldapclient
 
-lintns_ldaplist := C99MODE = $(C99_ENABLE)
+lintns_ldaplist :  C99MODE = $(C99_ENABLE)
 
 lintns_ldaplist:
 	$(LINT.c) $(LDAPLISTSRCS:%=../ns_ldap/%) $(LDLIBS) -lsldap
 
-lintns_ldapaddent := C99MODE = $(C99_ENABLE)
+lintns_ldapaddent :  C99MODE = $(C99_ENABLE)
 
 lintns_ldapaddent:
 	$(LINT.c) $(LDAPADDENTSRCS:%=../ns_ldap/%) $(LDLIBS) -lsldap -lnsl \
 		-lsecdb
 
-lintns_ldapclient := C99MODE = $(C99_ENABLE)
+lintns_ldapclient :  C99MODE = $(C99_ENABLE)
 
 lintns_ldapclient:
 	$(LINT.c) $(LDAPCLIENTSRCS:%=../ns_ldap/%) $(LDLIBS) -lsldap -lscf

@@ -49,15 +49,15 @@ ROOTDIR =	$(ROOT)/opt/SUNWonld/bin
 ROOTPROGS =	$(GEXECS:%=$(ROOTDIR)/%)
 ROOTPROGS +=	$(PSRCS:%=$(ROOTDIR)/%)
 
-$(ROOTPROGS) :=	FILEMODE=755
+$(ROOTPROGS) : 	FILEMODE=755
 
 SUBDIRS=	$(MACH) man
 
-all:=		TARGET= all
-install:=	TARGET= install
-clean:=		TARGET= clean
-clobber:=	TARGET= clobber
-lint:=		TARGET= lint
+all: 		TARGET= all
+install: 	TARGET= install
+clean: 		TARGET= clean
+clobber: 	TARGET= clobber
+lint: 		TARGET= lint
 
 
 .KEEP_STATE:

@@ -27,7 +27,7 @@
 #
 
 PROG=		expand  unexpand
-SRCS=		$(PROG:=.c)
+SRCS=		$(PROG: .c)
 
 include		../Makefile.cmd
 

@@ -39,7 +39,7 @@ CERRWARN +=	-_gcc=-Wno-implicit-function-declaration
 
 FILEMODE=	755
 
-$(ROOTDATADIR)/$(DATA):= FILEMODE=444
+$(ROOTDATADIR)/$(DATA):  FILEMODE=444
 
 .KEEP_STATE:
 

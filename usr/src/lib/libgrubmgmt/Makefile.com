@@ -39,7 +39,7 @@ SRCDIR = ../common
 
 INCS += -I$(SRCDIR)
 
-$(LINTLIB) :=	SRCS =	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS =	$(SRCDIR)/$(LINTSRC)
 #
 # Libraries added to the next line must be present in miniroot
 #

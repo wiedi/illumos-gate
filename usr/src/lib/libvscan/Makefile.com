@@ -34,7 +34,7 @@ include ../../Makefile.lib
 
 LIBS=	$(DYNLIB) $(LINTLIB)
 SRCDIR =	../common
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 # Reset the Makefile.lib macro ROOTLIBDIR to refer to usr/lib/vscan
 ROOTLIBDIR = $(ROOT)/usr/lib/vscan

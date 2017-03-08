@@ -32,7 +32,7 @@ CERRWARN += -_gcc=-Wno-parentheses
 CERRWARN += -_gcc=-Wno-implicit-function-declaration
 
 LIBUNITTAB= $(UNITTAB:%=$(ROOTSHLIB)/%)
-$(LIBUNITTAB) :=	FILEMODE =	$(LIBFILEMODE)
+$(LIBUNITTAB) : 	FILEMODE =	$(LIBFILEMODE)
 
 .KEEP_STATE:
 

@@ -40,7 +40,7 @@ SRCDIR=		../common
 
 LIBS=		$(DYNLIB) $(LINTLIB)
 
-$(LINTLIB):=	SRCS=$(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS=$(SRCDIR)/$(LINTSRC)
 
 CFLAGS +=	$(CCVERBOSE)
 CPPFLAGS +=	-D_REENTRANT -I../inc -I../../common/inc -I../../libgen/inc
@@ -57,7 +57,7 @@ lint: lintcheck
 
 include ../../Makefile.targ
 
-$(ROOTLINKS) := INS.liblink = \
+$(ROOTLINKS) :  INS.liblink = \
 	$(RM) $@; $(SYMLINK) $(LIBLINKPATH)$(LIBLINKS)$(VERS) $@; \
 		cd $(ROOTLIBDIR); \
 		$(RM) libcrypt_i.so$(VERS) libcrypt_i.so ;\
@@ -67,7 +67,7 @@ $(ROOTLINKS) := INS.liblink = \
 		$(SYMLINK) libcrypt.so$(VERS) libcrypt_d.so$(VERS); \
 		$(SYMLINK) libcrypt.so libcrypt_d.so;
 
-$(ROOTLINKS64) := INS.liblink64 = \
+$(ROOTLINKS64) :  INS.liblink64 = \
 	$(RM) $@; $(SYMLINK) $(LIBLINKPATH)$(LIBLINKS)$(VERS) $@; \
 		cd $(ROOTLIBDIR64); \
 		$(RM) libcrypt_i.so$(VERS) libcrypt_i.so ;\

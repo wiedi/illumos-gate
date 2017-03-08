@@ -87,9 +87,9 @@ CPPFLAGS=	$(COM_INC) $(CPPFLAGS.master)
 
 # definitions for lint
 
-$(LINTLIB):= 	SRCS=../sources/ldap/common/llib-lldap
-$(LINTLIB):= 	LINTFLAGS=-nvx 
-$(LINTLIB):= 	TARGET_ARCH=
+$(LINTLIB):  	SRCS=../sources/ldap/common/llib-lldap
+$(LINTLIB):  	LINTFLAGS=-nvx 
+$(LINTLIB):  	TARGET_ARCH=
 
 LINTOUT=	lint.out
 

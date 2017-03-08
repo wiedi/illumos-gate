@@ -31,7 +31,7 @@ include $(SRC)/lib/Makefile.lib
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CPPFLAGS +=	-D_REENTRANT -I.. -I../../libpicl -I$(SRC)/cmd/picl/plugins/inc
 CFLAGS +=	$(CCVERBOSE)

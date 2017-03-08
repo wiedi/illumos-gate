@@ -47,7 +47,7 @@ ROOTCFGFILES=	$(LOCFILES:%=$(ROOTLOCDIR)/%) \
 
 include		../../../Makefile.cmd
 
-$(ROOTCFGFILES) := FILEMODE= 644
+$(ROOTCFGFILES) :  FILEMODE= 644
 
 ROOTCMDDIR=	$(ROOTFS_LIBDIR)/inet
 
@@ -65,7 +65,7 @@ CERRWARN +=	-_gcc=-Wno-unused-label
 #
 CTFCONVERT_HOOK = && $(CTFCONVERT_O)
 CTFMERGE_HOOK = && $(CTFMERGE) -L VERSION -o $@ $(OBJS)
-$(OBJS) := CFLAGS += $(CTF_FLAGS)
+$(OBJS) :  CFLAGS += $(CTF_FLAGS)
 
 .KEEP_STATE:
 

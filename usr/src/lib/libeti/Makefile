@@ -32,13 +32,13 @@ include ../../Makefile.master
 SUBDIRS= form menu panel
 HDRSUBDIRS= form menu panel
 
-all:=		TARGET= all
-clean:=		TARGET= clean
-clobber:=	TARGET= clobber
-install:=	TARGET= install
-install_h:=	TARGET= install_h
-check:=		TARGET= check
-lint:=		TARGET= lint
+all: 		TARGET= all
+clean: 		TARGET= clean
+clobber: 	TARGET= clobber
+install: 	TARGET= install
+install_h: 	TARGET= install_h
+check: 		TARGET= check
+lint: 		TARGET= lint
 
 # definitions for install_h target
 HDRS=           eti.h

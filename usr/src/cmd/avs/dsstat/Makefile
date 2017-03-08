@@ -32,7 +32,7 @@ PROG = $(DYNPROG)
 
 SUBDIRS=
 
-dsstat		:= POBJS =  dsstat.o ii_stats.o sndr_stats.o \
+dsstat		:  POBJS =  dsstat.o ii_stats.o sndr_stats.o \
 			    sdbc_stats.o multi_stats.o common.o report.o
 
 OBJS=	dsstat.o ii_stats.o sndr_stats.o sdbc_stats.o \
@@ -53,11 +53,11 @@ POFILES = $(OBJS:%.o=%.po)
 LFILE = $(LINTDIR)/dsstat.ln
 ROOTLINK = $(ROOTUSRSBIN)/$(PROG)
 
-all	:=	TARGET= all
-install	:=	TARGET= install
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+install	: 	TARGET= install
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+lint	: 	TARGET= lint
 
 .KEEP_STATE:
 

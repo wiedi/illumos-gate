@@ -31,16 +31,16 @@ include $(SRC)/lib/gss_mechs/mech_krb5/Makefile.mech_krb5
 
 SUBDIRS=	$(MACH)
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-install :=	TARGET= install
-lint :=		TARGET= lint
-_msg :=		TARGET= _msg
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+install : 	TARGET= install
+lint : 		TARGET= lint
+_msg : 		TARGET= _msg
 
 README=		README.db2
 ROOTREADME=	$(README:%=$(ROOTLIBDIR)/%)
-$(ROOTLIBDIR)/$(README) :=	FILEMODE= 444
+$(ROOTLIBDIR)/$(README) : 	FILEMODE= 444
 
 .KEEP_STATE:
 

@@ -84,7 +84,7 @@ CERRWARN +=	-_gcc=-Wno-uninitialized
 
 LINTSRC= $(OBJECTS:%.o=$(SRCDIR)/%.c)
 
-$(LINTLIB):=	SRCS	=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS	=	$(SRCDIR)/$(LINTSRC)
 LINTSRC= $(SRCS)
 
 CLOBBERFILES += C.ln

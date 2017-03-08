@@ -47,7 +47,7 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc -lavl -lnsl -lnvpair -luutil
 
 SRCDIR =	../common
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 # Relative path to ensure path to idmap_prot.h is also relative
 IDMAP_PROT_X =		../../../uts/common/rpcsvc/idmap_prot.x
@@ -60,7 +60,7 @@ CERRWARN +=	-_gcc=-Wno-switch
 
 CLOBBERFILES +=	idmap_xdr.c
 
-lint := OBJECTS = $(LINT_OBJECTS)
+lint :  OBJECTS = $(LINT_OBJECTS)
 
 .KEEP_STATE:
 

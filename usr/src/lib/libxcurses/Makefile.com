@@ -110,8 +110,8 @@ ROOTLIBDIR=	$(ROOT)/usr/xpg4/lib
 ROOTLIBDIR64=	$(ROOT)/usr/xpg4/lib/$(MACH64)
 ROOTLIBS=	$(LIBS:%=$(ROOTLIBDIR)/%)
 
-$(LINTLIB):= SRCS=../src/libc/llib-lcurses
-$(LINTLIB):= CPPFLAGS += -D_XOPEN_SOURCE_EXTENDED 
+$(LINTLIB):  SRCS=../src/libc/llib-lcurses
+$(LINTLIB):  CPPFLAGS += -D_XOPEN_SOURCE_EXTENDED 
 
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-unused-variable

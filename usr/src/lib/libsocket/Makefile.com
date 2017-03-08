@@ -47,14 +47,14 @@ SRCS =		$(INETOBJS:%.o=../inet/%.c) $(SOCKOBJS:%.o=../socket/%.c)
 LDLIBS +=	-lnsl -lc
 
 SRCDIR =	../common
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 # Make string literals read-only to save memory.
 CFLAGS +=	$(XSTRCONST)
 CFLAGS64 +=	$(XSTRCONST)
 
 CPPFLAGS +=	-DSYSV -D_REENTRANT -I../../common/inc
-%/rcmd.o :=	CPPFLAGS += -DNIS
+%/rcmd.o : 	CPPFLAGS += -DNIS
 
 CERRWARN +=	-_gcc=-Wno-type-limits
 CERRWARN +=	-_gcc=-Wno-uninitialized

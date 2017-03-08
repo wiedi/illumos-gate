@@ -30,14 +30,14 @@ sparc_SUBDIRS=	SUNW,SPARC-Enterprise
 SUBDIRS =	$(MACH)
 $(BUILD64)SUBDIRS += $(MACH64) $($(MACH)_SUBDIRS)
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-delete :=	TARGET= delete
-install :=	TARGET= install
-lint :=		TARGET= lint
-_msg :=		TARGET= _msg
-package :=	TARGET= package
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+delete : 	TARGET= delete
+install : 	TARGET= install
+lint : 		TARGET= lint
+_msg : 		TARGET= _msg
+package : 	TARGET= package
 
 TEXT_DOMAIN=	SUNW_OST_OSLIB
 XGETFLAGS=	-a -x scsi.xcl

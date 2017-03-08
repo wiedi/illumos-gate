@@ -97,7 +97,7 @@ include ../../Makefile.lib
 
 LIBS =	$(DYNLIB) $(LINTLIB)
 
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 LDLIBS += 	-lc
 
 CPPFLAGS += 	-I$(GSSCRED_DIR) -I$(SRC)/uts/common/gssapi/include \
@@ -115,7 +115,7 @@ CERRWARN +=	-_gcc=-Wno-empty-body
 
 all: $(LIBS)
 
-lintcheck:=	SRCS= $(GSSLINTSRC)
+lintcheck: 	SRCS= $(GSSLINTSRC)
 
 lint:  lintcheck
 

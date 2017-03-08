@@ -67,7 +67,7 @@ SRCDIR=		../common
 INCDIR=		../../include
 
 LIBS =		$(DYNLIB) $(LINTLIB)
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 LDLIBS +=	-lcryptoutil -lc
 
 CFLAGS	+=	$(CCVERBOSE)

@@ -33,7 +33,7 @@ XPG4EXOBJS= exobjs.xpg4/chown.o
 
 include ../Makefile.cmd
 
-$(XPG4) :=	CFLAGS += -DXPG4
+$(XPG4) : 	CFLAGS += -DXPG4
 CPPFLAGS += -D_FILE_OFFSET_BITS=64
 LDLIBS += -lcmdutils -lsec
 

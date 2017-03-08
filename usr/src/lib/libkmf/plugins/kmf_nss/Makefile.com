@@ -59,8 +59,8 @@ CERRWARN	+=	-_gcc=-Wno-unused-label
 CERRWARN	+=	-_gcc=-Wno-unused-value
 CERRWARN	+=	-_gcc=-Wno-uninitialized
 
-lint:=	NSSLIBS =	$(BERLIB)
-lint:=	NSSLIBS64 =	$(BERLIB64)
+lint: 	NSSLIBS =	$(BERLIB)
+lint: 	NSSLIBS64 =	$(BERLIB64)
 
 LDLIBS32	+=	$(NSSLIBS)
 

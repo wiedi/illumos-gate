@@ -38,11 +38,11 @@ $(BUILD64)SUBDIRS +=	$(MACH64)
 ROOTDIRS= $(ROOT)/usr/include
 GSSMECH_DIR=	$(ROOT)/usr/lib/gss
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-install :=	TARGET= install
-lint :=         TARGET= lint
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+install : 	TARGET= install
+lint :          TARGET= lint
 
 POFILE =	$(LIBRARY:.a=.po)
 XGETFLAGS+=	-a

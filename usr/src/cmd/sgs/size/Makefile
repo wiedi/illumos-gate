@@ -32,12 +32,12 @@ include		../../../Makefile.master
 
 SUBDIRS=	$(MACH) $(BUILD64) $(MACH64)
 
-all:=		TARGET= all
-install:=	TARGET= install
-clean:=		TARGET= clean
-clobber:=	TARGET= clobber
-lint:=		TARGET= lint
-package:=	TARGET= package
+all: 		TARGET= all
+install: 	TARGET= install
+clean: 		TARGET= clean
+clobber: 	TARGET= clobber
+lint: 		TARGET= lint
+package: 	TARGET= package
 
 .KEEP_STATE:
 

@@ -33,11 +33,11 @@ $(BUILD64)SUBDIRS += $(MACH64)
 MSGFILES = 	libshare_nfs.c
 POFILE  =	libshare_nfs.po
 
-all	:=	TARGET= all
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-install	:=	TARGET= install
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+install	: 	TARGET= install
+lint	: 	TARGET= lint
 
 .KEEP_STATE:
 

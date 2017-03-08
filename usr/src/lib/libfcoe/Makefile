@@ -28,12 +28,12 @@ include ../Makefile.lib
 SUBDIRS = $(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-install :=	TARGET= install
-install_h :=	TARGET= install_h
-lint :=		TARGET= lint
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+install : 	TARGET= install
+install_h : 	TARGET= install_h
+lint : 		TARGET= lint
 
 
 HDRS=		libfcoe.h

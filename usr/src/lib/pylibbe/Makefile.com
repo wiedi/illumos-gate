@@ -48,7 +48,7 @@ CPPFLAGS +=	-I$(ADJUNCT_PROTO)/usr/include/python$(PYTHON_VERSION) \
 
 .KEEP_STATE:
 
-all install := LDLIBS += -lpython$(PYTHON_VERSION)
+all install :  LDLIBS += -lpython$(PYTHON_VERSION)
 
 all: $(PYOBJS) $(LIBS)
 

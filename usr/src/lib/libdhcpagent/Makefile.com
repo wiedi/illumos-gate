@@ -37,7 +37,7 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc -lsocket -ldhcputil -luuid -ldlpi -lcontract
 
 SRCDIR =	../common
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CFLAGS += 	$(CCVERBOSE) 
 CERRWARN +=	-_gcc=-Wno-type-limits

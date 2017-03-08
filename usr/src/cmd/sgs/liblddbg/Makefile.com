@@ -67,8 +67,8 @@ CPPFLAGS +=	-I$(SRCBASE)/lib/libc/inc
 DYNFLAGS +=	$(VERSREF) $(CC_USE_PROTO) '-R$$ORIGIN'
 LDLIBS +=	$(CONVLIBDIR) $(CONV_LIB) -lc
 
-native :=	DYNFLAGS	+= $(CONVLIBDIR)
-native :=	CPPFLAGS	+= -DNATIVE_BUILD
+native :	DYNFLAGS	+= $(CONVLIBDIR)
+native :	CPPFLAGS	+= -DNATIVE_BUILD
 
 BLTDEFS =	msg.h
 BLTDATA =	msg.c

@@ -113,7 +113,7 @@ ROOTFS_LINT=	$(LINTSRC:%=$(ROOTFS_LINTDIR)/%)
 ROOTFS_LINT64=	$(LINTSRC:%=$(ROOTFS_LINTDIR64)/%)
 ROOTMAN3=     $(ROOT)/usr/share/man/man3
 ROOTMAN3FILES=        $(MAN3FILES:%=$(ROOTMAN3)/%)
-$(ROOTMAN3FILES) := FILEMODE= 444
+$(ROOTMAN3FILES) :  FILEMODE= 444
 
 # Demo rules
 DEMOFILES=
@@ -121,7 +121,7 @@ DEMOFILESRCDIR=		common
 ROOTDEMODIRBASE=	__nonexistent_directory__
 ROOTDEMODIRS=
 ROOTDEMOFILES=	$(DEMOFILES:%=$(ROOTDEMODIRBASE)/%)
-$(ROOTDEMODIRS) :=	DIRMODE =	755
+$(ROOTDEMODIRS) : 	DIRMODE =	755
 
 LINTLIB=	llib-l$(LIBNAME).ln
 LINTFLAGS=	-uaxm
@@ -187,33 +187,33 @@ CTFMERGE_LIB	= $(CTFMERGE) $(CTFMRGFLAGS) -t -f -L VERSION -o $@ $(PICS)
 
 # conditional assignments
 
-$(OBJS)  :=	sparc_CFLAGS += -xregs=no%appl
+$(OBJS)  : 	sparc_CFLAGS += -xregs=no%appl
 
-$(PICS)  :=	sparc_CFLAGS += -xregs=no%appl $(sparc_C_PICFLAGS)
-$(PICS)  :=	sparcv9_CFLAGS += -xregs=no%appl $(sparcv9_C_PICFLAGS)
-$(PICS)  :=	i386_CFLAGS += $(i386_C_PICFLAGS)
-$(PICS)  :=	amd64_CFLAGS += $(amd64_C_PICFLAGS)
-$(PICS)  :=	CCFLAGS += $(CC_PICFLAGS)
-$(PICS)  :=	CPPFLAGS += -DPIC -D_REENTRANT
-$(PICS)  :=	sparcv9_CCFLAGS += -xregs=no%appl $(sparcv9_CC_PICFLAGS)
-$(PICS)  :=	amd64_CCFLAGS += $(amd64_CC_PICFLAGS)
-$(PICS)  :=	CFLAGS += $(CTF_FLAGS)
-$(PICS)	 :=	CFLAGS64 += $(CTF_FLAGS)
-$(PICS)  :=	CTFCONVERT_POST = $(CTFCONVERT_O)
-$(DYNLIB) :=	CTFMERGE_POST = $(CTFMERGE_LIB)
+$(PICS)  : 	sparc_CFLAGS += -xregs=no%appl $(sparc_C_PICFLAGS)
+$(PICS)  : 	sparcv9_CFLAGS += -xregs=no%appl $(sparcv9_C_PICFLAGS)
+$(PICS)  : 	i386_CFLAGS += $(i386_C_PICFLAGS)
+$(PICS)  : 	amd64_CFLAGS += $(amd64_C_PICFLAGS)
+$(PICS)  : 	CCFLAGS += $(CC_PICFLAGS)
+$(PICS)  : 	CPPFLAGS += -DPIC -D_REENTRANT
+$(PICS)  : 	sparcv9_CCFLAGS += -xregs=no%appl $(sparcv9_CC_PICFLAGS)
+$(PICS)  : 	amd64_CCFLAGS += $(amd64_CC_PICFLAGS)
+$(PICS)  : 	CFLAGS += $(CTF_FLAGS)
+$(PICS)	 : 	CFLAGS64 += $(CTF_FLAGS)
+$(PICS)  : 	CTFCONVERT_POST = $(CTFCONVERT_O)
+$(DYNLIB) : 	CTFMERGE_POST = $(CTFMERGE_LIB)
 
-$(LINTLIB):=	LOG = -DLOGGING
-$(LIBRARY):=	AROBJS = $(OBJS)
-$(LIBRARY):=	DIR = objs
-$(DYNLIB):=	DIR = pics
-$(DYNLIBCCC):=	DIR = pics
+$(LINTLIB): 	LOG = -DLOGGING
+$(LIBRARY): 	AROBJS = $(OBJS)
+$(LIBRARY): 	DIR = objs
+$(DYNLIB): 	DIR = pics
+$(DYNLIBCCC): 	DIR = pics
 
 SONAMECCC=	$(DYNLIBCCC)
 HSONAMECCC=	-h $(SONAMECCC)
 #
 # Keep in sync with the standard DYNFLAGS
 #
-$(DYNLIBCCC):=	DYNFLAGS = $(HSONAMECCC) $(ZTEXT) $(ZDEFS) \
+$(DYNLIBCCC): 	DYNFLAGS = $(HSONAMECCC) $(ZTEXT) $(ZDEFS) \
 		$(MAPFILES:%=-M%) $(MAPFILE.PGA:%=-M%) $(MAPFILE.NED:%=-M%) \
 		$(BDIRECT) $(NORUNPATH)
 

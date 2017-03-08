@@ -48,7 +48,7 @@ LDLIBS +=	-luutil -lc -lgen -lnsl -lnvpair
 LDLIBS +=	$(LDLIBS_$(MACH))
 
 SRCDIR =	../common
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 COMDIR =	../../../common/svc
 

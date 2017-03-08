@@ -54,7 +54,7 @@ CERRWARN +=	-_gcc=-Wno-implicit-function-declaration
 CERRWARN +=	-_gcc=-Wno-uninitialized
 
 ROOTMANIFESTDIR=	$(ROOTSVCNETWORKDNS)
-$(ROOTMANIFEST)		:= FILEMODE= 444
+$(ROOTMANIFEST)		:  FILEMODE= 444
 
 .PARALLEL:      $(LOCAL_OBJS)
 .WAIT:          $(PROG)

@@ -47,7 +47,7 @@ CERRWARN +=	-_gcc=-Wno-parentheses
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-char-subscripts
 
-$(LINTLIB) :=	SRCS=$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS=$(SRCDIR)/$(LINTSRC)
 LDLIBS +=	-lc
 
 .KEEP_STATE:

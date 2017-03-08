@@ -29,15 +29,15 @@ include ../Makefile.lib
 SUBDIRS=	$(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
 
-all :=		TARGET = all
-debug :=	TARGET = debug
-clean :=	TARGET = clean
-clobber :=	TARGET = clobber
-delete :=	TARGET = delete
-install :=	TARGET = install
-lint :=		TARGET = lint
-_msg :=		TARGET = _msg
-package :=	TARGET = package
+all : 		TARGET = all
+debug : 	TARGET = debug
+clean : 	TARGET = clean
+clobber : 	TARGET = clobber
+delete : 	TARGET = delete
+install : 	TARGET = install
+lint : 		TARGET = lint
+_msg : 		TARGET = _msg
+package : 	TARGET = package
 
 LIBRARY=	libexacct.a
 TEXT_DOMAIN=	SUNW_OS_OSLIB

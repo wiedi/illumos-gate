@@ -27,11 +27,11 @@ include		../Makefile.lib
 
 SUBDIRS=	$(MACH)
 
-all :=		TARGET= all
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-install :=	TARGET= install
-lint :=		TARGET= lint
+all : 		TARGET= all
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+install : 	TARGET= install
+lint : 		TARGET= lint
 
 LIBRARY= 	libss.a
 

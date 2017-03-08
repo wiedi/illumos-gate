@@ -53,8 +53,8 @@ CFLAGS +=	$(CCVERBOSE)
 CERRWARN +=	-_gcc=-Wno-switch
 CERRWARN +=	-_gcc=-Wno-uninitialized
 
-$(LINTLIB) :=	LINTFLAGS = -nvx
-$(LINTLIB) :=	LINTFLAGS64 = -nvx -m64
+$(LINTLIB) : 	LINTFLAGS = -nvx
+$(LINTLIB) : 	LINTFLAGS64 = -nvx -m64
 
 .KEEP_STATE:
 

@@ -38,7 +38,7 @@ SRCDIR =	../common
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-luuid -lc
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 CFLAGS +=	$(CCVERBOSE)
 
 LINTFLAGS64 +=	-errchk=longptr64

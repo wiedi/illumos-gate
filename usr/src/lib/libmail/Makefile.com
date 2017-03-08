@@ -41,7 +41,7 @@ MAPFILES +=	$(MAPFILE32)
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 
-$(LINTLIB):= SRCS = ../common/llib-lmail
+$(LINTLIB):  SRCS = ../common/llib-lmail
 
 LINTSRC=	$(LINTLIB:%.ln=%)
 

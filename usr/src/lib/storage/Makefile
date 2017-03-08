@@ -25,13 +25,13 @@
 SRCSUBDIRS= libg_fc liba5k
 ALLSUBDIRS= common $(SRCSUBDIRS)
 
-install	:= TARGET = install
-install_h := TARGET = install_h
-all	:= TARGET = all
-clean	:= TARGET = clean
-clobber	:= TARGET = clobber
-check	:= TARGET = check
-lint	:= TARGET = lint
+install	:  TARGET = install
+install_h :  TARGET = install_h
+all	:  TARGET = all
+clean	:  TARGET = clean
+clobber	:  TARGET = clobber
+check	:  TARGET = check
+lint	:  TARGET = lint
 
 .KEEP_STATE:
 

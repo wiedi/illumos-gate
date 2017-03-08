@@ -33,11 +33,11 @@ FLASHPOSTDPROG= $(FLASHPOSTDSRC:%.sh=%)
 #
 #
 
-all:=           TARGET= all
-install:=       TARGET= install
-clean:=         TARGET= clean
-clobber:=       TARGET= clobber
-lint:=          TARGET= lint
+all:            TARGET= all
+install:        TARGET= install
+clean:          TARGET= clean
+clobber:        TARGET= clobber
+lint:           TARGET= lint
 
 ROOTETC= $(ROOT)/etc
 ETCFLASHD=      $(ROOTETC)/flash
@@ -47,9 +47,9 @@ DIRS=   $(ETCFLASHD) $(ETCFLASHPOSTD)
 
 ETCFLASHPOSTDPROG= $(FLASHPOSTDPROG:%=$(ETCFLASHPOSTD)/%)
 
-$(ETCFLASHD)		:= DIRMODE=	755
-$(ETCFLASHPOSTD)	:= DIRMODE=	755
-$(ETCFLASHPOSTDPROG)	:= FILEMODE=	0744
+$(ETCFLASHD)		:  DIRMODE=	755
+$(ETCFLASHPOSTD)	:  DIRMODE=	755
+$(ETCFLASHPOSTDPROG)	:  FILEMODE=	0744
 
 .KEEP_STATE:
 

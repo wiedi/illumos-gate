@@ -39,12 +39,12 @@ $(BUILD64)SUBDIRS += $(MACH64)
 $(ROOTHDRDIR)/%: %
 	$(INS.file)
 
-all :=		TARGET = all
-clean :=	TARGET = clean
-clobber	:=	TARGET = clobber
-install	:=	TARGET = install
-lint :=		TARGET = lint
-install_h:=	TARGET = install_h
+all : 		TARGET = all
+clean : 	TARGET = clean
+clobber	: 	TARGET = clobber
+install	: 	TARGET = install
+lint : 		TARGET = lint
+install_h: 	TARGET = install_h
 
 POFILE =        libdiskmgt.po
 MSGFILES =      `$(GREP) -l gettext common/*.[ch]`

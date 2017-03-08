@@ -36,7 +36,7 @@ include ../../Makefile.com
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc -ldbus-1 -lhal
-$(LINTLIB) := 	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  	SRCS = $(SRCDIR)/$(LINTSRC)
 
 SRCDIR =	../common
 

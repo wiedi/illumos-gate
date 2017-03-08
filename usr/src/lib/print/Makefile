@@ -37,12 +37,12 @@ SUBDIRS = \
 
 $(ENABLE_IPP_PRINTING) SUBDIRS += mod_ipp
 
-all :=                  TARGET = all
-clean :=                TARGET = clean
-clobber :=              TARGET = clobber
-install :=              TARGET = install
-install_h :=              TARGET = install_h
-lint :=                 TARGET = lint
+all :                   TARGET = all
+clean :                 TARGET = clean
+clobber :               TARGET = clobber
+install :               TARGET = install
+install_h :               TARGET = install_h
+lint :                  TARGET = lint
 
 TEXT_DOMAIN=	SUNW_OST_OSLIB
 POFILE= print-lib.po

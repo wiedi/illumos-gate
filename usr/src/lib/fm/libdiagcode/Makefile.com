@@ -40,9 +40,9 @@ SRCDIR =	../common
 
 CFLAGS +=	$(CCVERBOSE)
 
-$(LINTLIB) := SRCS = $(SRCDIR)/$(LINTSRC)
-$(LINTLIB) := LINTFLAGS = -nsvx
-$(LINTLIB) := LINTFLAGS64 = -nsvx -m64
+$(LINTLIB) :  SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  LINTFLAGS = -nsvx
+$(LINTLIB) :  LINTFLAGS64 = -nsvx -m64
 
 .KEEP_STATE:
 

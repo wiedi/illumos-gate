@@ -51,7 +51,7 @@ SGSMSG_OBJS=	$(TOOL_OBJS) $(AVLOBJ)
 SGSMSG_SRCS=	$(TOOL_OBJS:%.o=../common/%.c) \
 		$(AVLOBJ:%.o=$(VAR_AVLDIR)/%.c)
 
-$(SGSMSG_OBJS) := NATIVE_CFLAGS += -I../../include $(VAR_TOOLS_CPPFLAGS)
+$(SGSMSG_OBJS) :  NATIVE_CFLAGS += -I../../include $(VAR_TOOLS_CPPFLAGS)
 
 PROGS=		$(COMOBJS:%.o=%)
 NATIVE=		$(NATOBJS:%.o=%) sgsmsg

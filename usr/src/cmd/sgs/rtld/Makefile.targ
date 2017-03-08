@@ -25,10 +25,10 @@
 #
 
 # Don't generate separate sections for this module
-pics/debugdata.o :=	XFFLAG=
+pics/debugdata.o : 	XFFLAG=
 
 # Since we use RTLD rather than DYNLIB, we must explicitly hook in ctfmerge.
-$(RTLD) :=	CTFMERGE_POST = $(CTFMERGE_LIB)
+$(RTLD) : 	CTFMERGE_POST = $(CTFMERGE_LIB)
 
 pics/%.o:	%.s
 		$(BUILD.s)
@@ -76,8 +76,8 @@ delete:
 
 lint:		$(SGSLINTOUT)
 
-lint :=		CPICLIB=
-lint :=		CLIB=-lc
+lint : 		CPICLIB=
+lint : 		CLIB=-lc
 
 $(ROOTFS_LIBDIR)/%:	%
 		$(INS.file)
@@ -92,7 +92,7 @@ include		$(SRC)/cmd/sgs/Makefile.targ
 
 catalog:	$(BLTMESG)
 
-chkmsg :=	SGSMSGCHK=../common/rtld.chk.msg
+chkmsg : 	SGSMSGCHK=../common/rtld.chk.msg
 
 chkmsg:		$(SRCS) $(CHKSRCS)
 		sh $(CHKMSG) $(CHKMSGFLAGS) $(SRCS) $(CHKSRCS)

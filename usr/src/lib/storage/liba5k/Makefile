@@ -29,13 +29,13 @@ SUBDIRS =       $(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
 
 # conditional assignments
-all :=		TARGET= all
-install :=	TARGET= install
-install_h :=	TARGET= install_h
-check :=	TARGET= check
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
+all : 		TARGET= all
+install : 	TARGET= install
+install_h : 	TARGET= install_h
+check : 	TARGET= check
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
 
 HDRS =	a5k.h a_state.h exec.h rom.h
 HDRDIR = common/hdrs

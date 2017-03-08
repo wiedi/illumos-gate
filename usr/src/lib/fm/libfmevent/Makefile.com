@@ -66,18 +66,18 @@ CERRWARN += -_gcc=-Wno-uninitialized
 FMLIBDIR=usr/lib/fm
 $(BUILD64)FMLIBDIR64=usr/lib/fm/$(MACH64)
 
-$(DYNLIB) := LDLIBS += -lumem -lnvpair -luutil -lsysevent \
+$(DYNLIB) :  LDLIBS += -lumem -lnvpair -luutil -lsysevent \
 	-L$(ROOT)/$(FMLIBDIR) -ltopo -lc
 
-$(BUILD64)$(DYNLIB) := LDLIBS64 += -lumem -lnvpair -luutil -lsysevent \
+$(BUILD64)$(DYNLIB) :  LDLIBS64 += -lumem -lnvpair -luutil -lsysevent \
 	-L$(ROOT)/$(FMLIBDIR64) -ltopo -lc
 
 LINTFLAGS = -msux
 LINTFLAGS64 = -msux -m64
 
-$(LINTLIB) := SRCS = $(SRCDIR)/$(LINTSRC)
-$(LINTLIB) := LINTFLAGS = -nsvx
-$(LINTLIB) := LINTFLAGS64 = -nsvx -m64
+$(LINTLIB) :  SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  LINTFLAGS = -nsvx
+$(LINTLIB) :  LINTFLAGS64 = -nsvx -m64
 
 CLEANFILES += ../common/fmev_errstring.c
 

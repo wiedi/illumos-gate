@@ -38,7 +38,7 @@ CPPFLAGS += -DEMBED_CONFIGS -I$(ADJUNCT_PROTO)/usr/include/glib-2.0 \
 	-I$(ADJUNCT_PROTO)/usr/lib/glib-2.0/include
 C99MODE = $(C99_ENABLE)
 LDLIBS += -lcurses -ldtrace
-all install	:= LDLIBS += -lglib-2.0
+all install	:  LDLIBS += -lglib-2.0
 
 LINTFLAGS += -erroff=E_NAME_USED_NOT_DEF2
 LINTFLAGS += -erroff=E_FUNC_RET_ALWAYS_IGNOR2

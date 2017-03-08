@@ -42,7 +42,7 @@ ROOTLIBDIR =	$(ROOT)/usr/lib/fs/smb
 ROOTLIBDIR64 =	$(ROOT)/usr/lib/fs/smb/$(MACH64)
 
 LIBSRCS = $(LIBOBJS:%.o=$(SRCDIR)/%.c)
-lintcheck := SRCS = $(LIBSRCS)
+lintcheck :  SRCS = $(LIBSRCS)
 
 LIBS =		$(DYNLIB)
 LDLIBS +=	-lshare -lscf -luuid -ldlpi -lnsl -lnvpair -lxml2 -lumem -lc

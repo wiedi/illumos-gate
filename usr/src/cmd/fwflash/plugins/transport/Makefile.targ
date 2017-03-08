@@ -52,24 +52,24 @@ LDLIBS		+= -ldevinfo -lc
 MAPFILES= ../common/mapfile-vers
 FILEMODE= 0755
 
-$(SES_LIB):=	PICS= pics/$(SES_LIB:%.so=%.o)
-$(TAVOR_LIB):=	PICS= pics/$(TAVOR_LIB:%.so=%.o)
-$(HERMON_LIB):=	PICS= pics/$(HERMON_LIB:%.so=%.o)
-$(SD_LIB):=	PICS= pics/$(SD_LIB:%.so=%.o)
+$(SES_LIB): 	PICS= pics/$(SES_LIB:%.so=%.o)
+$(TAVOR_LIB): 	PICS= pics/$(TAVOR_LIB:%.so=%.o)
+$(HERMON_LIB): 	PICS= pics/$(HERMON_LIB:%.so=%.o)
+$(SD_LIB): 	PICS= pics/$(SD_LIB:%.so=%.o)
 
-$(SES_LIB):=    SONAME = $(SES_LIB)
-$(TAVOR_LIB):=  SONAME = $(TAVOR_LIB)
-$(HERMON_LIB):= SONAME = $(HERMON_LIB)
-$(SD_LIB):=     SONAME = $(SD_LIB)
+$(SES_LIB):     SONAME = $(SES_LIB)
+$(TAVOR_LIB):   SONAME = $(TAVOR_LIB)
+$(HERMON_LIB):  SONAME = $(HERMON_LIB)
+$(SD_LIB):      SONAME = $(SD_LIB)
 
-$(HERMON_LIB):=	MAPFILES += ../common/mapfile-vers-hermon
-$(SD_LIB):=	MAPFILES += ../common/mapfile-vers-plus
+$(HERMON_LIB): 	MAPFILES += ../common/mapfile-vers-hermon
+$(SD_LIB): 	MAPFILES += ../common/mapfile-vers-plus
 
-$(SES_LIB):=	LDLIBS += -L$(ROOT)/usr/lib/scsi -lscsi -lses -lnvpair
-$(SD_LIB):=	LDLIBS += -L$(ROOT)/usr/lib/scsi -lscsi -lumem
+$(SES_LIB): 	LDLIBS += -L$(ROOT)/usr/lib/scsi -lscsi -lses -lnvpair
+$(SD_LIB): 	LDLIBS += -L$(ROOT)/usr/lib/scsi -lscsi -lumem
 
-$(SES_LIB):=	DYNFLAGS += -R/usr/lib/scsi 
-$(SD_LIB):=	DYNFLAGS += -R/usr/lib/scsi 
+$(SES_LIB): 	DYNFLAGS += -R/usr/lib/scsi 
+$(SD_LIB): 	DYNFLAGS += -R/usr/lib/scsi 
 
 .KEEP STATE:
 

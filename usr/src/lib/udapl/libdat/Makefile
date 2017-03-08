@@ -50,12 +50,12 @@ ROOTETCDATFILES =	$(ETCDATFILES:%=$(ROOTETCDAT)/%)
 SUBDIRS =	$(MACH) 
 $(BUILD64)SUBDIRS += $(MACH64)
 
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
-debug :=	TARGET= debug
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
+debug : 	TARGET= debug
 
 .KEEP_STATE:
 

@@ -33,7 +33,7 @@ include $(SRC)/lib/Makefile.lib
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CPPFLAGS +=	-I.. -D_REENTRANT
 CFLAGS +=	$(CCVERBOSE)

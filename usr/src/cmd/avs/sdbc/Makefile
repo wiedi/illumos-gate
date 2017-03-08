@@ -35,10 +35,10 @@ SUBDIRS=	etc
 
 PROG = $(DYNPROG)
 
-scmadm		:= POBJS = scmadm.o sdbc_ioctl.o
-sd_stats	:= POBJS = sd_stats.o sd_trace.o sdbc_ioctl.o rdc_ioctl.o
-sd_diag		:= POBJS = sd_diag.o
-sdbc_dynmem	:= POBJS = sdbc_dynmem.o
+scmadm		:  POBJS = scmadm.o sdbc_ioctl.o
+sd_stats	:  POBJS = sd_stats.o sd_trace.o sdbc_ioctl.o rdc_ioctl.o
+sd_diag		:  POBJS = sd_diag.o
+sdbc_dynmem	:  POBJS = sdbc_dynmem.o
 
 OBJS=	scmadm.o\
 	sdbc_ioctl.o\
@@ -54,10 +54,10 @@ SRCS=	$(OBJS:%.o=%.c)
 
 POFILE =	scmadm.po
 
-scmadm		:= LDLIBS += -lnsctl -lunistat -ldscfg
-sd_stats	:= LDLIBS += -lunistat -lcurses
-sd_diag		:= LDLIBS += -lnsctl
-sdbc_dynmem	:= LDLIBS += -lkstat
+scmadm		:  LDLIBS += -lnsctl -lunistat -ldscfg
+sd_stats	:  LDLIBS += -lunistat -lcurses
+sd_diag		:  LDLIBS += -lnsctl
+sdbc_dynmem	:  LDLIBS += -lkstat
 
 CFLAGS +=	$(CCVERBOSE) -D_SCM_ -D_SD_8K_BLKSIZE -D_SYSCALL32
 CPPFLAGS +=	-DNSC_MULTI_TERABYTE
@@ -71,11 +71,11 @@ LINTFLAGS +=	-DDEBUG
 CERRWARN +=	-_gcc=-Wno-uninitialized
 ROOTLINK = $(ROOTUSRSBIN)/scmadm
 
-all	:=	TARGET= all
-install	:=	TARGET= install
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+install	: 	TARGET= install
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+lint	: 	TARGET= lint
 
 .KEEP_STATE:
 

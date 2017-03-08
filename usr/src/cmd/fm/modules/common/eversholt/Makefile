@@ -49,8 +49,8 @@ CERRWARN += -_gcc=-Wno-switch
 CERRWARN += -_gcc=-Wno-parentheses
 CERRWARN += -_gcc=-Wno-implicit-function-declaration
 
-$(PROG) := LDFLAGS += -R/usr/lib/fm
-$(PROG) := LDLIBS += -L$(ROOTLIB)/fm -ltopo
+$(PROG) :  LDFLAGS += -R/usr/lib/fm
+$(PROG) :  LDLIBS += -L$(ROOTLIB)/fm -ltopo
 
 CLEANFILES += y.tab.h y.tab.c
 

@@ -34,11 +34,11 @@ SRCDIR =	../common
 
 LIBSRCS =	$(LIBOBJS:%.o=$(SRCDIR)/%.c)
 # we don't want to lint the sharetab and nfs_sec files
-lintcheck := SRCS = $(LIBSRCS)
+lintcheck :  SRCS = $(LIBSRCS)
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-lc -lnsl -lscf -lzfs -luuid -lxml2 -lnvpair
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 #add nfs/lib directory as part of the include path
 CFLAGS +=	$(CCVERBOSE)

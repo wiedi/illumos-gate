@@ -55,7 +55,7 @@ LDLIBS += \
 	-last \
 	-lc
 
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 SRCDIR =	../common
 

@@ -32,10 +32,10 @@ PROG = $(DYNPROG)
 
 SUBDIRS=	etc
 
-sndradm		:= POBJS = sndradm.o rdc_ioctl.o sndrsubr.o
-sndrboot	:= POBJS = sndrboot.o rdc_ioctl.o sndrsubr.o
-sndrd		:= POBJS = sndrd.o
-sndrsyncd	:= POBJS = sndrsyncd.o rdc_ioctl.o sndrsubr.o
+sndradm		:  POBJS = sndradm.o rdc_ioctl.o sndrsubr.o
+sndrboot	:  POBJS = sndrboot.o rdc_ioctl.o sndrsubr.o
+sndrd		:  POBJS = sndrd.o
+sndrsyncd	:  POBJS = sndrsyncd.o rdc_ioctl.o sndrsubr.o
 
 OBJS=	\
 	sndrboot.o \
@@ -50,10 +50,10 @@ XTRA_OBJS= \
 
 SRCS=	$(OBJS:%.o=%.c) ../sdbc/sdbc_ioctl.c
 
-sndradm		:= LDLIBS += -lrdc -lunistat -ldscfg -lnsctl -lnsl
-sndrboot	:= LDLIBS += -lrdc -lunistat -ldscfg
-sndrd		:= LDLIBS += -lrdc -lnsl
-sndrsyncd	:= LDLIBS += -lrdc -ldscfg -lunistat
+sndradm		:  LDLIBS += -lrdc -lunistat -ldscfg -lnsctl -lnsl
+sndrboot	:  LDLIBS += -lrdc -lunistat -ldscfg
+sndrd		:  LDLIBS += -lrdc -lnsl
+sndrsyncd	:  LDLIBS += -lrdc -ldscfg -lunistat
 
 CFLAGS += $(CCVERBOSE) -D_RDC_ -D_SYSCALL32
 LINTFLAGS += -Xa -n -s -x -m -u -Dlint -errhdr=%user -D_RDC_ -D_SYSCALL32
@@ -70,11 +70,11 @@ POFILES = sndradm.po sndrboot.po
 ROOTLIBLINKS = $(ROOTLIB)/sndrd $(ROOTLIB)/sndrsyncd
 ROOTUSRSBINLINKS = $(ROOTUSRSBIN)/sndradm $(ROOTUSRSBIN)/sndrboot
 
-all	:=	TARGET= all
-install	:=	TARGET= install
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+install	: 	TARGET= install
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+lint	: 	TARGET= lint
 
 .KEEP_STATE:
 

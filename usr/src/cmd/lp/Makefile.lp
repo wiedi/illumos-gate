@@ -97,14 +97,14 @@ CERRWARN +=	-_gcc=-Wno-empty-body
 CERRWARN +=	-_gcc=-Wno-extra
 CERRWARN +=	-_gcc=-Wno-address
 
-all:=		TARGET= all
-install:=	TARGET= install
-clean:=		TARGET= clean
-clobber:=	TARGET= clobber
-lint:=		TARGET= lint
-strip:=		TARGET= strip
-catalog:=	TARGET= catalog
-_msg:=		TARGET= catalog
+all: 		TARGET= all
+install: 	TARGET= install
+clean: 		TARGET= clean
+clobber: 	TARGET= clobber
+lint: 		TARGET= lint
+strip: 		TARGET= strip
+catalog: 	TARGET= catalog
+_msg: 		TARGET= catalog
 
 ROOTLIBLPPROG=	$(PROG:%=$(ROOTLIBLP)/%)
 ROOTBINLPPROG=	$(PROG:%=$(ROOTBINLP)/%)

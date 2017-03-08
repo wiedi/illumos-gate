@@ -44,7 +44,7 @@ SRCS=	\
 	$(CMD_OBJS:%.o=$(SRCDIR)/%.c)   \
 	$(COM_OBJS:%.o=$(COMDIR)/%.c)
 
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 CFLAGS +=	$(CCVERBOSE)
 

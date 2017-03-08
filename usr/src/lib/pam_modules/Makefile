@@ -54,13 +54,13 @@ SUBDIRS = \
 	unix_cred	\
 	unix_session
 
-all :=		TARGET= all
-catalog :=	TARGET= _msg
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-install :=	TARGET= install
-lint :=		TARGET= lint
-_msg :=		TARGET= _msg
+all : 		TARGET= all
+catalog : 	TARGET= _msg
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+install : 	TARGET= install
+lint : 		TARGET= lint
+_msg : 		TARGET= _msg
 
 .KEEP_STATE:
 

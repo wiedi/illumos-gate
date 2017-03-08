@@ -29,7 +29,7 @@ include ../Makefile.com
 
 PROG = $(DYNPROG)
 
-dsbitmap	:= POBJS = dsbitmap.o
+dsbitmap	:  POBJS = dsbitmap.o
 
 OBJS=	dsbitmap.o
 SRCS=	$(OBJS:%.o=%.c)
@@ -42,11 +42,11 @@ LINTFLAGS +=	-Xa -n -s -x -m -u -Dlint -errhdr=%user
 LINTFLAGS +=	-erroff=E_SEC_PRINTF_VAR_FMT
 ROOTLINK = $(ROOTUSRSBIN)/$(PROG)
 
-all	:=	TARGET= all
-install	:=	TARGET= install
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+install	: 	TARGET= install
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+lint	: 	TARGET= lint
 
 .KEEP_STATE:
 

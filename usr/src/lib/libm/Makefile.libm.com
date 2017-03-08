@@ -63,9 +63,9 @@ CFLAGS64	+= -_gcc=-D__C99FEATURES__
 CFLAGS		+= -_gcc=-fno-strict-overflow
 CFLAGS64	+= -_gcc=-fno-strict-overflow
 
-$(DYNLIB) 	:= LDLIBS += -lc
+$(DYNLIB) 	:  LDLIBS += -lc
 
-$(LINTLIB) 	:= SRCS = $(LIBMSRC)/$(LINTSRC)
+$(LINTLIB) 	:  SRCS = $(LIBMSRC)/$(LINTSRC)
 
 CLEANFILES 	+= pics/*.s pics/*.S
 

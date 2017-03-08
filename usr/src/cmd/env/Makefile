@@ -32,7 +32,7 @@ OBJS= env.o
 
 include ../Makefile.cmd
 
-clean $(XPG4) := OBJS += values-xpg4.o
+clean $(XPG4) :  OBJS += values-xpg4.o
 
 .KEEP_STATE:
 

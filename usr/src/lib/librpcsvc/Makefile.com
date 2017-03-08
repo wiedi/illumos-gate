@@ -54,7 +54,7 @@ CERRWARN +=	-_gcc=-Wno-switch
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-parentheses
 
-$(LINTLIB):= SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB):  SRCS = $(SRCDIR)/$(LINTSRC)
 
 LDLIBS += -lnsl -lc
 

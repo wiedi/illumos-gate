@@ -112,7 +112,7 @@ LINTFLAGS64 +=	-u -D_REENTRANT
 
 DYNFLAGS +=	$(VERSREF) $(CC_USE_PROTO) '-R$$ORIGIN'
 
-native:=	DYNFLAGS	+= $(CONVLIBDIR)
+native: 	DYNFLAGS	+= $(CONVLIBDIR)
 
 BLTDEFS =	msg.h
 BLTDATA =	msg.c
@@ -158,10 +158,10 @@ LINTSRCS64 =	$(COMOBJS64:%64.o=../common/%.c) \
 # sources and add the necessary command line options to lint them
 # correctly. Make can't derive the files since the source and object
 # names are not directly related
-$(LINTOUT32) :=	CPPFLAGS += -DDO_RELOC_LIBLD
-$(LINTOUT64) :=	CPPFLAGS += -DDO_RELOC_LIBLD -D_ELF64
-$(LINTLIB32) :=	CPPFLAGS += -DDO_RELOC_LIBLD
-$(LINTLIB64) :=	CPPFLAGS += -DDO_RELOC_LIBLD -D_ELF64
+$(LINTOUT32) : 	CPPFLAGS += -DDO_RELOC_LIBLD
+$(LINTOUT64) : 	CPPFLAGS += -DDO_RELOC_LIBLD -D_ELF64
+$(LINTLIB32) : 	CPPFLAGS += -DDO_RELOC_LIBLD
+$(LINTLIB64) : 	CPPFLAGS += -DDO_RELOC_LIBLD -D_ELF64
 LINTSRCS32 +=	$(KRTLD_I386)/doreloc.c	\
 		$(KRTLD_SPARC)/doreloc.c
 LINTSRCS64 +=	$(KRTLD_AMD64)/doreloc.c \

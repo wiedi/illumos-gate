@@ -180,8 +180,8 @@ SRCDIR=		../common
 GOTHOGS =	dial.o print_obj.o clnt_perror.o nsl_stdio_prv.o netdir.o \
 		algs.o netselect.o
 BIGPICS =	$(GOTHOGS:%=pics/%)
-$(BIGPICS) :=	sparc_C_PICFLAGS = $(C_BIGPICFLAGS)
-$(BIGPICS) :=	i386_C_PICFLAGS = $(C_BIGPICFLAGS)
+$(BIGPICS) : 	sparc_C_PICFLAGS = $(C_BIGPICFLAGS)
+$(BIGPICS) : 	i386_C_PICFLAGS = $(C_BIGPICFLAGS)
 
 # Compile C++ code without exceptions to avoid a dependence on libC.
 NOEXCEPTIONS= -noex
@@ -209,11 +209,11 @@ CERRWARN +=	-_gcc=-Wno-unused-variable
 CERRWARN +=	-_gcc=-Wno-clobbered
 
 LIBMP =		-lmp
-lint :=		LIBMP =
+lint : 		LIBMP =
 LDLIBS +=	$(LIBMP) -lmd -lc
 DYNFLAGS +=	$(ZNODELETE)
 
-$(LINTLIB):=	SRCS=$(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS=$(SRCDIR)/$(LINTSRC)
 LINTFLAGS +=	-m -DPORTMAP
 LINTFLAGS64 +=	-m -DPORTMAP
 

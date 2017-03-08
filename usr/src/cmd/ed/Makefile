@@ -42,9 +42,9 @@ CERRWARN += -_gcc=-Wno-parentheses
 CERRWARN += -_gcc=-Wno-unused-variable
 CERRWARN += -_gcc=-Wno-unused-function
 CERRWARN += -_gcc=-Wno-uninitialized
-$(XPG4) := CFLAGS += -DXPG4  
-$(XPG6) := CFLAGS += -DXPG6 -I$(SRC)/lib/libc/inc 
-lint := LDLIBS += -lgen -lcrypt
+$(XPG4) :  CFLAGS += -DXPG4  
+$(XPG6) :  CFLAGS += -DXPG6 -I$(SRC)/lib/libc/inc 
+lint :  LDLIBS += -lgen -lcrypt
 LDLIBS += -lmapmalloc -lgen -lcrypt_i
 XGETFLAGS += -a -x ed.xcl
 

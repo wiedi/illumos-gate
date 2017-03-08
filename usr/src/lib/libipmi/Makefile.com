@@ -60,7 +60,7 @@ C99MODE = $(C99_ENABLE)
 
 CERRWARN +=	-_gcc=-Wno-uninitialized
 
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

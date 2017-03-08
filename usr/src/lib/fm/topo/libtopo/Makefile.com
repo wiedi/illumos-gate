@@ -85,14 +85,14 @@ CERRWARN += -_gcc=-Wno-parentheses
 LINTFLAGS = -msux
 LINTFLAGS64 = -msux -m64
 
-$(DYNLIB)  := LDLIBS += \
+$(DYNLIB)  :  LDLIBS += \
 	-lnvpair -lelf -lumem -lxml2 -lkstat -luuid -ldevinfo \
 	-lsmbios -lc -ldevid -lipmi -lscf
 
-$(LINTLIB) := SRCS = $(SRCDIR)/$(LINTSRC)
-$(LINTLIB) := LINTFLAGS = -nsvx
-$(LINTLIB) := LINTFLAGS64 = -nsvx -m64
-$(LINTLIB) := LDLIBS += -lnvpair -lumem -lc
+$(LINTLIB) :  SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  LINTFLAGS = -nsvx
+$(LINTLIB) :  LINTFLAGS64 = -nsvx -m64
+$(LINTLIB) :  LDLIBS += -lnvpair -lumem -lc
 
 .KEEP_STATE:
 

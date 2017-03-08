@@ -56,14 +56,14 @@ LINTFLAGS64 +=	-erroff=E_NAME_MULTIPLY_DEF2
 # Tune ZDEFS to ignore undefined symbols for building the yacc shared library
 # since these symbols (mainly yyparse) are to be resolved elsewhere.
 #
-$(DYNLIB):= ZDEFS = $(ZNODEFS)
-$(DYNLIBCCC):= ZDEFS = $(ZNODEFS)
+$(DYNLIB):  ZDEFS = $(ZNODEFS)
+$(DYNLIBCCC):  ZDEFS = $(ZNODEFS)
 LINTSRCS=	../common/llib-l$(LIBNAME)
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 INCLIST=	-I../../include -I../../include/$(MACH)
 CPPFLAGS=	$(INCLIST) $(DEFLIST) $(CPPFLAGS.master)
-$(PROG):=	LDLIBS = $(LDLIBS.cmd)
+$(PROG): 	LDLIBS = $(LDLIBS.cmd)
 BUILD.AR=	$(AR) $(ARFLAGS) $@ `$(LORDER) $(OBJS) | $(TSORT)`
 
 LINTPOUT=	lint.out
@@ -74,7 +74,7 @@ CFLAGS64 += $(CCVERBOSE)
 CERRWARN += -_gcc=-Wno-parentheses
 CERRWARN += -_gcc=-Wno-uninitialized
 
-$(ROOTPROG):= FILEMODE = 0555
+$(ROOTPROG):  FILEMODE = 0555
 
 ROOTYACCPAR=	$(YACCPAR:%=$(ROOTSHLIBCCS)/%)
 

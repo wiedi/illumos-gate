@@ -46,8 +46,8 @@ ROOTLIBDIR   =	$(ROOT)/usr/lib/nfs
 #
 SRCDIR	=	../common
 LIBSRCS	= $(LIBOBJS:%.o=$(SRCDIR)/%.c)
-$(LINTLIB) := SRCS = $(LINTSRC:%=$(SRCDIR)/%)
-lintcheck  :=	SRCS = $(LIBSRCS)
+$(LINTLIB) :  SRCS = $(LINTSRC:%=$(SRCDIR)/%)
+lintcheck  : 	SRCS = $(LIBSRCS)
 
 LDLIBS	+=	-lresolv -lc -lscf
 

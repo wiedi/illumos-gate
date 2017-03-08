@@ -72,10 +72,10 @@ LDLIBS += 	-lumem -lsldap
 
 .KEEP_STATE:
 
-clean := TARGET= clean
-clobber := TARGET= clobber
+clean :  TARGET= clean
+clobber :  TARGET= clobber
 
-$(ROOTSVCMETHOD) := FILEMODE = 0555
+$(ROOTSVCMETHOD) :  FILEMODE = 0555
 
 all: $(PROG)
 
@@ -89,7 +89,7 @@ $(ROOTLDAPLIB):
 $(ROOTLDAPLIB)/%:	%
 	$(INS.file)
 
-lint :=	LINTFLAGS=-x -b -u -h
+lint : 	LINTFLAGS=-x -b -u -h
 
 lint:
 	$(LINT.c) ${SRCS}  > $(LINTOUT) 2>&1

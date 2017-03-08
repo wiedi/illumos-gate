@@ -33,12 +33,12 @@ SUBDIRS =	librtld_db s10_npreload s10_brand s10_support s10_replacefile \
 		zone cmd
 MSGSUBDIRS =	s10_support zone
 
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
-_msg :=		TARGET= _msg
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
+_msg : 		TARGET= _msg
 
 .KEEP_STATE:
 

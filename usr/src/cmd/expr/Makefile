@@ -38,8 +38,8 @@ include ../Makefile.cmd
 CFLAGS += $(CCVERBOSE)
 CERRWARN += -_gcc=-Wno-uninitialized
 CERRWARN += -_gcc=-Wno-extra
-$(XPG4) := CFLAGS += -DXPG4
-$(XPG6) := CFLAGS += -DXPG6
+$(XPG4) :  CFLAGS += -DXPG4
+$(XPG6) :  CFLAGS += -DXPG6
 
 XGETFLAGS += -a -x expr.xcl
 

@@ -88,14 +88,14 @@ CERRWARN +=	-_gcc=-Wno-parentheses
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-unused-function
 
-$(XPG4)	:=	CFLAGS += -DXPG4
+$(XPG4)	: 	CFLAGS += -DXPG4
 
-debug :=	SORT_DEBUG = -g -DDEBUG $(ILDOFF)
-debug :=	COPTFLAG =
-debug :=	COPTFLAG64 =
-stats	:=	SORT_DEBUG = -g -DSTATS -DDEBUG $(ILDOFF)
-stats	:=	COPTFLAG =
-stats	:=	COPTFLAG64 =
+debug : 	SORT_DEBUG = -g -DDEBUG $(ILDOFF)
+debug : 	COPTFLAG =
+debug : 	COPTFLAG64 =
+stats	: 	SORT_DEBUG = -g -DSTATS -DDEBUG $(ILDOFF)
+stats	: 	COPTFLAG =
+stats	: 	COPTFLAG64 =
 
 .KEEP_STATE :
 

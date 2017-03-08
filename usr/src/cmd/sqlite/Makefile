@@ -35,8 +35,8 @@ ROOTLIBSVCBIN=	$(ROOT)/lib/svc/bin
 ROOTSQLITE=	$(PROG:%=$(ROOTLIBSVCBIN)/%)
 
 OBJS=		shell.o
-$(OBJS) :=	CFLAGS += $(CTF_FLAGS)
-$(OBJS) :=	CTFCONVERT_POST = $(CTFCONVERT_O)
+$(OBJS) : 	CFLAGS += $(CTF_FLAGS)
+$(OBJS) : 	CTFCONVERT_POST = $(CTFCONVERT_O)
 
 CERRWARN +=	-_gcc=-Wno-empty-body
 
@@ -44,7 +44,7 @@ LDLIBS +=	-lsqlite-sys
 
 .KEEP_STATE:
 
-$(ROOTSQLITE)	:= FILEMODE= 555
+$(ROOTSQLITE)	:  FILEMODE= 555
 
 $(ROOTLIBSVCBIN)/%: %
 	$(INS.file)

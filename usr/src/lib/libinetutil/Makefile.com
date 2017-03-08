@@ -42,7 +42,7 @@ SRCS = 		$(COMDIR)/octet.c $(SRCDIR)/inetutil.c \
 		$(SRCDIR)/ifaddrlist.c $(SRCDIR)/ifaddrlistx.c \
 		$(SRCDIR)/ofmt.c
 
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 LDLIBS +=	-lsocket -lc
 
 CFLAGS +=	$(CCVERBOSE)

@@ -52,7 +52,7 @@ CERRWARN += -_gcc=-Wno-empty-body
 CERRWARN += -_gcc=-Wno-uninitialized
 
 LDLIBS += -last
-msgcpp   := LDLIBS += -lpp
+msgcpp   :  LDLIBS += -lpp
 
 # This target should use "shcomp" in the future
 msgcc:	msgcc.sh

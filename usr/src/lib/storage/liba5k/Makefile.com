@@ -49,7 +49,7 @@ CERRWARN += -_gcc=-Wno-uninitialized
 
 LDLIBS += -lc -ldevice -lg_fc
 
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 all: $(LIBS)
 

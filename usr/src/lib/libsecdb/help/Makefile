@@ -30,12 +30,12 @@
 
 SUBDIRS = auths profiles
 
-all:=		TARGET= all
-clean:=		TARGET= clean
-clobber:=	TARGET= clobber
-install:=	TARGET= install
-lint:=		TARGET= lint
-_msg:=		TARGET= _msg
+all: 		TARGET= all
+clean: 		TARGET= clean
+clobber: 	TARGET= clobber
+install: 	TARGET= install
+lint: 		TARGET= lint
+_msg: 		TARGET= _msg
 
 .KEEP_STATE:
 

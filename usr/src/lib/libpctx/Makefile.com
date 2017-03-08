@@ -34,7 +34,7 @@ OBJECTS = libpctx.o
 include ../../Makefile.lib
 
 LIBS = $(DYNLIB) $(LINTLIB)
-$(LINTLIB) :=	SRCS = ../common/llib-lpctx
+$(LINTLIB) : 	SRCS = ../common/llib-lpctx
 LDLIBS +=	-lproc -lc
 
 SRCDIR =	../common
@@ -48,8 +48,8 @@ all: $(LIBS)
 
 # x86 and sparc have different alignment complaints (all LINTED).
 # Make lint shut up about suppression directive not used.
-lint := LINTFLAGS += -erroff=E_SUPPRESSION_DIRECTIVE_UNUSED
-lint := LINTFLAGS64 += -erroff=E_SUPPRESSION_DIRECTIVE_UNUSED
+lint :  LINTFLAGS += -erroff=E_SUPPRESSION_DIRECTIVE_UNUSED
+lint :  LINTFLAGS64 += -erroff=E_SUPPRESSION_DIRECTIVE_UNUSED
 
 lint: lintcheck
 

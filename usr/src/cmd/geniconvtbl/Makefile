@@ -33,12 +33,12 @@ $(BUILD64)SUBDIRS +=	$(MACH64)
 
 SAMPLES =	 samples
 
-all	:= TARGET = all
-install	:= TARGET = install
-clean	:= TARGET = clean
-clobber	:= TARGET = clobber
-lint	:= TARGET = lint
-_msg	:= TARGET = catalog
+all	:  TARGET = all
+install	:  TARGET = install
+clean	:  TARGET = clean
+clobber	:  TARGET = clobber
+lint	:  TARGET = lint
+_msg	:  TARGET = catalog
 
 .KEEP_STATE:
 

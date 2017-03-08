@@ -37,7 +37,7 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 SRCDIR =	../common
 SRCS =		$(OBJECTS:%.o=$(SRCDIR)/%.c)
 
-$(LINTLIB):=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB): 	SRCS = $(SRCDIR)/$(LINTSRC)
 
 LDLIBS +=	-lc
 

@@ -47,9 +47,9 @@ ROOTDIRS =	$(ROOT)/etc/lp $(IPPCONFDIR) \
 		$(ROOT)/usr/lib/lp $(IPPLIBDIR) \
 		$(ROOT)/var/lp $(LISTENERDIR)
 
-$(ROOT)/etc/lp:=	DIRMODE = 775
-$(ROOT)/var/lp:=	DIRMODE = 775
-$(ROOT)/var/lp:=	FILEMODE = 775
+$(ROOT)/etc/lp: 	DIRMODE = 775
+$(ROOT)/var/lp: 	DIRMODE = 775
+$(ROOT)/var/lp: 	FILEMODE = 775
 
 LIBS =			$(DYNLIB)
 
@@ -77,7 +77,7 @@ LDLIBS +=	-lipp-listener -lipp-core -lpapi -lc
 MANIFEST=       ipp-listener.xml
 ROOTMANIFESTDIR=        $(ROOT)/lib/svc/manifest/application/print
 ROOTMANIFEST=		$(MANIFEST:%=$(ROOTMANIFESTDIR)/%)
-$(ROOTMANIFEST)         := FILEMODE= 444
+$(ROOTMANIFEST)         :  FILEMODE= 444
 
 #	Apache module
 #	LIBLINKS is not a link here, just the bare *.so name
@@ -85,13 +85,13 @@ $(IPPLIBDIR)/$(LIBLINKS):	$(ROOTDIRS)
 
 #	Apache config
 APACHECONFFILE=	$(IPPCONFDIR)/httpd-standalone-ipp.conf
-$(APACHECONFFILE)         := FILEMODE= 644
+$(APACHECONFFILE)         :  FILEMODE= 644
 LISTENERFILE=	$(LISTENERDIR)/index.html
-$(LISTENERFILE)         := FILEMODE= 444
+$(LISTENERFILE)         :  FILEMODE= 444
 
-$(ROOT)/var/lp:=	FILEMODE = 0775
+$(ROOT)/var/lp: 	FILEMODE = 0775
 
-$(IPPLIBDIR)/$(LIBLINKS):=	FILEMODE = 0555
+$(IPPLIBDIR)/$(LIBLINKS): 	FILEMODE = 0555
 
 $(ROOTMANIFESTDIR)/% $(IPPLIBDIR)/% $(IPPCONFDIR)/% $(LISTENERDIR)/%:	%
 	$(INS.file)

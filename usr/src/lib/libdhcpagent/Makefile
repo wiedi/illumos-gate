@@ -31,11 +31,11 @@ HDRS =		dhcp_hostconf.h dhcpagent_ipc.h dhcpagent_util.h dhcp_stable.h
 HDRDIR =	common
 SUBDIRS =	$(MACH)
 
-all :=		TARGET = all
-clean :=	TARGET = clean
-clobber :=	TARGET = clobber
-install :=	TARGET = install
-lint :=		TARGET = lint
+all : 		TARGET = all
+clean : 	TARGET = clean
+clobber : 	TARGET = clobber
+install : 	TARGET = install
+lint : 		TARGET = lint
 
 .KEEP_STATE:
 

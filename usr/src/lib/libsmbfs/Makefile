@@ -42,11 +42,11 @@ SUBDIRS = $(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
 
 # conditional assignments
-all :=		TARGET= all
-install :=	TARGET= install
-clean :=	TARGET= clean
-clobber :=	TARGET= clobber
-lint :=		TARGET= lint
+all : 		TARGET= all
+install : 	TARGET= install
+clean : 	TARGET= clean
+clobber : 	TARGET= clobber
+lint : 		TARGET= lint
 
 MSGFILES =	`$(GREP) -l gettext smb/*.[ch]`
 POFILE =	libsmbfs.po

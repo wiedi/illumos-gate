@@ -35,7 +35,7 @@ SRCDIR =	../common
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 
-$(LINTLIB):= SRCS = ../common/llib-lvolmgt
+$(LINTLIB):  SRCS = ../common/llib-lvolmgt
 
 LINTSRC=	$(LINTLIB:%.ln=%)
 

@@ -16,11 +16,11 @@ OBJS=		auth.o ccp.o chap.o demand.o fsm.o ipcp.o ipv6cp.o \
 
 # Object tdb.o used only for Multilink; not supported yet.
 
-all:=		TARGET= all
-install:=	TARGET= install
-clean:=		TARGET= clean
-clobber:=	TARGET= clobber
-lint:=		TARGET= lint
+all: 		TARGET= all
+install: 	TARGET= install
+clean: 		TARGET= clean
+clobber: 	TARGET= clobber
+lint: 		TARGET= lint
 
 LDLIBS +=	-lpam -lmd -lsocket -lnsl -ldlpi
 
@@ -88,10 +88,10 @@ $(PROG):	$(OBJS)
 	$(LINK.c) $(OBJS) -o $@ $(LDLIBS)
 	$(POST_PROCESS)
 
-$(ROOTPROG):=	FILEMODE = 04555
+$(ROOTPROG): 	FILEMODE = 04555
 
 ASPPP2PPPD=	$(ROOTUSRSBIN)/asppp2pppd
-$(ASPPP2PPPD):=	FILEMODE = 0550
+$(ASPPP2PPPD): 	FILEMODE = 0550
 
 install:	$(PROG) .WAIT $(SUBDIRS) $(ROOTPROG) $(ETCPPPDIR) $(ASPPP2PPPD)
 
@@ -112,7 +112,7 @@ CLOBBERFILES +=	$(LINTOBJS)
 clean:		$(SUBDIRS)
 	$(RM) $(OBJS) $(EXOBJS)
 
-sha1.ln:=	LINTFLAGS += -erroff=E_SUPPRESSION_DIRECTIVE_UNUSED
+sha1.ln: 	LINTFLAGS += -erroff=E_SUPPRESSION_DIRECTIVE_UNUSED
 
 # Not using the default lint target here so that we can disable
 # warnings per module as needed.

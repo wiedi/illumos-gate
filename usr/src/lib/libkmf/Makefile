@@ -32,12 +32,12 @@ SUBDIRS	=	ber_der libkmf plugins mappers
 HDRS=	kmfapi.h kmftypes.h
 HDRDIR= include
 
-all :=          TARGET= all
-clean :=        TARGET= clean
-clobber :=      TARGET= clobber
-install :=      TARGET= install
-lint :=         TARGET= lint
-install_h :=    TARGET= install_h
+all :           TARGET= all
+clean :         TARGET= clean
+clobber :       TARGET= clobber
+install :       TARGET= install
+lint :          TARGET= lint
+install_h :     TARGET= install_h
 
 all install: install_h $(SUBDIRS) THIRDPARTYLICENSE
 

@@ -38,11 +38,11 @@ XGETFLAGS =	--foreign-user --strict -n -E --width=72 \
 		--omit-header --keyword=directoryError:2 \
 		--language=C --force-po
 
-all := 		TARGET = all
-clean :=	TARGET = clean
-clobber :=	TARGET = clobber
-install	:=	TARGET = install
-lint :=		TARGET = lint
+all :  		TARGET = all
+clean : 	TARGET = clean
+clobber : 	TARGET = clobber
+install	: 	TARGET = install
+lint : 		TARGET = lint
 
 .KEEP_STATE:
 

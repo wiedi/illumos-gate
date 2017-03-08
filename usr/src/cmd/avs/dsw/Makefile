@@ -36,15 +36,15 @@ PROG4 = iicpshd
 
 SUBDIRS= etc
 
-iiadm	:= POBJS = iiadm.o
-iiboot	:= POBJS = iiboot.o
-iicpbmp	:= POBJS = iicpbmp.o
-iicpshd	:= POBJS = iicpshd.o
+iiadm	:  POBJS = iiadm.o
+iiboot	:  POBJS = iiboot.o
+iicpbmp	:  POBJS = iicpbmp.o
+iicpshd	:  POBJS = iicpshd.o
 
-iiadm   := LDLIBS += -lnsctl -ldscfg -lunistat -lm
-iiboot  := LDLIBS += -ldscfg -lunistat
-iicpbmp := LDLIBS += -ldscfg -lunistat
-iicpshd := LDLIBS += -ldscfg -lunistat
+iiadm   :  LDLIBS += -lnsctl -ldscfg -lunistat -lm
+iiboot  :  LDLIBS += -ldscfg -lunistat
+iicpbmp :  LDLIBS += -ldscfg -lunistat
+iicpshd :  LDLIBS += -ldscfg -lunistat
 
 OBJS=	iiadm.o iiboot.o iicpbmp.o iicpshd.o
 POFILE = dsw_all.po
@@ -59,11 +59,11 @@ CERRWARN +=	-_gcc=-Wno-unused-variable
 CERRWARN +=	-_gcc=-Wno-parentheses
 CERRWARN +=	-_gcc=-Wno-uninitialized
 
-all	:=	TARGET= all
-install	:=	TARGET= install
-clean	:=	TARGET= clean
-clobber	:=	TARGET= clobber
-lint	:=	TARGET= lint
+all	: 	TARGET= all
+install	: 	TARGET= install
+clean	: 	TARGET= clean
+clobber	: 	TARGET= clobber
+lint	: 	TARGET= lint
 
 .KEEP_STATE:
 

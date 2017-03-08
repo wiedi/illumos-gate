@@ -36,11 +36,11 @@ MSGFILES =	common/process_dump.c common/device_dump.c \
 		common/libcontract_priv.c
 POFILE =	libcontract.po
 
-all := 		TARGET = all
-clean :=	TARGET = clean
-clobber :=	TARGET = clobber
-install	:=	TARGET = install
-lint :=		TARGET = lint
+all :  		TARGET = all
+clean : 	TARGET = clean
+clobber : 	TARGET = clobber
+install	: 	TARGET = install
+lint : 		TARGET = lint
 
 .KEEP_STATE:
 

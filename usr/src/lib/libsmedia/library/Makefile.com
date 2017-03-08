@@ -37,14 +37,14 @@ SRCDIR =	../common
 
 # We can't lint the rpcgen-generated files.
 # (Well, we could, but we couldn't fix them.)
-lintcheck := SRCS = ../common/l_generic.c ../common/l_misc.c
+lintcheck :  SRCS = ../common/l_generic.c ../common/l_misc.c
 
 LIBS = $(DYNLIB) $(LINTLIB)
 
 # definitions for lint
 
 LINTSRC=        $(LINTLIB:%.ln=%)
-$(LINTLIB):= SRCS = ../common/$(LINTSRC)
+$(LINTLIB):  SRCS = ../common/$(LINTSRC)
 
 CLEANFILES +=	$(DERIVED_FILES:%=../common/%)
 

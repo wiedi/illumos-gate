@@ -91,7 +91,7 @@ LDLIBS		+= -lc
 LDLIBS		+= -lkstat
 LDLIBS		+= -ldevid
 
-$(LINTLIB) := SRCS=	$(SRCDIR)/$(LINTSRC)
+$(LINTLIB) :  SRCS=	$(SRCDIR)/$(LINTSRC)
 
 .KEEP_STATE:
 

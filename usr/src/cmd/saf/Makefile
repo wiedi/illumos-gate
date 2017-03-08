@@ -61,12 +61,12 @@ CERRWARN += -_gcc=-Wno-parentheses
 CERRWARN += -_gcc=-Wno-unused-variable
 CERRWARN += -_gcc=-Wno-extra
 
-util1.o := CPPFLAGS += -DSAC
-util2.o := CPPFLAGS += -USAC
+util1.o :  CPPFLAGS += -DSAC
+util2.o :  CPPFLAGS += -USAC
 
-sac :=	LDLIBS += -lpam
+sac : 	LDLIBS += -lpam
 
-$(ROOTUSRSBIN)/sacadm :=	FILEMODE =	04755
+$(ROOTUSRSBIN)/sacadm : 	FILEMODE =	04755
 
 $(LIBSAFD)/% : %
 	$(INS.file)

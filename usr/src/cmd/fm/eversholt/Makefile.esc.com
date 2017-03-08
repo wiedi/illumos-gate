@@ -52,8 +52,8 @@ CERRWARN += -_gcc=-Wno-switch
 CTFCONVO = $(CTFCONVERT_O)
 CTFMRG = $(CTFMERGE) -L VERSION -o $@ $(OBJS)
 
-debug := COPTFLAG =
-debug := COPTFLAG64 =
+debug :  COPTFLAG =
+debug :  COPTFLAG64 =
 
 ROOTPDIR = $(ROOT)/usr/lib/fm
 ROOTPROG = $(ROOTPDIR)/$(PROG)

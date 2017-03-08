@@ -32,7 +32,7 @@ include ../../Makefile.rootfs
 SRCS =		../deviceid.c $(SRC)/common/devid/devid.c \
 		$(SRC)/common/devid/devid_scsi.c \
 		$(SRC)/common/devid/devid_smp.c
-$(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
+$(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
 LIBS =		$(DYNLIB) $(LINTLIB)
 #
 # Libraries added to the next line must be present in miniroot

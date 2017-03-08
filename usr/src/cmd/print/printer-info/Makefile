@@ -32,7 +32,7 @@ SRCS =		$(PROG).c
 OBJECTS =	$(PROG).o
 
 ROOTPROG=	$(PROG:%=$(ROOTLIBLPBIN)/%)
-$(ROOTPROG)	:= FILEMODE=555
+$(ROOTPROG)	:  FILEMODE=555
 
 CERRWARN +=	-_gcc=-Wno-implicit-function-declaration
 
