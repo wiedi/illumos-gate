@@ -22,6 +22,9 @@
  * Copyright 2010 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * Ported from 4.1.1_PSRA: "@(#)openprom.c 1.19 91/02/19 SMI";
@@ -388,7 +391,7 @@ opromioctl_cb(void *avp, int has_changed)
 	 * and weed out unsupported commands on x86 platform
 	 */
 	switch (cmd) {
-#if !defined(__i386) && !defined(__amd64)
+#if defined(__sparc)
 	case OPROMLISTKEYSLEN:
 		valsize = prom_asr_list_keys_len();
 		opp = (struct openpromio *)kmem_zalloc(
@@ -458,12 +461,12 @@ opromioctl_cb(void *avp, int has_changed)
 
 	case OPROMSETOPT:
 	case OPROMSETOPT2:
-#if !defined(__i386) && !defined(__amd64)
+#if defined(__sparc)
 		if (mode & FWRITE) {
 			node_id = options_nodeid;
 			break;
 		}
-#endif /* !__i386 && !__amd64 */
+#endif /* #if defined(__sparc) */
 		return (EPERM);
 
 	case OPROMNEXT:
@@ -488,22 +491,22 @@ opromioctl_cb(void *avp, int has_changed)
 	case OPROMGETVERSION:
 	case OPROMPATH2DRV:
 	case OPROMPROM2DEVNAME:
-#if !defined(__i386) && !defined(__amd64)
+#if defined(__sparc)
 	case OPROMGETFBNAME:
 	case OPROMDEV2PROMNAME:
 	case OPROMREADY64:
-#endif	/* !__i386 && !__amd64 */
+#endif	/* #if defined(__sparc) */
 		if ((mode & FREAD) == 0) {
 			return (EPERM);
 		}
 		break;
 
-#if !defined(__i386) && !defined(__amd64)
+#if defined(__sparc)
 	case WANBOOT_SETKEY:
 		if (!(mode & FWRITE))
 			return (EPERM);
 		break;
-#endif	/* !__i386 && !defined(__amd64) */
+#endif	/* #if defined(__sparc) */
 
 	default:
 		return (EINVAL);
@@ -752,7 +755,7 @@ opromioctl_cb(void *avp, int has_changed)
 		}
 		(void) strcpy(opp->oprom_array, bpath);
 
-#elif defined(__i386) || defined(__amd64)
+#elif defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 
 		extern char saved_cmdline[];
 		valsize = strlen(saved_cmdline) + 1;
@@ -872,7 +875,7 @@ opromioctl_cb(void *avp, int has_changed)
 			error = EFAULT;
 		break;
 
-#if !defined(__i386) && !defined(__amd64)
+#if defined(__sparc)
 	case OPROMGETFBNAME:
 		/*
 		 * Return stdoutpath, if it's a frame buffer.

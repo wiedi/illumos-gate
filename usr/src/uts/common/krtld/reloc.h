@@ -22,6 +22,9 @@
 /*
  * Copyright (c) 1995, 2010, Oracle and/or its affiliates. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #ifndef	_RELOC_DOT_H
 #define	_RELOC_DOT_H
@@ -77,6 +80,16 @@ extern "C" {
 #define	do_reloc_ld		do32_reloc_ld_sparc
 #define	reloc_table		reloc32_table_sparc
 #endif
+
+#elif	defined(DO_RELOC_LIBLD_ALPHA)
+#define	DO_RELOC_LIBLD
+#define	do_reloc_ld		do64_reloc_ld_alpha
+#define	reloc_table		reloc64_table_alpha
+
+#elif	defined(DO_RELOC_LIBLD_AARCH64)
+#define	DO_RELOC_LIBLD
+#define	do_reloc_ld		do64_reloc_ld_aarch64
+#define	reloc_table		reloc64_table_aarch64
 
 #else				/* rtld */
 
@@ -171,13 +184,13 @@ extern	const Rel_entry	reloc_table[];
  * conditionalize any code not used by all three versions.
  */
 #if defined(_KERNEL)
-extern	int	do_reloc_krtld(uchar_t, uchar_t *, Xword *, const char *,
+extern	int	do_reloc_krtld(Word, uchar_t *, Xword *, const char *,
 		    const char *);
 #elif defined(DO_RELOC_LIBLD)
 extern	int	do_reloc_ld(Rel_desc *, uchar_t *, Xword *,
 		    rel_desc_sname_func_t, const char *, int, void *);
 #else
-extern	int	do_reloc_rtld(uchar_t, uchar_t *, Xword *, const char *,
+extern	int	do_reloc_rtld(Word, uchar_t *, Xword *, const char *,
 		    const char *, void *);
 #endif
 
@@ -226,6 +239,16 @@ extern const char	*conv_reloc_386_type(Word);
 
 extern const char	*conv_reloc_SPARC_type(Word);
 #define	CONV_RELOC_TYPE	conv_reloc_SPARC_type
+
+#elif defined(__alpha)
+
+extern const char	*conv_reloc_ALPHA_type(Word);
+#define	CONV_RELOC_TYPE	conv_reloc_ALPHA_type
+
+#elif defined(__aarch64)
+
+extern const char	*conv_reloc_AARCH64_type(Word);
+#define	CONV_RELOC_TYPE	conv_reloc_AARCH64_type
 
 #else
 #error platform not defined!

@@ -237,7 +237,7 @@ lz4_decompress(void *s_start, void *d_start, size_t s_len, size_t d_len, int n)
 #define	LZ4_FORCE_UNALIGNED_ACCESS 1
 #endif
 
-#ifdef __sparc
+#if defined __sparc || defined __alpha
 #define	LZ4_FORCE_SW_BITCOUNT
 #endif
 

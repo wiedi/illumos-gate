@@ -25,6 +25,9 @@
  * Copyright 2011 Nexenta Systems, Inc.  All rights reserved.
  * Copyright 2012 DEY Storage Systems, Inc.  All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #ifndef _SYS_DKIO_H
 #define	_SYS_DKIO_H
@@ -233,7 +236,7 @@ struct dk_callback {
  */
 #define	DKIOCHOTPLUGGABLE	(DKIOC|35)	/* is hotpluggable */
 
-#if defined(__i386) || defined(__amd64)
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 /* ioctl to write extended partition structure into the disk */
 #define	DKIOCSETEXTPART	(DKIOC|46)
 #endif

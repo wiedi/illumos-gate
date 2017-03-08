@@ -25,6 +25,7 @@
 # Copyright 2013 Saso Kiselkov. All rights reserved.
 # Copyright 2016 Joyent, Inc.
 # Copyright 2016 Nexenta Systems, Inc.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 #
@@ -1611,8 +1612,13 @@ $(OBJS_DIR)/%.o:		$(UTSBASE)/common/zmod/%.c
 	$(COMPILE.c) -o $@ $<
 	$(CTFCONVERT_O)
 
+ZLIB_OBJ_LDFLAGS_i386= -r -Breduce -M$(UTSBASE)/common/zmod/mapfile
+ZLIB_OBJ_LDFLAGS_sparc= -r -Breduce -M$(UTSBASE)/common/zmod/mapfile
+ZLIB_OBJ_LDFLAGS_aarch64= -r -d --version-script=$(UTSBASE)/common/zmod/mapfile
+ZLIB_OBJ_LDFLAGS_alpha= -r -d --version-script=$(UTSBASE)/common/zmod/mapfile
+ZLIB_OBJ_LDFLAGS= $(ZLIB_OBJ_LDFLAGS_$(MACH))
 $(OBJS_DIR)/zlib_obj.o:		$(ZLIB_OBJS:%=$(OBJS_DIR)/%)
-	$(LD) -r -Breduce -M$(UTSBASE)/common/zmod/mapfile -o $@ \
+	$(LD) $(ZLIB_OBJ_LDFLAGS) -o $@ \
 	    $(ZLIB_OBJS:%=$(OBJS_DIR)/%)
 	$(CTFMERGE) -t -f -L VERSION -o $@ $(ZLIB_OBJS:%=$(OBJS_DIR)/%)
 

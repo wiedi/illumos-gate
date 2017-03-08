@@ -30,12 +30,16 @@
 /*
  * Copyright (c) 2013, Joyent, Inc. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #ifndef _SYS_PRSYSTM_H
 #define	_SYS_PRSYSTM_H
 
 #include <sys/isa_defs.h>
 #include <sys/zone.h>
+#include <sys/procfs_isa.h>
 
 #ifdef	__cplusplus
 extern "C" {
@@ -74,7 +78,7 @@ extern void prgetstatus(proc_t *, struct pstatus *, zone_t *);
 extern void prgetlwpstatus(kthread_t *, struct lwpstatus *, zone_t *);
 extern void prgetpsinfo(proc_t *, struct psinfo *);
 extern void prgetlwpsinfo(kthread_t *, struct lwpsinfo *);
-extern void prgetprfpregs(klwp_t *, struct prfpregset *);
+extern void prgetprfpregs(klwp_t *, prfpregset_t *);
 extern void prgetprxregs(klwp_t *, caddr_t);
 extern int  prgetprxregsize(proc_t *);
 #if defined(__lint)
@@ -87,6 +91,7 @@ extern void prgetpriv(proc_t *, struct prpriv *);
 extern size_t prgetprivsize(void);
 extern void prgetsecflags(proc_t *, struct prsecflags *);
 extern int  prnsegs(struct as *, int);
+extern int  prnmaps(struct as *, int);
 extern void prexit(proc_t *);
 extern void prfree(proc_t *);
 extern void prlwpexit(kthread_t *);

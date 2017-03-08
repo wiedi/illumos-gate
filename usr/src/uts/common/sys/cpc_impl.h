@@ -22,6 +22,9 @@
  * Copyright 2010 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #ifndef	_SYS_CPC_IMPL_H
 #define	_SYS_CPC_IMPL_H
@@ -30,6 +33,9 @@
 #include <sys/time.h>
 #include <sys/ksynch.h>
 
+#if defined __aarch64
+#include <sys/controlregs.h>
+#endif
 #if defined(_KERNEL) && defined(_MULTI_DATAMODEL)
 #include <sys/types32.h>
 #endif
@@ -204,6 +210,8 @@ enum dcpc_mask_attr {
 #ifdef __sparc
 extern uint64_t ultra_gettick(void);
 #define	KCPC_GET_TICK ultra_gettick
+#elif defined __aarch64
+#define	KCPC_GET_TICK read_cntpct
 #else
 extern hrtime_t tsc_read(void);
 #define	KCPC_GET_TICK tsc_read

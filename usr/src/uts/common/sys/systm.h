@@ -27,6 +27,9 @@
  * Use is subject to license terms.
  * Copyright 2016 Nexenta Systems, Inc.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #ifndef _SYS_SYSTM_H
 #define	_SYS_SYSTM_H
@@ -35,6 +38,7 @@
 #include <sys/t_lock.h>
 #include <sys/proc.h>
 #include <sys/dditypes.h>
+#include <sys/cpu.h>
 
 #ifdef	__cplusplus
 extern "C" {
@@ -258,12 +262,16 @@ extern void longjmp(label_t *)
 #pragma unknown_control_flow(setjmp)
 #endif
 
+#if defined(_ASM_INLINES)
 void prefetch_read_once(void *);
 void prefetch_write_once(void *);
 void prefetch_read_many(void *);
 void prefetch_write_many(void *);
+#ifndef __GNUC__
 caddr_t caller(void);
 caddr_t callee(void);
+#endif
+#endif
 int getpcstack(pc_t *, int);
 int on_fault(label_t *) __RETURNS_TWICE;
 void no_fault(void);

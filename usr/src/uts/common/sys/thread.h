@@ -23,6 +23,9 @@
  * Copyright 2010 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #ifndef	_SYS_THREAD_H
 #define	_SYS_THREAD_H
@@ -527,7 +530,9 @@ typedef struct _kthread {
 
 #ifdef	_KERNEL
 
+#if !defined(_ASM_INLINES)
 extern	kthread_t	*threadp(void);	/* inline, returns thread pointer */
+#endif
 #define	curthread	(threadp())		/* current thread pointer */
 #define	curproc		(ttoproc(curthread))	/* current process pointer */
 #define	curproj		(ttoproj(curthread))	/* current project pointer */

@@ -23,6 +23,9 @@
  * Copyright (c) 2013, Joyent, Inc. All rights reserved.
  */
 /*
+ * Copyright 2017 Hayashi Naoyuki
+ */
+/*
  * Copyright 2010 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
@@ -191,7 +194,7 @@ typedef struct {
 #define	EM_RH32		38		/* TRW RH-32 */
 #define	EM_RCE		39		/* Motorola RCE */
 #define	EM_ARM		40		/* Advanced RISC Marchines ARM */
-#define	EM_ALPHA	41		/* Digital Alpha */
+#define	EM_ALPHA	0x9026		/* Digital Alpha */
 #define	EM_SH		42		/* Hitachi SH */
 #define	EM_SPARCV9	43		/* Sun SPARC V9 (64-bit) */
 #define	EM_TRICORE	44		/* Siemens Tricore embedded processor */
@@ -257,6 +260,7 @@ typedef struct {
 #define	EM_OPENRISC	92		/* OpenRISC 32-bit embedded processor */
 #define	EM_ARC_A5	93		/* ARC Cores Tangent-A5 */
 #define	EM_XTENSA	94		/* Tensilica Xtensa architecture */
+#define	EM_AARCH64	183
 #define	EM_NUM		95
 
 #define	EV_NONE		0		/* e_version, EI_VERSION */
@@ -846,6 +850,14 @@ int	elfheadcheck(unsigned char, Elf32_Half, Elf32_Word);
 
 #if defined(ELF_TARGET_ALL) || defined(ELF_TARGET_AMD64)
 #include <sys/elf_amd64.h>
+#endif
+
+#if defined(ELF_TARGET_ALL) || defined(ELF_TARGET_ALPHA)
+#include <sys/elf_alpha.h>
+#endif
+
+#if defined(ELF_TARGET_ALL) || defined(ELF_TARGET_AARCH64)
+#include <sys/elf_aarch64.h>
 #endif
 
 #endif	/* _SYS_ELF_H */
