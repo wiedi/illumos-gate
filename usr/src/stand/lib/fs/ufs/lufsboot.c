@@ -22,6 +22,9 @@
  * Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
  * Use is subject to license terms.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #pragma ident	"%Z%%M%	%I%	%E% SMI"
 
@@ -247,6 +250,9 @@ extern	caddr_t	resalloc(enum RESOURCES, size_t, caddr_t, int);
 
 #if defined(__sparcv9)
 #define	LOGBUF_BASEADDR	((caddr_t)(SYSBASE - LOGBUF_MAXSIZE))
+#elif defined(__alpha) || defined(__arm) || defined(__aarch64)
+extern char _LogBuf[];
+#define	LOGBUF_BASEADDR	((caddr_t)(_LogBuf - LOGBUF_MAXSIZE))
 #endif
 
 static int
@@ -302,8 +308,10 @@ lufs_free_logbuf()
 	 *   prom_free anyway so that the kernel can reclaim this
 	 *   memory in the future.
 	 */
+#if !defined(__alpha) && !defined(__arm) && !defined(__aarch64)
 	if (logbuffer == LOGBUF_BASEADDR)
 		prom_free(logbuffer, elogbuffer-logbuffer);
+#endif
 	logbuffer = (caddr_t)NULL;
 }
 
