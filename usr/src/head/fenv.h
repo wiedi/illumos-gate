@@ -19,6 +19,9 @@
  * CDDL HEADER END
  */
 /*
+ * Copyright 2017 Hayashi Naoyuki
+ */
+/*
  * Copyright 2011 Nexenta Systems, Inc.  All rights reserved.
  */
 /*
@@ -60,6 +63,18 @@ extern "C" {
 #define	FE_UPWARD	2
 #define	FE_TOWARDZERO	3
 
+#elif defined(__alpha)
+#define	FE_TOWARDZERO	0x00
+#define	FE_DOWNWARD	0x01
+#define	FE_TONEAREST	0x02
+#define	FE_UPWARD	0x03
+
+#elif defined(__aarch64)
+#define	FE_TONEAREST	0x0
+#define	FE_UPWARD	0x1
+#define	FE_DOWNWARD	0x2
+#define	FE_TOWARDZERO	0x3
+
 #endif
 
 extern int fegetround __P((void));
@@ -98,6 +113,33 @@ extern int fesetprec __P((int));
 #define	FE_INEXACT	0x20
 #define	FE_ALL_EXCEPT	0x3d
 
+#elif defined(__alpha)
+#define	FE_INVALID	0x02
+#define	FE_DIVBYZERO	0x04
+#define	FE_OVERFLOW	0x08
+#define	FE_UNDERFLOW	0x10
+#define	FE_INEXACT	0x20
+#define	FE_INTOVF	0x40	/* not maskable */
+#define	FE_ALL_EXCEPT	(FE_DIVBYZERO | FE_INEXACT | FE_INTOVF | \
+			 FE_INVALID | FE_OVERFLOW | FE_UNDERFLOW)
+
+#elif defined(__arm)
+#define	FE_INVALID	0x0001
+#define	FE_DIVBYZERO	0x0002
+#define	FE_OVERFLOW	0x0004
+#define	FE_UNDERFLOW	0x0008
+#define	FE_INEXACT	0x0010
+#define	FE_DENORMAL	0x0080
+#define	FE_ALL_EXCEPT	(FE_DIVBYZERO | FE_INEXACT | FE_DENORMAL | \
+			 FE_INVALID | FE_OVERFLOW | FE_UNDERFLOW)
+
+#elif defined(__aarch64)
+#define	FE_INVALID	0x0001
+#define	FE_DIVBYZERO	0x0002
+#define	FE_OVERFLOW	0x0004
+#define	FE_UNDERFLOW	0x0008
+#define	FE_INEXACT	0x0010
+#define	FE_ALL_EXCEPT	(FE_DIVBYZERO | FE_INEXACT | FE_INVALID | FE_OVERFLOW | FE_UNDERFLOW)
 #endif
 
 typedef int fexcept_t;
@@ -238,6 +280,9 @@ extern int feupdateenv __P((const fenv_t *));
 
 #if !defined(_STRICT_STDC) || defined(__EXTENSIONS__)
 extern void fex_merge_flags __P((const fenv_t *));
+extern int fetestexcept __P((int));
+extern int feclearexcept __P((int));
+
 #endif
 
 #ifdef __cplusplus
