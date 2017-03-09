@@ -22,6 +22,9 @@
 /*
  * Copyright (c) 1992, 2010, Oracle and/or its affiliates. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*	Copyright (c) 1990, 1991 UNIX System Laboratories, Inc.	*/
 /*	Copyright (c) 1984, 1986, 1987, 1988, 1989, 1990 AT&T	*/
@@ -56,7 +59,7 @@
 #include <sys/dktp/fdisk.h>
 #include <sys/dkio.h>
 #include <sys/vtoc.h>
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 #include <sys/tty.h>
 #include <libfdisk.h>
 #endif
@@ -67,7 +70,7 @@
 	"[6;1H[0K[7;1H[0K[8;1H[0K[9;1H[0K[10;1H[0K[1;1H"
 #define	Q_LINE "[22;1H[0K[21;1H[0K[20;1H[0K"
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 #define	W_LINE "[11;1H[0K"
 #else
 #define	W_LINE "[12;1H[0K[11;1H[0K"
@@ -75,7 +78,7 @@
 
 #define	E_LINE "[24;1H[0K[23;1H[0K"
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 #define	M_LINE "[12;1H[0K[13;1H[0K[14;1H[0K[15;1H[0K" \
 	"[16;1H[0K[17;1H[0K[18;1H[0K[19;1H[0K[12;1H"
 #else
@@ -138,7 +141,7 @@
 #error No VTOC format defined.
 #endif
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 #define	FDISK_KB	(1024)
 #define	FDISK_MB	(FDISK_KB * 1024)
 #define	FDISK_GB	(FDISK_MB * 1024)
@@ -235,6 +238,7 @@ static char Ustr[] = "UNIX System";
 static char SUstr[] = "Solaris";
 static char SU2str[] = "Solaris2";
 static char X86str[] = "x86 Boot";
+static char Alphastr[] = "Alpha Boot";
 static char DIAGstr[] = "Diagnostic";
 static char IFSstr[] = "IFS: NTFS";
 static char AIXstr[] = "AIX Boot";
@@ -252,7 +256,7 @@ static char QNXstr[] = "QNX 4.x";
 static char QNX2str[] = "QNX part 2";
 static char QNX3str[] = "QNX part 3";
 static char LINNATstr[] = "Linux native";
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 static char LINSWAPstr[] = "Linux swap";
 #endif
 static char NTFSVOL1str[] = "NT volset 1";
@@ -351,7 +355,7 @@ static int	sectsiz;		/* sector size */
 #define	CBUFLEN 80
 static char s[CBUFLEN];
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 /*
  * Complete list of all the 255 partition types. Some are unknown types
  * and some entries are known to be unused.
@@ -551,7 +555,11 @@ char *fdisk_part_types[] = {
 	"Unknown",				/* 189 */
 	"Solaris x86 boot",			/* 190 */
 	"Solaris2",				/* 191 */
+#ifdef __alpha
+	"Solaris Alpha boot",			/* 192 */
+#else
 	"REAL/32 or Novell DOS secured",	/* 192 */
+#endif
 	"DRDOS/secured(FAT12)",			/* 193 */
 	"Hidden Linux",				/* 194 */
 	"Hidden Linux swap",			/* 195 */
@@ -688,7 +696,7 @@ static int lecture_and_query(char *warning, char *devname);
 static void sanity_check_provided_device(char *devname, int fd);
 static char *get_node(char *devname);
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 static void id_to_name(uchar_t sysid, char *buffer);
 static void ext_read_input(char *buf);
 static int ext_read_options(char *buf);
@@ -719,7 +727,7 @@ static void ext_print_logdrive_layout_debug();
 static void
 update_disk_and_exit(boolean_t table_changed)
 {
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	int rval;
 #endif
 	if (table_changed) {
@@ -735,7 +743,7 @@ update_disk_and_exit(boolean_t table_changed)
 	if (io_adjt)
 		fix_slice();
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	if (!io_readonly) {
 		rval = fdisk_commit_ext_part(epp);
 		switch (rval) {
@@ -769,7 +777,7 @@ main(int argc, char *argv[])
 	int	errflg = 0;
 	int	diag_cnt = 0;
 	int openmode;
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	int rval;
 	int lf_op_flag = 0;
 #endif
@@ -1171,7 +1179,7 @@ main(int argc, char *argv[])
 	/* save away a copy of Table in Old_Table for sensing changes */
 	copy_Table_to_Old_Table();
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	/*
 	 * Read extended partition only when the fdisk table is not
 	 * supplied from a file
@@ -1543,7 +1551,7 @@ mboot_read(void)
 	int mDev, i;
 	struct ipart *part;
 
-#if defined(i386) || defined(sparc)
+#if defined(__i386) || defined(__amd64) || defined(sparc)
 	/*
 	 * If the master boot file hasn't been specified, use the
 	 * implementation architecture name to generate the default one.
@@ -1588,6 +1596,9 @@ mboot_read(void)
 	}
 
 	(void) close(mDev);
+#elif defined(__alpha) || defined(__aarch64)
+	(void) memset(&BootCod, 0, sizeof (struct mboot));
+	BootCod.signature = LE_16(MBB_MAGIC);
 #else
 #error	fdisk needs to be ported to new architecture
 #endif
@@ -1766,7 +1777,7 @@ load(int funct, char *file)
 	FILE *fp;
 	int	startindex = 0;
 	int	tmpindex = 0;
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	int 	ext_part_present = 0;
 	uint32_t	begsec, endsec, relsect;
 	logical_drive_t *temp;
@@ -1803,7 +1814,7 @@ load(int funct, char *file)
 			    &bcyl, &ehead, &esect, &ecyl, &rsect, &numsect)) {
 				continue;
 			}
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 			part_count++;
 
 			if (fdisk_is_dos_extended((uchar_t)id)) {
@@ -2041,7 +2052,7 @@ load(int funct, char *file)
 
 				(void) memset(&Table[i], 0,
 				    sizeof (struct ipart));
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 				if (fdisk_is_dos_extended(id)) {
 					(void) fdisk_delete_ext_part(epp);
 				}
@@ -2050,7 +2061,7 @@ load(int funct, char *file)
 			}
 		}
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 		ldcnt = FD_NUMPART + 1;
 		for (temp = fdisk_get_ld_head(epp); temp != NULL;
 		    temp = temp->next) {
@@ -2135,7 +2146,7 @@ load(int funct, char *file)
 			}
 		}
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 		if (id > FDISK_MAX_VALID_PART_ID) {
 			(void) printf("Invalid partition ID\n");
 			exit(1);
@@ -2636,7 +2647,7 @@ validate_part(int id, uint32_t rsect, uint32_t numsect)
 		    "New partition cannot start at sector 0\n");
 		return (-1);
 	}
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	if (id > FDISK_MAX_VALID_PART_ID) {
 		(void) fprintf(stderr, "Invalid partition ID\n");
 		return (-1);
@@ -2652,7 +2663,7 @@ validate_part(int id, uint32_t rsect, uint32_t numsect)
 static void
 stage0(void)
 {
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	int rval;
 #endif
 	dispmenu();
@@ -2661,7 +2672,7 @@ stage0(void)
 		(void) printf("Enter Selection: ");
 		(void) fgets(s, sizeof (s), stdin);
 		rm_blanks(s);
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 		while (!((s[0] > '0') && (s[0] < '8') &&
 		    ((s[1] == '\0') || (s[1] == '\n')))) {
 #else
@@ -2669,7 +2680,7 @@ stage0(void)
 		    ((s[1] == '\0') || (s[1] == '\n')))) {
 #endif
 			(void) printf(E_LINE); /* Clear any previous error */
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 			(void) printf(
 			    "Enter a one-digit number between 1 and 7.");
 #else
@@ -2699,7 +2710,7 @@ stage0(void)
 				if (ppartid() == -1)
 					return;
 				break;
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 			case '5':
 				if (fdisk_ext_part_exists(epp)) {
 					ext_part_menu();
@@ -2766,7 +2777,7 @@ stage0(void)
 				exit(0);
 				/* FALLTHRU */
 #endif
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 			case '7':
 #else
 			case '6':
@@ -2801,7 +2812,7 @@ pcreate(void)
 	int i, j;
 	uint32_t numsect;
 	int retCode = 0;
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	int ext_part_present = 0;
 #endif
 
@@ -2826,7 +2837,7 @@ pcreate(void)
 		if (Table[i].systid != UNUSED) {
 			numsect += LE_32(Table[i].numsect);
 		}
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 		/* Check if an extended partition already exists */
 		if (fdisk_is_dos_extended(Table[i].systid)) {
 			ext_part_present = 1;
@@ -2857,7 +2868,11 @@ pcreate(void)
 		    "Select the partition type to create:\n"
 		    "   1=SOLARIS2  2=UNIX        3=PCIXOS     4=Other\n"
 		    "   5=DOS12     6=DOS16       7=DOSEXT     8=DOSBIG\n"
+#ifdef __alpha
+		    "   9=DOS16LBA  A=Alpha Boot  B=Diagnostic C=FAT32\n"
+#else
 		    "   9=DOS16LBA  A=x86 Boot    B=Diagnostic C=FAT32\n"
+#endif
 		    "   D=FAT32LBA  E=DOSEXTLBA   F=EFI        0=Exit? ");
 		(void) fgets(s, sizeof (s), stdin);
 		rm_blanks(s);
@@ -2889,7 +2904,7 @@ pcreate(void)
 			tsystid = DOSOS16; /* DOS 16 bit fat */
 			break;
 		case '7':
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 			if (ext_part_present) {
 				(void) printf(Q_LINE);
 				(void) printf(E_LINE);
@@ -2911,7 +2926,11 @@ pcreate(void)
 			break;
 		case 'a':		/* x86 Boot partition */
 		case 'A':
+#if defined(__alpha)
+			tsystid = ALPHABOOT;
+#else
 			tsystid = X86BOOT;
+#endif
 			break;
 		case 'b':		/* Diagnostic boot partition */
 		case 'B':
@@ -2927,7 +2946,7 @@ pcreate(void)
 			break;
 		case 'e':	/* Extended partition, need extended int13 */
 		case 'E':
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 			if (ext_part_present) {
 				(void) printf(Q_LINE);
 				(void) printf(E_LINE);
@@ -2992,7 +3011,7 @@ pcreate(void)
 				Table[i].bootid = 0;
 			}
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 			/*
 			 * If partition created is an extended partition, null
 			 * out the first sector of the first cylinder of the
@@ -3356,7 +3375,7 @@ static void
 dispmenu(void)
 {
 	(void) printf(M_LINE);
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	(void) printf(
 	    "SELECT ONE OF THE FOLLOWING:\n"
 	    "   1. Create a partition\n"
@@ -3539,7 +3558,7 @@ DEL1:	(void) printf(Q_LINE);
 		return (-1);
 	}
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	if (fdisk_is_dos_extended(Table[i].systid) &&
 	    (Table[i].relsect == fdisk_get_ext_beg_sec(epp)) &&
 	    fdisk_get_logical_drive_count(epp)) {
@@ -3576,7 +3595,7 @@ DEL1:	(void) printf(Q_LINE);
 		if (! yesno()) {
 			return (1);
 		}
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	}
 #endif
 
@@ -3700,7 +3719,7 @@ disptbl(void)
 			break;
 		case SUNIXOS:
 			type = SUstr;
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 			if (fdisk_is_linux_swap(epp, Table[i].relsect,
 			    NULL) == 0)
 				type = LINSWAPstr;
@@ -3708,6 +3727,9 @@ disptbl(void)
 			break;
 		case SUNIXOS2:
 			type = SU2str;
+			break;
+		case ALPHABOOT:
+			type = Alphastr;
 			break;
 		case X86BOOT:
 			type = X86str;
@@ -3940,7 +3962,9 @@ copy_Bootblk_to_Table(void)
 	if (LE_16(Bootblk->signature) != MBB_MAGIC)  {
 		/* Signature is missing */
 		nulltbl();
+#ifndef __aarch64
 		(void) memcpy(Bootblk->bootinst, &BootCod, BOOTSZ);
+#endif
 		return;
 	}
 	/*
@@ -3960,7 +3984,9 @@ copy_Bootblk_to_Table(void)
 	}
 
 	/* For now, always replace the bootcode with ours */
+#ifndef __aarch64
 	(void) memcpy(Bootblk->bootinst, &BootCod, BOOTSZ);
+#endif
 	copy_Table_to_Bootblk();
 }
 
@@ -4040,6 +4066,16 @@ copy_Table_to_Bootblk(void)
 			(void) memcpy(boot_ptr, tbl_ptr, sizeof (struct ipart));
 	}
 	Bootblk->signature = LE_16(MBB_MAGIC);
+#ifdef __alpha
+	{
+		// check alpha disk boot block
+		uint64_t *bb = (uint64_t *)Bootblk;
+		bb[63] = 0;
+		for (int j = 0; j < 63; j++) {
+			bb[63] += bb[j];
+		}
+	}
+#endif
 }
 
 /*
@@ -4142,6 +4178,7 @@ ffile_write(char *file)
 	(void) fprintf(fp, "*  184: FDISK_BSDISWAP\n");
 	(void) fprintf(fp, "*  190: X86BOOT\n");
 	(void) fprintf(fp, "*  191: SUNIXOS2\n");
+	(void) fprintf(fp, "*  192: ALPHABOOT\n");
 	(void) fprintf(fp, "*  238: EFI_PMBR\n");
 	(void) fprintf(fp, "*  239: EFI_FS\n");
 	(void) fprintf(fp, "*\n");
@@ -4166,7 +4203,7 @@ ffile_write(char *file)
 		    LE_32(Table[i].relsect),
 		    LE_32(Table[i].numsect));
 	}
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	if (fdisk_ext_part_exists(epp)) {
 		struct ipart ext_tab;
 		logical_drive_t *temp;
@@ -4902,7 +4939,7 @@ get_node(char *devname)
 	return (node);
 }
 
-#ifdef i386
+#if defined(__i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 static void
 preach_and_continue()
 {

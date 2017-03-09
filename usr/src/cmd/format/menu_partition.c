@@ -21,6 +21,9 @@
 /*
  * Copyright (c) 1991, 2010, Oracle and/or its affiliates. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * This file contains functions to implement the partition menu commands.
@@ -148,7 +151,7 @@ p_ipart()
 	return (0);
 }
 
-#if defined(i386)
+#if defined(i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 /*
  * This routine implements the 'j' command.  It changes the 'j' partition.
  */
@@ -199,7 +202,7 @@ p_select()
 	u_ioparam_t		ioparam;
 	int			i, index, deflt, *defltptr = NULL;
 	blkaddr_t		b_cylno;
-#if defined(i386)
+#if defined(i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	blkaddr_t		cyl_offset;
 #endif
 
@@ -244,7 +247,7 @@ p_select()
 		fmt_print("\n");
 		return (0);
 	}
-#if defined(i386)
+#if defined(i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	/*
 	 * Adjust for the boot and alternate sectors partition - assuming that
 	 * the alternate sectors partition physical location follows
@@ -268,7 +271,7 @@ p_select()
 	 */
 	for (i = 0; i < NDKMAP; i++)  {
 
-#if defined(i386)
+#if defined(i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 		if (i == I_PARTITION || i == J_PARTITION || i == C_PARTITION) {
 			b_cylno = 0;
 		} else if (pptr->pinfo_map[i].dkl_nblk == 0) {

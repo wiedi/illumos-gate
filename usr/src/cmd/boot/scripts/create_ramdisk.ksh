@@ -20,6 +20,7 @@
 # CDDL HEADER END
 #
 
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2016 Toomas Soome <tsoome@me.com>
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
@@ -125,6 +126,12 @@ sun4u)	ISA=sparc
 	;;
 sun4v)	ISA=sparc
 	ARCH64=sparcv9
+	;;
+alpha)	ISA=alpha
+	ARCH64=none
+	;;
+aarch64)	ISA=aarch64
+	ARCH64=none
 	;;
 *)	usage
 	;;

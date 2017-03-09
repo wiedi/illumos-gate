@@ -22,6 +22,9 @@
 /*
  * Copyright (c) 1991, 2010, Oracle and/or its affiliates. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * This file contains functions to implement the partition menu commands.
@@ -183,7 +186,7 @@ Warning: Fix, or select a different partition table.\n");
 		}
 		map[C_PARTITION].dkl_nblk = ncyl * spc();
 
-#if defined(i386)
+#if defined(i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 		/*
 		 * Adjust for the boot and possibly alternates partitions
 		 */
@@ -242,7 +245,7 @@ Warning: Fix, or select a different partition table.\n");
 		 */
 		if (sel_type == 1) {
 			map[free_hog].dkl_nblk = map[C_PARTITION].dkl_nblk;
-#if defined(i386)
+#if defined(i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 			map[free_hog].dkl_nblk -= map[I_PARTITION].dkl_nblk;
 			if (cur_ctype->ctype_ctype != DKC_SCSI_CCS) {
 				map[free_hog].dkl_nblk -=
@@ -316,7 +319,7 @@ Okay to make this the current partition table", '?',
 		for (i = 0; i < NDKMAP; i++) {
 			cur_parts->pinfo_map[i].dkl_nblk = map[i].dkl_nblk;
 			cur_parts->pinfo_map[i].dkl_cylno = map[i].dkl_cylno;
-#ifdef i386
+#if defined(i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 			cur_parts->vtoc.v_part[i].p_start =
 				map[i].dkl_cylno * nhead * nsect;
 			cur_parts->vtoc.v_part[i].p_size =
@@ -397,7 +400,7 @@ check_map(map)
 	int		cyloffset = 0;
 	blkaddr32_t	tot_blks = 0;
 
-#ifdef i386
+#if defined(i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 	/*
 	 * On x86, we must account for the boot and alternates
 	 */
@@ -424,7 +427,7 @@ Warning: Partition %c, specified # of blocks, %u, is out of range.\n",
 			return (-1);
 		}
 		if (i != C_PARTITION && map[i].dkl_nblk) {
-#ifdef	i386
+#if defined(i386) || defined(__amd64) || defined(__alpha) || defined(__aarch64)
 			if (i == I_PARTITION || i == J_PARTITION)
 				continue;
 #endif

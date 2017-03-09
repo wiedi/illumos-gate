@@ -22,6 +22,9 @@
 /*
  * Copyright (c) 1995, 2010, Oracle and/or its affiliates. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 #ifndef	_RTLD_H
 #define	_RTLD_H
 
@@ -1151,7 +1154,7 @@ extern Lm_list		*lml_list[];
 extern Pltbindtype	elf_plt_write(uintptr_t, uintptr_t, void *, uintptr_t,
 			    Xword);
 extern Rt_map		*is_so_loaded(Lm_list *, const char *, int *);
-extern int		lookup_sym(Slookup *, Sresult *, uint_t *, int *);
+extern int		lookup_sym(Slookup *, Sresult *, uint_t *, int *) __attribute__ ((visibility("hidden")));
 extern int		rt_dldump(Rt_map *, const char *, int, Addr);
 
 #ifdef	__cplusplus
