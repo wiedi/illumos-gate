@@ -27,6 +27,9 @@
 /*
  * Copyright (c) 2016 by Delphix. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 /*
  * Implementations of the functions described in vsnprintf(3C) and string(3C),
@@ -51,7 +54,8 @@
 /*
  * We don't need these for x86 boot or kmdb.
  */
-#if !defined(_KMDB) && (!defined(_BOOT) || defined(__sparc))
+#if !defined(_KMDB) && \
+    (!defined(_BOOT) || (defined(__sparc) || defined(__alpha) || defined(__aarch64)))
 
 #define	ADDCHAR(c)	if (bufp++ - buf < buflen) bufp[-1] = (c)
 
@@ -330,7 +334,7 @@ snprintf(char *buf, size_t buflen, const char *fmt, ...)
 	return (buflen);
 }
 
-#if defined(_BOOT) && defined(__sparc)
+#if defined(_BOOT) && (defined(__sparc) || defined(__alpha) || defined(__aarch64))
 /*
  * The sprintf() and vsprintf() routines aren't shared with the kernel because
  * the DDI mandates that they return the buffer rather than its length.

@@ -23,6 +23,9 @@
  * Copyright (c) 2003, 2010, Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2012, OmniTI Computer Consulting, Inc. All rights reserved.
  */
+/*
+ * Copyright 2017 Hayashi Naoyuki
+ */
 
 #include <errno.h>
 #include <sys/types.h>
@@ -1785,7 +1788,7 @@ initialize_ctx(http_conn_t *c_id)
 	}
 
 	/* Create our context */
-	meth = SSLv3_client_method();
+	meth = TLS_client_method();
 	if ((ctx = SSL_CTX_new(meth)) == NULL) {
 		ulong_t err;
 		while ((err = ERR_get_error()) != 0)
