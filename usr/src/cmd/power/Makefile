@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -93,7 +94,7 @@ install clean:
 
 $(POWERCONF): $(POWERCONF).$(MACH)
 
-$(DAEMON_OBJS): $(DAEMON_SRCS)
+$(DAEMON_OBJS): %.o: %.c
 	$(CC) $(CFLAGS) -D_REENTRANT $(CPPFLAGS) -o $@ -c $<
 	$(PROCESS_COMMENT) $@
 
@@ -129,6 +130,7 @@ $(POFILE):	$(POFILES)
 
 check:	$(CHKMANIFEST)
 
+clobber: clean
 clean:
 	$(RM) $(OBJS) $(POWERCONF)
 	$(RM) $(POFILE) $(POFILES)

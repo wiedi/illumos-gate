@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -33,7 +34,7 @@ SRCS=			$(OBJS1:%.o=%.c) $(SRC)/common/util/getresponse.c
 
 include ../Makefile.cmd
 
-CPPFLAGS += -I $(SRC)/common/util
+CPPFLAGS += $(CCYFLAG)$(SRC)/common/util
 LINTFLAGS += -u
 
 CERRWARN += -_gcc=-Wno-parentheses

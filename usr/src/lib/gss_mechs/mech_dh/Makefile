@@ -22,13 +22,14 @@
 #
 #ident	"%Z%%M%	%I%	%E% SMI"
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 1997, by Sun Microsystems, Inc.
 # All rights reserved.
 #
 # lib/gss_mechs/mech_dh/Makefile
 #
 
-SUBDIRS= backend .WAIT dh192 dh640 dh1024 
+SUBDIRS= backend dh192 dh640 dh1024 
 MSGSUBDIRS = backend
 
 all : 		TARGET= all
@@ -50,3 +51,5 @@ $(SUBDIRS): FRC
 	@cd $@; pwd; $(MAKE) $(TARGET); echo
 
 FRC:
+
+install_h:

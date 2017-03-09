@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -45,7 +46,7 @@ CERRWARN += -_gcc=-Wno-parentheses
 #
 
 CPPFLAGS  += -D_XOPEN_SOURCE=500 -D__EXTENSIONS__
-LDLIBS    += -lxnet -lnvpair -ldhcpagent -ldhcputil -linetutil -ldevinfo -ldlpi
+LDLIBS    += -lxnet -lnsl -lsocket -lnvpair -ldhcpagent -ldhcputil -linetutil -ldevinfo -ldlpi
 
 # Disable warnings that affect all XPG applications.
 LINTFLAGS += -erroff=E_INCONS_ARG_DECL2 -erroff=E_INCONS_VAL_TYPE_DECL2

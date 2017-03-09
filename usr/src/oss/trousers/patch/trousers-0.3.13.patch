@@ -1,0 +1,202 @@
+diff -cNr ../trousers-0.3.13-orig/src/tcsd/Makefile.am ./src/tcsd/Makefile.am
+*** ../trousers-0.3.13-orig/src/tcsd/Makefile.am	2014-04-25 03:05:44.000000000 +0900
+--- ./src/tcsd/Makefile.am	2015-12-12 14:07:56.320081192 +0900
+***************
+*** 1,8 ****
+  sbin_PROGRAMS=tcsd
+  
+! tcsd_CFLAGS=-DAPPID=\"TCSD\" -DVAR_PREFIX=\"@localstatedir@\" -DETC_PREFIX=\"@sysconfdir@\" -I${top_srcdir}/src/include -fPIE -DPIE
+  tcsd_LDADD=${top_builddir}/src/tcs/libtcs.a ${top_builddir}/src/tddl/libtddl.a -lpthread @CRYPTOLIB@
+! tcsd_LDFLAGS=-pie -Wl,-z,relro -Wl,-z,now
+  
+  tcsd_SOURCES=svrside.c tcsd_conf.c tcsd_threads.c platform.c
+  
+--- 1,8 ----
+  sbin_PROGRAMS=tcsd
+  
+! tcsd_CFLAGS=-DAPPID=\"TCSD\" -DVAR_PREFIX=\"@localstatedir@\" -DETC_PREFIX=\"@sysconfdir@\" -I${top_srcdir}/src/include
+  tcsd_LDADD=${top_builddir}/src/tcs/libtcs.a ${top_builddir}/src/tddl/libtddl.a -lpthread @CRYPTOLIB@
+! tcsd_LDFLAGS=
+  
+  tcsd_SOURCES=svrside.c tcsd_conf.c tcsd_threads.c platform.c
+  
+diff -cNr ../trousers-0.3.13-orig/src/tcsd/Makefile.in ./src/tcsd/Makefile.in
+*** ../trousers-0.3.13-orig/src/tcsd/Makefile.in	2014-04-25 03:05:48.000000000 +0900
+--- ./src/tcsd/Makefile.in	2015-12-12 14:08:24.353203209 +0900
+***************
+*** 297,305 ****
+  top_srcdir = @top_srcdir@
+  tcsd_CFLAGS = -DAPPID=\"TCSD\" -DVAR_PREFIX=\"@localstatedir@\" \
+  	-DETC_PREFIX=\"@sysconfdir@\" -I${top_srcdir}/src/include \
+! 	-fPIE -DPIE $(am__append_1) $(am__append_2)
+  tcsd_LDADD = ${top_builddir}/src/tcs/libtcs.a ${top_builddir}/src/tddl/libtddl.a -lpthread @CRYPTOLIB@
+! tcsd_LDFLAGS = -pie -Wl,-z,relro -Wl,-z,now
+  tcsd_SOURCES = svrside.c tcsd_conf.c tcsd_threads.c platform.c
+  all: all-am
+  
+--- 297,305 ----
+  top_srcdir = @top_srcdir@
+  tcsd_CFLAGS = -DAPPID=\"TCSD\" -DVAR_PREFIX=\"@localstatedir@\" \
+  	-DETC_PREFIX=\"@sysconfdir@\" -I${top_srcdir}/src/include \
+! 	$(am__append_1) $(am__append_2)
+  tcsd_LDADD = ${top_builddir}/src/tcs/libtcs.a ${top_builddir}/src/tddl/libtddl.a -lpthread @CRYPTOLIB@
+! tcsd_LDFLAGS =
+  tcsd_SOURCES = svrside.c tcsd_conf.c tcsd_threads.c platform.c
+  all: all-am
+  
+diff -cNr ../trousers-0.3.13-orig/src/tddl/tddl.c ./src/tddl/tddl.c
+*** ../trousers-0.3.13-orig/src/tddl/tddl.c	2014-04-25 03:05:44.000000000 +0900
+--- ./src/tddl/tddl.c	2015-12-12 14:07:20.507647990 +0900
+***************
+*** 18,24 ****
+--- 18,26 ----
+  
+  #include "trousers/tss.h"
+  #include "trousers_types.h"
++ #ifndef SOLARIS
+  #include "linux/tpm.h"
++ #endif
+  #include "tcslog.h"
+  #include "tddl.h"
+  
+***************
+*** 179,184 ****
+--- 181,187 ----
+  	switch (opened_device->transmit) {
+  		case TDDL_UNDEF:
+  			/* fall through */
++ #ifndef SOLARIS
+  		case TDDL_TRANSMIT_IOCTL:
+  			errno = 0;
+  			if ((sizeResult = ioctl(opened_device->fd, TPMIOC_TRANSMIT, txBuffer)) != -1) {
+***************
+*** 188,193 ****
+--- 191,197 ----
+  			LogWarn("ioctl: (%d) %s", errno, strerror(errno));
+  			LogInfo("Falling back to Read/Write device support.");
+  			/* fall through */
++ #endif
+  		case TDDL_TRANSMIT_RW:
+  			if ((sizeResult = write(opened_device->fd,
+  						txBuffer,
+***************
+*** 257,262 ****
+--- 261,267 ----
+  {
+  	int rc;
+  
++ #ifndef SOLARIS
+  	if (opened_device->transmit == TDDL_TRANSMIT_IOCTL) {
+  		if ((rc = ioctl(opened_device->fd, TPMIOC_CANCEL, NULL)) == -1) {
+  			LogError("ioctl: (%d) %s", errno, strerror(errno));
+***************
+*** 267,273 ****
+  		}
+  
+  		return TSS_SUCCESS;
+! 	} else {
+  		return TDDLERR(TSS_E_NOTIMPL);
+  	}
+  }
+--- 272,280 ----
+  		}
+  
+  		return TSS_SUCCESS;
+! 	} else
+! #endif
+! 	{
+  		return TDDLERR(TSS_E_NOTIMPL);
+  	}
+  }
+diff -cNr ../trousers-0.3.13-orig/src/tspi/ps/ps_utils.c ./src/tspi/ps/ps_utils.c
+*** ../trousers-0.3.13-orig/src/tspi/ps/ps_utils.c	2014-04-25 03:05:44.000000000 +0900
+--- ./src/tspi/ps/ps_utils.c	2015-12-12 14:07:20.508648037 +0900
+***************
+*** 22,28 ****
+  #include "tspps.h"
+  #include "tsplog.h"
+  
+! inline TSS_RESULT
+  read_data(int fd, void *data, UINT32 size)
+  {
+  	int rc;
+--- 22,28 ----
+  #include "tspps.h"
+  #include "tsplog.h"
+  
+! TSS_RESULT
+  read_data(int fd, void *data, UINT32 size)
+  {
+  	int rc;
+***************
+*** 39,45 ****
+  	return TSS_SUCCESS;
+  }
+  
+! inline TSS_RESULT
+  write_data(int fd, void *data, UINT32 size)
+  {
+  	int rc;
+--- 39,45 ----
+  	return TSS_SUCCESS;
+  }
+  
+! TSS_RESULT
+  write_data(int fd, void *data, UINT32 size)
+  {
+  	int rc;
+diff -cNr ../trousers-0.3.13-orig/src/tspi/rpc/hosttable.c ./src/tspi/rpc/hosttable.c
+*** ../trousers-0.3.13-orig/src/tspi/rpc/hosttable.c	2014-04-25 03:05:44.000000000 +0900
+--- ./src/tspi/rpc/hosttable.c	2015-12-12 14:07:20.508648037 +0900
+***************
+*** 35,41 ****
+  	return TSS_SUCCESS;
+  }
+  
+! #ifdef SOLARIS
+  #pragma init(_init)
+  void _init(void)
+  #else
+--- 35,41 ----
+  	return TSS_SUCCESS;
+  }
+  
+! #if defined SOLARIS && !defined __GNUC__
+  #pragma init(_init)
+  void _init(void)
+  #else
+***************
+*** 69,75 ****
+  	ht = NULL;
+  }
+  
+! #ifdef SOLARIS
+  #pragma fini(_fini)
+  void _fini(void)
+  #else
+--- 69,75 ----
+  	ht = NULL;
+  }
+  
+! #if defined SOLARIS && !defined __GNUC__
+  #pragma fini(_fini)
+  void _fini(void)
+  #else
+diff -cNr ../trousers-0.3.13-orig/src/tspi/tsp_tcsi_param.c ./src/tspi/tsp_tcsi_param.c
+*** ../trousers-0.3.13-orig/src/tspi/tsp_tcsi_param.c	2014-04-25 03:05:44.000000000 +0900
+--- ./src/tspi/tsp_tcsi_param.c	2015-12-12 14:07:20.508648037 +0900
+***************
+*** 11,17 ****
+--- 11,22 ----
+  #include <stdlib.h>
+  #include <string.h>
+  #include <stdio.h>
++ #include <limits.h>
++ #ifdef SOLARIS
++ #define HOST_NAME_MAX _POSIX_HOST_NAME_MAX
++ #else
+  #include <bits/local_lim.h>
++ #endif
+  #include "trousers/tss.h"
+  #include "trousers/trousers.h"
+  #include "trousers_types.h"

@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 1989, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 # Copyright 2010 Nexenta Systems, Inc.  All rights reserved.
@@ -129,7 +130,12 @@ $(ROOTVARIANTDIR64)/$(VAR1_DYNLIB64)	:  FILEMODE= 755
 
 .KEEP_STATE:
 
-all:	all_h lib32 $(BUILD64) .WAIT lib64 .WAIT etc THIRDPARTYLICENSE
+all:	all_h lib32 etc # THIRDPARTYLICENSE
+lib32:	all_h
+ifneq ($(MACH),$(MACH64))
+lib64:	all_h
+all:	lib64
+endif
 
 THIRDPARTYLICENSE: extract-copyright
 	$(RM) $@
@@ -151,14 +157,21 @@ lib64:	$(MACH_COMP) $(MACHLIBS64) $(MACH64)/$(LIB_PIC) $(VARIANTLIBS64)
 		exit 1; \
 	fi
 
-$(MACH)/assym.h $(MACH64)/assym.h:
+$(MACH)/assym.h:
 	@cd $(@D); $(MAKE) assym.h
+
+ifneq ($(MACH),$(MACH64))
+$(MACH64)/assym.h:
+	@cd $(@D); $(MAKE) assym.h
+endif
 
 $(VARIANTLIBS): FRC
 	@cd $(@D); pwd; VERSION='$(VERSION)' $(MAKE) $(@F)
 
+ifneq ($(MACH),$(MACH64))
 $(VARIANTLIBS64): FRC
 	@cd $(@D); pwd; VERSION='$(VERSION)' $(MAKE) $(@F)
+endif
 
 $($(MACH)_ETC): FRC
 	@cd $(@); pwd; $(MAKE) $(TARGET)
@@ -168,20 +181,27 @@ $($(MACH)_COMP): FRC
 
 install:	all			\
 		etc			\
-		inslib32		\
-		$(BUILD64) inslib64
+		inslib32
+ifneq ($(MACH),$(MACH64))
+install: inslib64
+endif
 
 inslib32:	$(ROOTFS_LIBS) $(ROOTFS_LINKS) $(ROOTFS_LINT) \
 		$(ROOTFS_LINTLIB) \
 		$(ROOTVARIANTLIBS)
 
+ifneq ($(MACH),$(MACH64))
 inslib64:	$(ROOTFS_LIBS64) $(ROOTFS_LINKS64) \
 		$(ROOTFS_LINTLIB64) \
 		$(ROOTVARIANTLIBS64)
+endif
 
-install_h: all_h $(ROOTHDRS)
+install_h: $(ROOTHDRS)
 
-all_h:	$(MACH)/assym.h $(MACH64)/assym.h
+all_h:	$(MACH)/assym.h
+ifneq ($(MACH),$(MACH64))
+all_h:	$(MACH64)/assym.h
+endif
 
 check:	$(CHECKHDRS)
 
@@ -189,10 +209,12 @@ $(ROOTFS_LIB)/%: $(MACH)/%
 	$(INS.file)
 $(ROOTFS_LIBDIR)/$(LIBLINKS): $(ROOTFS_LIBDIR)/$(LIBLINKS)$(VERS)
 	$(INS.liblink)
+ifneq ($(MACH),$(MACH64))
 $(ROOTFS_LIB64)/%: $(MACH64)/%
 	$(INS.file)
 $(ROOTFS_LIBDIR64)/$(LIBLINKS): $(ROOTFS_LIBDIR64)/$(LIBLINKS)$(VERS)
 	$(INS.liblink)
+endif
 
 $(ROOTVARIANTDIR): $(ROOTLIB)
 	$(INS.dir)
@@ -203,30 +225,40 @@ $(ROOTVARIANTDIR)/%: $(ROOTVARIANTDIR) $(VAR2_BLDDIR)/%
 $(ROOTVARIANTDIR)/%: $(ROOTVARIANTDIR) $(VAR3_BLDDIR)/%
 	$(INS.file)
 
+ifneq ($(MACH),$(MACH64))
 $(ROOTVARIANTDIR64): $(ROOTLIB64)
 	$(INS.dir)
 $(ROOTVARIANTDIR64)/%: $(ROOTVARIANTDIR64) $(VAR1_BLDDIR64)/%
 	$(INS.file)
+endif
 
 # install rule for lint library target
 $(ROOTFS_LINTDIR)/%: port/%
 	$(INS.file)
+ifneq ($(MACH),$(MACH64))
 $(ROOTFS_LINTDIR64)/%: port/%
 	$(INS.file)
+endif
 $(ROOTFS_LINTDIR)/%: $(MACH)/%
 	$(INS.file)
+ifneq ($(MACH),$(MACH64))
 $(ROOTFS_LINTDIR64)/%: $(MACH64)/%
 	$(INS.file)
+endif
 
 $(LINTLIB):
 	@cd $(MACH); pwd; VERSION='$(VERSION)' $(MAKE) $@
+ifneq ($(MACH),$(MACH64))
 $(LINTLIB64):
 	@cd $(MACH64); pwd; VERSION='$(VERSION)' $(MAKE) $@
+endif
 
 $(MACH)/$(LIB_PIC): FRC
 	@cd $(MACH); pwd; VERSION='$(VERSION)' $(MAKE) $(LIB_PIC)
+ifneq ($(MACH),$(MACH64))
 $(MACH64)/$(LIB_PIC): FRC
 	@cd $(MACH64); pwd; VERSION='$(VERSION)' $(MAKE) $(LIB_PIC)
+endif
 
 all	: 	TARGET= all
 install	: 	TARGET= install

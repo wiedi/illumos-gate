@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 2014 Gary Mills
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
@@ -71,6 +72,7 @@ $(PROG): $(OBJECTS)
 
 install: all $(ROOTPROG)
 
+clobber: clean
 clean:
 	$(RM) $(OBJECTS)
 

@@ -64,9 +64,15 @@ _curthread(void)
 #elif defined(__sparc)
 	register ulwp_t *__value __asm__("g7");
 #elif defined(__alpha)
-	ulwp_t *__value = (ulwp_t *)pal_rdunique();
+	ulwp_t *__value;
+	asm volatile(
+	    "call_pal %1; mov $0, %0"
+		: "=r" (__value)
+		: "i" (PAL_rdunique)
+		: "$0");
 #elif defined(__aarch64)
-	ulwp_t *__value = (ulwp_t *)read_tpidr_el0();
+	ulwp_t *__value;
+	asm volatile("mrs %0, tpidr_el0" : "=r"(__value) :: "memory");
 #else
 #error	"port me"
 #endif
@@ -77,10 +83,22 @@ static __inline__ ulwp_t *
 __curthread(void)
 {
 	ulwp_t *__value;
-#if defined(__alpha) || defined(__aarch64)
-	__value = _curthread();
-	if (__value)
-		__value = __value->ul_self;
+#if defined(__alpha)
+	asm volatile(
+	    "call_pal %1; mov $0, %0\n"
+	    "beq %0, 1f\n"
+	    "ldq %0, %2(%0)\n"
+	    "1:\n"
+		: "=r" (__value)
+		: "i" (PAL_rdunique), "i"(__builtin_offsetof(ulwp_t, ul_self))
+		: "$0");
+#elif defined(__aarch64)
+	asm volatile(
+	    "mrs %0, tpidr_el0\n"
+	    "cbz %0, 1f\n"
+	    "ldr %0, [%0, %1]\n"
+	    "1:\n"
+	    : "=r"(__value) : "i"(__builtin_offsetof(ulwp_t, ul_self)));
 #else
 	__asm__ __volatile__(
 #if defined(__amd64)

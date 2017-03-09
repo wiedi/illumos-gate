@@ -22,6 +22,7 @@
 # Copyright (c) 2004, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2012 Milan Jurik. All rights reserved.
 # Copyright 2016 Toomas Soome <tsoome@me.com>
+# Copyright 2017 Hayashi Naoyuki
 #
 
 PROG = svc.startd
@@ -86,7 +87,7 @@ proc.o :  CPPFLAGS += -D_REENTRANT
 LDLIBS += \
 	-lcontract \
 	-lkstat \
-	-lmd5 \
+	-lmd \
 	-lnvpair \
 	-lrestart \
 	-lscf \
@@ -121,6 +122,7 @@ $(POFILE): $(POFILES)
 
 install: all $(ROOTCMD)
 
+clobber: clean
 clean:
 	$(RM) $(ALLOBJS)
 

@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -45,7 +46,8 @@ _msg : 		TARGET= _msg
 
 all lint clean clobber catalog package install _msg: $(SUBDIRS)
 
-install: all
+install:
+install_h:
 
 $(SUBDIRS): FRC
 	@cd $@; pwd; $(MAKE) $(TARGET)

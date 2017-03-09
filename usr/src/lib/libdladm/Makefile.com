@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 2005, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -36,7 +37,7 @@ include ../../Makefile.rootfs
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 LDLIBS +=	-ldevinfo -lc -linetutil -lsocket -lscf -lrcm -lnvpair \
-		-lexacct -lnsl -lkstat -lpool
+		-lexacct -lnsl -lkstat -lncurses -lpool
 
 SRCDIR =	../common
 $(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)

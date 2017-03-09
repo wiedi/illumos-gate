@@ -20,6 +20,7 @@
 #
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -29,7 +30,7 @@
 #  whose executable reside in $(INSDIR1) and $(INSDIR2).
 #
 
-include $(SRC)/Makefile.master
+include ../../../Makefile.master
 
 SUBDIR1=	exportfs nfsd rquotad \
 		statd nfsstat mountd dfshares \

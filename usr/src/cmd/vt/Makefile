@@ -23,6 +23,7 @@
 # Use is subject to license terms.
 #
 # Copyright 2015 RackTop Systems.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 PROG= vtdaemon vtinfo vtxlock
@@ -35,8 +36,8 @@ include ../Makefile.cmd
 CFLAGS += $(CCVERBOSE)
 CERRWARN += -_gcc=-Wno-uninitialized
 
-vtdaemon :  LDLIBS += -lpam -lbsm
-lint_vtdaemon :  LDLIBS += -lpam -lbsm
+vtdaemon : LDLIBS += -lpam -lbsm
+lint_vtdaemon : LDLIBS += -lpam -lbsm
 
 .KEEP_STATE:
 

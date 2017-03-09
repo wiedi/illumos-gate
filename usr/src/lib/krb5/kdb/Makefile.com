@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -59,6 +60,7 @@ include ../../Makefile.lib
 SRCS=		$(KDBOBJS:%.o=../%.c)
 SRCS+=		$(DERIVED_OBJS:%.o=../%.c)
 SRCS+=		$(KADM5SRCS)
+SRCS=
 
 LIBS=		$(DYNLIB)
 
@@ -86,6 +88,7 @@ CERRWARN +=	-_gcc=-Wno-unused-function
 CERRWARN +=	-_gcc=-Wno-type-limits
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-parentheses
+CERRWARN +=	-_gcc=-Wno-incompatible-pointer-types
 
 DYNFLAGS +=	$(KRUNPATH) $(KMECHLIB)
 LDLIBS +=	-lc -lnsl
@@ -106,12 +109,16 @@ $(ISRCXDR):	$(ISRCHDR) $(KRB5IPROPDIR)/iprop.x
 CLEANFILES +=	$(ISRCHDR) $(ISRCXDR)
 
 # Explicitly state the dependancy on iprop.h
-$(LIBS): $(ISRCHDR)
+$(PICS): $(ISRCHDR)
 
 # We turn off ptr-cast warnings, since we're doing mmapping in kdb_log
 LINTFLAGS +=	-erroff=E_BAD_PTR_CAST_ALIGN
 
 lint:	lintcheck
+
+pics/%.o: $(KADM5DIR)/%.c
+	$(COMPILE.c)  -o $@ $<
+	$(POST_PROCESS_O)
 
 # include library targets
 include ../../Makefile.targ

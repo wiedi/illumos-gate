@@ -18,6 +18,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -35,7 +36,7 @@ ROOTDIRS=	$(ROOTDIR)
 ROOTHDRS=	$(HDRS:%=$(ROOTDIRS)/%)
 
 # install rules
-$(ROOTDIRS)/%: %
+$(ROOTDIRS)/%: % $(ROOTDIRS)
 	$(INS.file)
 
 CHECKHDRS= $(HDRS:%.h=%.check)

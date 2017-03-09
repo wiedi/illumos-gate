@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -63,7 +64,7 @@ all : $(LIBS)
 lint : lintcheck
 
 ../common/smp_errno.c: ../common/mkerrno.sh ../common/libsmp.h
-	sh ../common/mkerrno.sh < ../common/libsmp.h > $@
+	ksh ../common/mkerrno.sh < ../common/libsmp.h > $@
 
 pics/%.o: ../common/%.c
 	$(COMPILE.c) -o $@ $<

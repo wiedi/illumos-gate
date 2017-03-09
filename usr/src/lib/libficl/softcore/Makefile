@@ -11,8 +11,11 @@
 
 #
 # Copyright 2016 Toomas Soome <tsoome@me.com>
+# Copyright 2017 Hayashi Naoyuki
 #
 
+include ../../Makefile.lib
+include ../../../Makefile.native
 include $(SRC)/tools/Makefile.tools
 
 install all: softcore.c
@@ -29,18 +32,18 @@ SOURCES=	$(FR:%=$(SOFTCORE)/%)
 
 OBJS=	makesoftcore.o lz4.o
 SRCS=	makesoftcore.c lz4.c
-LDLIBS= -lumem
+LDLIBS= #-lumem
 
-CPPFLAGS += -I.. -I$(SRC)/common/ficl
+NATIVE_CFLAGS += -I.. -I$(SRC)/common/ficl
 
 softcore.c: $(PROG) $(SOURCES)
 	./$(PROG) $(SOURCES)
 
 $(PROG): $(OBJS)
-	$(LINK.c) -o $@ $(OBJS) $(LDLIBS)
+	$(NATIVECC) -o $@ $(OBJS) $(LDLIBS)
 
 %.o: $(SOFTCORE)/%.c
-	$(COMPILE.c) $<
+	$(NATIVECC) $(NATIVE_CFLAGS)  -c $<
 
 clobber clean:
 	$(RM) softcore.c $(OBJS) $(PROG)

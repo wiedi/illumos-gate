@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 1997, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -46,6 +47,7 @@ CPPFLAGS +=	-I ../inc
 CERRWARN +=	-_gcc=-Wno-parentheses
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-char-subscripts
+CERRWARN +=	-_gcc=-Wno-unused-but-set-variable
 
 $(LINTLIB) : 	SRCS=$(SRCDIR)/$(LINTSRC)
 LDLIBS +=	-lc

@@ -22,6 +22,7 @@
 #
 # Copyright (c) 1992, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2015 RackTop Systems.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 FSTYPE=		autofs
@@ -97,6 +98,8 @@ CERRWARN +=	-_gcc=-Wno-switch
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-unused-label
 CERRWARN +=	-_gcc=-Wno-unused-function
+CERRWARN +=	-_gcc=-Wno-unused-but-set-parameter
+CERRWARN +=	-_gcc=-Wno-unused-but-set-variable
 
 OBJS=		$(AUTOOBJS) $(MOUNTOBJS) $(TYPEOBJS) \
 		$(SHAREOBJS) $(UNSHAREOBJS)
@@ -122,6 +125,7 @@ $(MOUNT):	$(MOUNTOBJS)
 		$(LINK.c) -o $@ $(MOUNTOBJS) $(LDLIBS)
 		$(POST_PROCESS)
 
+$(TYPEOBJS): webnfs.h
 $(TYPEPROG):	webnfs.h $(TYPEOBJS)
 		$(LINK.c) -o $@ $(TYPEOBJS) $(LDLIBS)
 		$(POST_PROCESS)
@@ -211,6 +215,7 @@ lint:
 	$(LINT.c) $(MOUNTSRCS)
 	$(LINT.c) $(TYPESRCS)
 
+clobber: clean
 clean:	clean_dump
 	$(RM) $(OBJS) webnfs_xdr.c webnfs_client.c webnfs.h webnfs.x
 

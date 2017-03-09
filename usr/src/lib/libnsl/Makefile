@@ -19,10 +19,14 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
 #
+
+# include library definitions
+include ../Makefile.lib
 
 PROTOCOL_DIR= $(ROOTHDRDIR)/rpcsvc
 PROTOCOL_SRCDIR= $(SRC)/head/rpcsvc
@@ -56,8 +60,6 @@ DERIVED_FILES= $(GEN_DERIVED_FILES) $(RPC_DERIVED_FILES)
 #
 CLEANFILES += $(DERIVED_FILES)
 
-# include library definitions
-include ../Makefile.lib
 
 # header file delivered to /usr/include; internal to ON build process
 HDRS =		nss.h
@@ -85,7 +87,7 @@ all:		$(PROTOCOL_DIR) $(DERIVED_FILES) .WAIT $(SUBDIRS)
 headers:	$(PROTOCOL_DIR) .WAIT $(PROTOCOL_FILES) $(PROTOCOL_FILES_UTS) \
 		$(DERIVED_FILES)
 
-install:	all .WAIT $(SUBDIRS)
+install:	$(PROTOCOL_DIR) $(DERIVED_FILES) $(SUBDIRS)
 
 install_h:	$(ROOTHDRS)
 

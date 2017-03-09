@@ -23,6 +23,7 @@
 # Use is subject to license terms.
 #
 # Copyright 2014 Nexenta Systems, Inc.  All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 LIBRARY =	libadutils.a
@@ -46,6 +47,7 @@ CPPFLAGS +=	-I$(SRC)/lib/libldap5/include/ldap
 
 CERRWARN +=	-_gcc=-Wno-type-limits
 CERRWARN +=	-_gcc=-Wno-uninitialized
+CERRWARN +=	-_gcc=-Wno-unused-but-set-variable
 
 .KEEP_STATE:
 

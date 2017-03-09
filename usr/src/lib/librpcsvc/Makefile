@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2015 Gary Mills
 # Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
@@ -67,10 +68,9 @@ install : 	TARGET= install
 lint : 		TARGET= lint
 
 .KEEP_STATE:
+.NOTPARALLEL:
 
-all:	$(DERIVED_FILES) $(TXTS) .WAIT $(SUBDIRS)
-
-install: all .WAIT $(SUBDIRS)
+all install :	$(DERIVED_FILES) $(TXTS) .WAIT $(SUBDIRS)
 
 install_h: $(DERIVED_FILES) $(ROOTHDRS)
 

@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2010 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -67,7 +68,7 @@ pics/elfcap.o:	$(ELFCAP)/elfcap.c
 		$(POST_PROCESS_O)
 
 $(RTLD):	pics $(PICS) $(CRTS)
-		$(LD_USE_PROTO)ld -o $@ -dy -G $(DYNFLAGS) $(CRTI) $(PICS) \
+		$(CC) -o $@ -dy -G $(DYNFLAGS) $(CRTI) $(PICS) \
 		    $(LDLIBS) $(CRTN)
 		$(POST_PROCESS_SO)
 

@@ -1,0 +1,40 @@
+diff -cNr ../coreutils-8.25-orig/Makefile.in ./Makefile.in
+*** ../coreutils-8.25-orig/Makefile.in	2016-01-20 19:55:18.000000000 +0900
+--- ./Makefile.in	2016-10-20 07:03:44.483189442 +0900
+***************
+*** 5026,5032 ****
+     END {$$m and (warn "$@: do not use upper case in \@var{...}\n"), exit 1}'
+  
+  @HAVE_PERL_FALSE@run_help2man = $(SHELL) $(srcdir)/man/dummy-man
+! @HAVE_PERL_TRUE@run_help2man = $(PERL) -- $(srcdir)/man/help2man
+  ALL_MANS = $(man1_MANS) $(EXTRA_MANS)
+  
+  # Dependencies common to all man pages.  Updated below.
+--- 5026,5032 ----
+     END {$$m and (warn "$@: do not use upper case in \@var{...}\n"), exit 1}'
+  
+  @HAVE_PERL_FALSE@run_help2man = $(SHELL) $(srcdir)/man/dummy-man
+! @HAVE_PERL_TRUE@run_help2man = $(PERL) -- $(srcdir)/man/help2man --no-discard-stderr
+  ALL_MANS = $(man1_MANS) $(EXTRA_MANS)
+  
+  # Dependencies common to all man pages.  Updated below.
+diff -cNr ../coreutils-8.25-orig/lib/fseeko.c ./lib/fseeko.c
+*** ../coreutils-8.25-orig/lib/fseeko.c	2016-01-01 23:16:58.000000000 +0900
+--- ./lib/fseeko.c	2016-10-20 06:51:13.679466948 +0900
+***************
+*** 15,21 ****
+     with this program; if not, see <http://www.gnu.org/licenses/>.  */
+  
+  #include <config.h>
+! 
+  /* Specification.  */
+  #include <stdio.h>
+  
+--- 15,21 ----
+     with this program; if not, see <http://www.gnu.org/licenses/>.  */
+  
+  #include <config.h>
+! #include "file64.h"
+  /* Specification.  */
+  #include <stdio.h>
+  

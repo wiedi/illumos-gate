@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -48,6 +49,7 @@ LINTSRC=	$(LINTLIB:%.ln=%)
 CPPFLAGS =	-I../inc -I../../common/inc $(CPPFLAGS.master)
 CFLAGS +=	$(CCVERBOSE)
 LDLIBS +=	-lc
+CERRWARN +=	-_gcc=-Wno-unused-value
 
 .KEEP_STATE:
 

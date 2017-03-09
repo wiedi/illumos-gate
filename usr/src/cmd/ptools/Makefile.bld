@@ -20,11 +20,12 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
 
-PROG:sh = basename `cd ..; pwd`
+PROG = $(notdir $(abspath $(dir $(CURDIR))))
 
 OBJS = $(PROG).o
 
@@ -54,6 +55,8 @@ LDLIBS_ptree		= -lproc -lcontract
 LDLIBS_pwdx		= -lproc
 
 LDLIBS += $(LDLIBS_$(PROG))
+
+CERRWARN_pfiles	+= -_gcc=-Wno-unused-variable
 
 CERRWARN_plgrp	+= -_gcc=-Wno-parentheses
 
@@ -112,7 +115,7 @@ all:	$(PROG)
 ROOTBINPROG=$(ROOTBIN)/$(PROG)
 ROOTPROCBINSYMLINK=$(ROOT)/usr/proc/bin/$(PROG)
 
-$(PROG): $$(OBJS)
+$(PROG): $(OBJS)
 	$(LINK.c) $(OBJS) -o $@ $(LDLIBS)
 	$(POST_PROCESS)
 

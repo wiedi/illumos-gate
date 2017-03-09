@@ -21,6 +21,7 @@
 #
 # Copyright (c) 2007, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2014 Nexenta Systems, Inc.  All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 PROG =		idmapd
@@ -116,8 +117,9 @@ LDLIBS += \
 rpc_svc.o :  CFLAGS += $(RPC_MSGOUT_OPT)
 
 $(PROG) :  MAPFILES = $(MAPFILE.INT) $(MAPFILE.NGB)
-$(PROG) :  LDFLAGS += $(MAPFILES:%=-M%) \
-	-R /usr/lib/smbsrv
+$(PROG) :  LDFLAGS += \
+	-R /usr/lib/smbsrv -_gcc=-Wl,--export-dynamic
+MAPFILES=
 
 DIRMODE = 0755
 FILEMODE = 0555
@@ -130,7 +132,7 @@ lint_SRCS :  CPPFLAGS += $(INCS) -D_REENTRANT $(RPC_MSGOUT_OPT)
 
 all: $(PROG)
 
-$(PROG): $(OBJS) $$(MAPFILES)
+$(PROG): $(OBJS) $(MAPFILES)
 	$(LINK.c) -o $@ $(OBJS) $(LDLIBS)
 	$(POST_PROCESS)
 
@@ -142,6 +144,7 @@ install: all $(ROOTLIBPROG) $(ROOTMANIFEST)
 
 check: $(CHKMANIFEST)
 
+clobber: clean
 clean:
 	$(RM) $(OBJS) $(GENSRCS)
 

@@ -27,9 +27,10 @@
 # Copyright 2015 Igor Kozhukhov <ikozhukhov@gmail.com>
 # Copyright 2016 Nexenta Systems, Inc.
 # Copyright 2016 Hans Rosenfeld <rosenfeld@grumpf.hope-2000.org>
+# Copyright 2017 Hayashi Naoyuki
 #
 
-include $(SRC)/uts/Makefile.uts
+include ../../Makefile.uts
 
 FILEMODE=644
 
@@ -215,6 +216,8 @@ CHKHDRS=			\
 	elf_SPARC.h		\
 	elf_notes.h		\
 	elf_amd64.h		\
+	elf_aarch64.h		\
+	elf_alpha.h		\
 	elftypes.h		\
 	emul64.h		\
 	emul64cmd.h		\
@@ -1184,6 +1187,7 @@ CHECKHDRS=						\
 
 
 .KEEP_STATE:
+.NOTPARALLEL:
 
 .PARALLEL:			\
 	$(CHECKHDRS)		\

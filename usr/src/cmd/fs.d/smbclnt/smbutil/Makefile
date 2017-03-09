@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -30,7 +31,7 @@
 
 PROG=		smbutil
 
-include		$(SRC)/cmd/Makefile.cmd
+include		../../../Makefile.cmd
 
 OBJS=   smbutil.o login.o lookup.o print.o status.o view.o
 
@@ -47,7 +48,7 @@ CPPFLAGS += -I$(SRC)/lib/libsmbfs \
 	-I$(SRC)/uts/common/smbclnt -I$(SRC)/uts/common
 
 # Debugging
-${NOT_RELEASE_BUILD} CPPFLAGS += -DDEBUG
+${NOT_RELEASE_BUILD}CPPFLAGS += -DDEBUG
 
 # uncomment these for dbx debugging
 #COPTFLAG = -g
@@ -68,7 +69,7 @@ $(PROG):	$(OBJS)
 install:	all $(ROOTPROG)
 
 $(ROOTPROG):	$(PROG)
-	$(INS.file) $(PROG)
+	$(INS.file)
 
 catalog: $(POFILE)
 

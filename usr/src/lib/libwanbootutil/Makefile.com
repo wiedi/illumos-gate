@@ -23,6 +23,7 @@
 # Use is subject to license terms.
 #
 # Copyright (c) 2012 by Delphix. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 LIBRARY	=	libwanbootutil.a
@@ -47,7 +48,7 @@ CRYPTO_SRCS =	$(CRYPTO_OBJS:%.o=$(CRYPTO_DIR)/%.c)
 # Together the local and crypto modules makeup the entire wad.
 OBJECTS	=	$(LOC_OBJS) $(CRYPTO_OBJS)
 
-include $(SRC)/lib/Makefile.lib
+include ../../Makefile.lib
 
 LIBS +=		$(LINTLIB)
 LDLIBS +=	-lc -lnsl -lmd

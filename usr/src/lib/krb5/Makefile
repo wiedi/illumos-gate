@@ -1,4 +1,5 @@
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -8,18 +9,15 @@
 #
 # include global definitions
 include ../../Makefile.master
-
-#
-# Build everything in parallel; use .WAIT for dependencies
-.PARALLEL:
-
+plugins: dyn kdb kadm5 ss
+kadm5: dyn kdb
 SUBDIRS= \
 	dyn	\
-	.WAIT	\
+	\
 	kdb	\
-	.WAIT	\
+	\
 	kadm5	\
-	.WAIT	\
+	\
 	ss	\
 	plugins
 

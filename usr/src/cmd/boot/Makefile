@@ -18,11 +18,12 @@
 #
 # CDDL HEADER END
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2016 Toomas Soome <tsoome@me.com>
 # Copyright (c) 2005, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
-include $(SRC)/cmd/Makefile.cmd
+include ../Makefile.cmd
 
 .PARALLEL:
 
@@ -30,15 +31,21 @@ COMMON_SUBDIRS=		\
 	filelist	\
 	fiocompress	\
 	scripts		\
-	bootadm		\
-	installboot
+	bootadm
 
 i386_SUBDIRS=		\
+	installboot \
 	installgrub	\
 	mbr		\
 	symdef
 
-sparc_SUBDIRS=
+alpha_SUBDIRS=		\
+	installboot_alpha
+
+aarch64_SUBDIRS=
+
+sparc_SUBDIRS=		\
+	installboot
 
 COMMON_LINTSUBDIRS=	\
 	bootadm		\
@@ -46,20 +53,23 @@ COMMON_LINTSUBDIRS=	\
 
 i386_LINTSUBDIRS=	\
 	fiocompress	\
+	installboot \
 	installgrub	\
 	symdef
 
-sparc_LINTSUBDIRS=
+sparc_LINTSUBDIRS=	\
+	installboot
 
 COMMON_MSGSUBDIRS=	\
 	bootadm		\
-	fiocompress	\
-	installboot
+	fiocompress
 
 i386_MSGSUBDIRS=	\
+	installboot \
 	installgrub
 
-sparc_MSGSUBDIRS=
+sparc_MSGSUBDIRS=	\
+	installboot
 
 
 all: 		TARGET= all

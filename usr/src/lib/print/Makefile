@@ -19,11 +19,12 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
 
-include $(SRC)/Makefile.master
+include ../../Makefile.master
 
 SUBDIRS = \
 	libprint \
@@ -35,7 +36,7 @@ SUBDIRS = \
 	libpapi-ipp \
 	libipp-listener
 
-$(ENABLE_IPP_PRINTING) SUBDIRS += mod_ipp
+$(ENABLE_IPP_PRINTING)SUBDIRS += mod_ipp
 
 all :                   TARGET = all
 clean :                 TARGET = clean

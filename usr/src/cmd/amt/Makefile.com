@@ -20,6 +20,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2004 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -36,6 +37,7 @@ LINTFLAGS +=	-erroff=E_NAME_USED_NOT_DEF2
 LINTFLAGS64 +=	-erroff=E_NAME_USED_NOT_DEF2
 
 CERRWARN +=	-_gcc=-Wno-uninitialized
+CERRWARN +=	-_gcc=-Wno-unused-but-set-variable
 
 CLEANFILES	+= $(PROG) $(OBJS)
 

@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -35,6 +36,7 @@ include ../../Makefile.cmd
 
 $(PROG) lint 	:  LDLIBS += -lscf -lnsl
 CERRWARN	+= -_gcc=-Wno-uninitialized
+CERRWARN	+= -_gcc=-Wno-unused-but-set-variable
 CPPFLAGS	+= -D_POSIX_PTHREAD_SEMANTICS -D_REENTRANT
 CFLAGS		+= -DNDEBUG
 
@@ -66,6 +68,8 @@ $(ROOTLIB)/%:	../%
 	$(INS.file)
 
 .KEEP_STATE:
+
+CLOBBERFILES += $(VARSYSLOG) $(VARAUTHLOG)
 
 .SUFFIXES:	$(SUFFIXES) .ll
 

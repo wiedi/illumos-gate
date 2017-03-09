@@ -22,6 +22,7 @@
 # Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 # Copyright 2012 OmniTI Computer Consulting, Inc.  All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 include ../Makefile.lib
@@ -61,14 +62,16 @@ clobber : 	TARGET = clobber
 install	: 	TARGET = install
 lint : 		TARGET = lint
 
+CLEANFILES += common/key_xdr.c common/key_xdr.h
 .KEEP_STATE:
 .PARALLEL:      $(ROOTHDRS)
 
 all clean clobber install: $(RPCFILES) $(SUBDIRS)
+$(SUBDIRS) : $(RPCFILES)
 
 lint:		$(SUBDIRS)
 
-install_h:	$(ROOTHDRDIR) $(WBKUHDRDIR) .WAIT $(ROOTHDRS) $(WBKUHDRS)
+install_h:	$(ROOTHDRDIR) $(WBKUHDRDIR) $(ROOTHDRS) $(WBKUHDRS)
 
 check:		$(CHECKHDRS)
 
@@ -82,7 +85,7 @@ $(SUBDIRS): FRC
 FRC:
 
 # No rules for this in Makefile.lib.
-$(WBKUHDRDIR)/%: $(HDRDIR)/%
+$(WBKUHDRDIR)/%: $(HDRDIR)/% $(WBKUHDRDIR)
 	$(INS.file)
 $(WBKUHDRDIR):
 	$(INS.dir)

@@ -20,16 +20,19 @@
 #
 #
 # Copyright (c) 1998, 2010, Oracle and/or its affiliates. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 # lib/cfgadm_plugins/Makefile
 #
 
-include $(SRC)/Makefile.master
+include ../../Makefile.master
 
 COMMON_SUBDIRS= scsi pci usb ib fp shp sbd
 sparc_SUBDIRS=	ac sysctrl
 
 i386_SUBDIRS= sata
+alpha_SUBDIRS= sata
+aarch64_SUBDIRS= sata
 
 SUBDIRS= $(COMMON_SUBDIRS) $($(MACH)_SUBDIRS)
 
@@ -48,7 +51,7 @@ _msg: 		TARGET= _msg
 
 all clean lint: $(SUBDIRS)
 
-install: all $(SUBDIRS)
+install: $(SUBDIRS)
 
 _msg clobber: $(MSGSUBDIRS)
 

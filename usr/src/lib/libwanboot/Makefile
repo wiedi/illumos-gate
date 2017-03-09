@@ -22,9 +22,10 @@
 # Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 # Copyright 2012 OmniTI Computer Consulting, Inc.  All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
-include $(SRC)/lib/Makefile.lib
+include ../Makefile.lib
 
 SUBDIRS	=	$(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
@@ -38,7 +39,7 @@ HDRS =		boot_http.h \
 		p12access.h\
 		p12err.h\
 		wanboot_conf.h
-HDRDIR =	$(SRCDIR) $(SRC)/common/net/wanboot
+HDRDIR =	$(SRC)/common/net/wanboot
 
 CHECKHDRS +=	$(SRC)/common/net/wanboot/auxutil.h
 

@@ -20,6 +20,7 @@
 #
 # Copyright (c) 2008, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2013 Nexenta Systems, Inc.  All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 #
@@ -92,7 +93,7 @@ SYMBOL_VERSION SUNWprivate {
 	smb_ctx_setuser;
 	smb_ctx_setwins;
 
-	smb_debug		{ FLAGS = NODIRECT };	# data
+	smb_debug		;	# data
 	smb_error;
 #
 # Functions to support named pipes
@@ -127,7 +128,7 @@ SYMBOL_VERSION SUNWprivate {
 	smb_rap_setNparam;
 	smb_rap_setPparam;
 #
-	smb_verbose		{ FLAGS = NODIRECT };	# data
+	smb_verbose		;	# data
 #
 # Functions to support Access Control Lists (ACLs)
 	smbfs_acl_free_sd;

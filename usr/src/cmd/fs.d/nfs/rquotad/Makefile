@@ -21,6 +21,7 @@
 #
 #
 # Copyright (c) 1989 by Sun Microsystems, Inc.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 FSTYPE=		nfs
@@ -44,6 +45,7 @@ $(TYPEPROG):	$(OBJS)
 
 lint:		lint_SRCS
 
+clobber: clean
 clean:
 		$(RM) $(OBJS) rquota_xdr.c
 

@@ -18,6 +18,7 @@
 # CDDL HEADER END
 #
 # 
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -38,7 +39,7 @@ ROOTDIR= $(ROOT)/usr/include/sys/nsctl
 ROOTHDRS= $(HDRS:%=$(ROOTDIR)/%) $(DERIVED_HDRS:%=$(ROOTDIR)/%)
 
 # install rule
-$(ROOTDIR)/%: %
+$(ROOTDIR)/%: % $(ROOTDIR)
 	$(INS.file)
 
 DERIVED_FILES= rdc_prot.h 

@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 1999, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 # This make file will build mech_krb5.so.1. This shared object
@@ -260,6 +261,7 @@ CERRWARN +=	-_gcc=-Wno-unused-label
 CERRWARN +=	-_gcc=-Wno-unused-value
 CERRWARN +=	-_gcc=-Wno-empty-body
 CERRWARN +=	-_gcc=-Wno-address
+CERRWARN +=	-_gcc=-Wno-unused-but-set-variable
 
 MAPFILES =	../mapfile-vers
 

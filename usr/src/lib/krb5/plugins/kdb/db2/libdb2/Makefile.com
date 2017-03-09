@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -73,7 +74,7 @@ OBJECTS= \
 	$(BTREE_OBJS) $(DB_OBJS) $(HASH_OBJS) $(MPOOL_OBJS) $(RECNO_OBJS)
 
 # include library definitions
-include $(SRC)/lib/krb5/Makefile.lib
+include ../../../../../Makefile.lib
 
 SRCS=	$(BTREE_OBJS:%.o=../btree/%.c) \
 	$(DB_OBJS:%.o=../db/%.c) \
@@ -102,6 +103,7 @@ CPPFLAGS += 	-DHAVE_CONFIG_H \
 
 CFLAGS +=	$(CCVERBOSE) -I..
 CERRWARN +=	-_gcc=-Wno-uninitialized
+CERRWARN +=	-_gcc=-Wno-unused-but-set-variable
 LDLIBS +=	-lc
 
 # Identify that this library is an interposer (on dbm_ routines from libc.so.1).

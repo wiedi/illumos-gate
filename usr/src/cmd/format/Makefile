@@ -23,7 +23,9 @@
 # Use is subject to license terms.
 #
 # Copyright 2015 Nexenta Systems, Inc. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
+include ../../Makefile.master
 
 PROG= format
 
@@ -37,6 +39,10 @@ COBJS=	add_definition.o analyze.o checkdev.o ctlr_scsi.o \
 OBJS_sparc=   init_csparc.o ctlr_ata.o
 
 OBJS_i386=    init_ci386.o ctlr_ata.o ix_altsctr.o
+
+OBJS_alpha=    init_calpha.o ctlr_ata.o ix_altsctr.o
+
+OBJS_aarch64=  init_caarch64.o ctlr_ata.o ix_altsctr.o
 
 OBJS_=                non-existent
 
@@ -58,7 +64,9 @@ ROOTETCDATA= $(ROOTETC)/$(DATA)
 
 $(ROOTETCDATA) :  FILEMODE = 0644
 
-LDLIBS_i386= -lfdisk 
+LDLIBS_i386= -lfdisk
+LDLIBS_alpha= -lfdisk
+LDLIBS_aarch64= -lfdisk
 LDLIBS_sparc=
 LDLIBS +=	-ladm -lefi -ldiskmgt -lnvpair -ldevid -ldevinfo $(LDLIBS_$(MACH))
 

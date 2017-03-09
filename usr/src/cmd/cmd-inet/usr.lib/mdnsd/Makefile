@@ -21,6 +21,7 @@
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 # Copyright 2016 Toomas Soome <tsoome@me.com>
+# Copyright 2017 Hayashi Naoyuki
 #
 
 PROG=		mdnsd
@@ -52,6 +53,8 @@ include	../../../Makefile.cmd
 CERRWARN +=	-_gcc=-Wno-unused-variable
 CERRWARN +=	-_gcc=-Wno-implicit-function-declaration
 CERRWARN +=	-_gcc=-Wno-uninitialized
+CERRWARN +=	-_gcc=-Wno-unused-value
+CERRWARN +=	-_gcc=-Wno-unused-but-set-variable
 
 ROOTMANIFESTDIR=	$(ROOTSVCNETWORKDNS)
 $(ROOTMANIFEST)		:  FILEMODE= 444

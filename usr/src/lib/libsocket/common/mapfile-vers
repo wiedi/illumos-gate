@@ -22,6 +22,7 @@
 # Copyright (c) 2006, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 # Copyright (c) 2013, OmniTI Computer Consulting, Inc. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 
 #
 # MAPFILE HEADER START
@@ -150,10 +151,10 @@ SYMBOL_VERSION SUNW_0.7 {
 	getservbyport_r;
 	getservent;
 	getservent_r;
-	htonl			{ TYPE = FUNCTION; FILTER = libc.so.1 };
-	htons			{ TYPE = FUNCTION; FILTER = libc.so.1 };
-	ntohl			{ TYPE = FUNCTION; FILTER = libc.so.1 };
-	ntohs			{ TYPE = FUNCTION; FILTER = libc.so.1 };
+	htonl			;
+	htons			;
+	ntohl			;
+	ntohs			;
 	rcmd;
 	rexec;
 	rresvport;
@@ -166,12 +167,12 @@ SYMBOL_VERSION SUNW_0.7 {
 	# For ABI reasons, the following symbols are in SISCD_2.3 on 32-bit
 	# sparc, which is inherited by SUNW_0.7. On all other platforms,
 	# they are simply in SUNW_0.7
-$if _sparc && _ELF32
-} SISCD_2.3;
-
-SYMBOL_VERSION SISCD_2.3 {
-    global:
-$endif
+#$if _sparc && _ELF32
+#} SISCD_2.3;
+#
+#SYMBOL_VERSION SISCD_2.3 {
+#    global:
+#$endif
 	accept;
 	bind;
 	connect;

@@ -22,9 +22,10 @@
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 # Copyright 2013 Nexenta Systems, Inc.  All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
-include $(SRC)/cmd/Makefile.cmd
+include ../../../Makefile.cmd
 
 PROG=	srvenum srvinfo tconn
 OBJS = $(PROG:%=%.o)
@@ -43,7 +44,7 @@ INST_CMDS = $(PROG:%=$(TESTDIR)/%)
 CPPFLAGS += -I../../../../uts/common
 CPPFLAGS += -I../../../../lib/libsmbfs
 
-LDLIBS += -R '$$ORIGIN/../../../usr/lib'
+#LDLIBS += -R '$$ORIGIN/../../../usr/lib'
 LDLIBS += -lsmbfs
 LINTLIBS= -L$(ROOTLIB) -lsmbfs
 

@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 1999, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2016 Nexenta Systems, Inc.
 #
@@ -124,8 +125,8 @@ CERRWARN += -_gcc=-Wno-unused-label
 CERRWARN += -_gcc=-Wno-uninitialized
 CERRWARN += -_gcc=-Wno-unused-function
 
-MAPFILES = ../common/mapfile-intf $(MAPFILE.NGB)
-rcm_daemon :  LDFLAGS += $(MAPFILES:%=-M%)
+#MAPFILES = ../common/mapfile-intf $(MAPFILE.NGB)
+#rcm_daemon :  LDFLAGS += $(MAPFILES:%=-M%)
 
 LINTFLAGS += -u -erroff=E_FUNC_ARG_UNUSED
 
@@ -185,6 +186,7 @@ install: all			\
 	$(ROOTETC_RCM_SCRIPT)	\
 	$(ROOTLIB_RCM_SCRIPTS)
 
+clobber: clean
 clean:
 	$(RM) $(RCM_OBJ) $(COMMON_MOD_OBJ) $($(MACH)_MOD_OBJ) $(POFILES)
 
@@ -204,7 +206,7 @@ $(POFILE):      $(POFILES)
 	$(RM) $@; cat $(POFILES) > $@
 
 $(RCM_DAEMON): $(RCM_OBJ) $(MAPFILES)
-	$(LINK.c) -o $@ $< $(RCM_OBJ) $(LDLIBS)
+	$(LINK.c) -o $@ $(RCM_OBJ) $(LDLIBS)
 	$(POST_PROCESS)
 
 SUNW_%.so: %.o

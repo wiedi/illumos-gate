@@ -19,12 +19,13 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
 #ident	"%Z%%M%	%I%	%E% SMI"
 
-include		$(SRC)/lib/Makefile.lib
+include		../../Makefile.lib
 
 POFILE	=	libjdns_sd.po
 
@@ -39,7 +40,7 @@ lint	: 	TARGET= lint
 
 .KEEP_STATE:
 
-all install clean clobber lint: com/apple .WAIT $(SUBDIRS)
+all install clean clobber lint: com/apple $(SUBDIRS)
 
 com/apple $(SUBDIRS):	FRC
 	@cd $@; pwd; $(MAKE) $(TARGET)

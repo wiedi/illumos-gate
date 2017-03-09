@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -27,6 +28,8 @@ PROG= loadkeys dumpkeys
 sparc_SUBDIRS= type_4 type_6 type_101
 ppc_SUBDIRS= type_101
 i386_SUBDIRS= type_6 type_101
+aarch64_SUBDIRS= type_6 type_101
+alpha_SUBDIRS= type_6 type_101
 SUBDIRS= $($(MACH)_SUBDIRS)
 SRCS=	$(PROG:%=%.c)
 

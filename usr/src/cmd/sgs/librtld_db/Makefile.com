@@ -19,18 +19,22 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 1995, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
 LIBRARY=	librtld_db.a
 VERS=		.1
 
-COMOBJS=	rtld_db.o	rd_elf.o
+COMOBJS=	rtld_db.o
+ifdef MACH32
+COMOBJS+=rd_elf.o
+endif
 BLTOBJ=		msg.o
 
 OBJECTS =	$(BLTOBJ) $(COMOBJS) $(COMOBJS64) $(PLTOBJS)
 
-include		$(SRC)/lib/Makefile.lib
+include ../../../../lib/Makefile.lib
 include		$(SRC)/cmd/sgs/Makefile.com
 
 SRCDIR =	../common
@@ -54,7 +58,7 @@ SGSMSGINTEL=	../common/librtld_db.intel.msg
 SGSMSGSPARCV9=	../common/librtld_db.sparcv9.msg
 SGSMSGTARG=	$(SGSMSGCOM)
 SGSMSGALL=	$(SGSMSGCOM)
-SGSMSGFLAGS +=	-h $(BLTDEFS) -d $(BLTDATA)
+SGSMSGFLAGS +=	-h $(BLTDEFS) -d $(BLTDATA) -i ../../messages/sgs.ident
 
 SRCS=		../common/llib-lrtld_db
 LINTSRCS=	$(COMOBJS:%.o=../common/%.c) $(PLTSRCS) $(BLTDATA)

@@ -20,6 +20,7 @@
 #
 
 # Copyright (c) 1999, 2010, Oracle and/or its affiliates. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 
 #
 # lib/libsecdb/help/auths/Makefile
@@ -194,6 +195,7 @@ FILEMODE= 0444
 
 all:	$(HTMLENTS)
 
+$(HELPFILES): $(DIRS)
 install:	all $(DIRS) $(HELPFILES)
 
 _msg: $(MSGDIRS) $(MSGS)
@@ -207,4 +209,4 @@ $(DIRS):
 $(MSGDIR)/%: %
 	$(INS.file)
 
-clean clobber lint:
+clean clobber install_h:

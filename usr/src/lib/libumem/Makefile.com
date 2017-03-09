@@ -23,6 +23,7 @@
 # Use is subject to license terms.
 #
 # Copyright (c) 2012, Joyent, Inc.  All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 #
@@ -36,6 +37,7 @@ LIBRARY = libumem.a
 STANDLIBRARY = libstandumem.so
 VERS = .1
 
+.NOTPARALLEL:
 # By default, we build the shared library.  Construction of the standalone
 # is specifically requested by architecture-specific Makefiles.
 TYPES = library
@@ -125,7 +127,7 @@ LDFLAGS = $(LDFLAGS_$(CURTYPE))
 
 ASFLAGS_standalone = -DUMEM_STANDALONE
 ASFLAGS_library =
-ASFLAGS += -P $(ASFLAGS_$(CURTYPE)) -D_ASM
+ASFLAGS += $(ASFLAGS_$(CURTYPE)) -D_ASM
 
 CERRWARN += -_gcc=-Wno-switch
 CERRWARN += -_gcc=-Wno-uninitialized

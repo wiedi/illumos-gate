@@ -10,6 +10,7 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2015 Nexenta Systems, Inc.  All rights reserved.
 #
 
@@ -37,7 +38,7 @@ SYMBOL_VERSION SUNWprivate_1.1 {
 	_curthread;
 	_curzone;
 
-	aok		{ FLAGS = NODIRECT };
+	aok		;
 	boot_time;
 	cmn_err;
 	copyinstr;
@@ -65,9 +66,9 @@ SYMBOL_VERSION SUNWprivate_1.1 {
 
 	delay;
 
-	fakekernel_cprintf	{ FLAGS = NODIRECT };
+	fakekernel_cprintf	;
 	fakekernel_init;
-	fakekernel_putlog	{ FLAGS = NODIRECT };
+	fakekernel_putlog	;
 
 	gethrestime;
 	gethrestime_sec;
@@ -99,7 +100,7 @@ SYMBOL_VERSION SUNWprivate_1.1 {
 
 	ksocket_accept;
 	ksocket_bind;
-	ksocket_bind_helper	{ FLAGS = NODIRECT };
+	ksocket_bind_helper	;
 	ksocket_close;
 	ksocket_connect;
 	ksocket_getpeername;

@@ -1,4 +1,5 @@
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -19,11 +20,12 @@ TABFILES = continent.tab country.tab zone_sun.tab
 
 OBJS= zic.o scheck.o ialloc.o
 SRCS= $(OBJS:%.o=%.c)
-NOBJS= $(OBJS:%=$(NATIVE)/%)
+NOBJS:= $(OBJS:%=$(NATIVE)/%)
 
 CLOBBERFILES= $(NOBJS) $(KSHPROG) $(NPROG) $(NATIVE)/zic.c $(NATIVE)/tzfile.h
 
 include ../Makefile.cmd
+include ../../Makefile.native
 
 NCPPFLAGS=	-I$(NATIVE)
 ROOTTZD=	$(ROOTSHLIB)/zoneinfo
@@ -33,6 +35,7 @@ DIRS=  $(ROOTTZSRCD) $(ROOTTZTABD)
 
 CERRWARN +=	-_gcc=-Wno-unused-variable
 CERRWARN +=	-_gcc=-Wno-uninitialized
+CERRWARN +=	-_gcc=-Wno-strict-overflow
 
 ROOTLIBTZSRCFILES=	$(SRCFILES:%=$(ROOTTZSRCD)/%)
 ROOTLIBTZTABFILES=	$(TABFILES:%=$(ROOTTZTABD)/%)
@@ -77,10 +80,10 @@ $(KSHPROG):	$(KSHPROG).ksh
 	$(CAT) $(KSHPROG).ksh > $@
 	$(CHMOD) +x $@
 
-$(ROOTTZSRCD)/%: %
+$(ROOTTZSRCD)/%: % $(ROOTTZSRCD)
 	$(INS.file)
 
-$(ROOTTZTABD)/%: %
+$(ROOTTZTABD)/%: % $(ROOTTZTABD)
 	$(INS.file)
 
 $(DIRS):
@@ -94,7 +97,7 @@ clean:
 
 lint: lint_SRCS
 
-$(NOBJS): $$(@F:.o=.c)
+$(NOBJS): $(@F:.o=.c)
 	$(NATIVECC) -O $(NATIVE_CFLAGS) $(NCPPFLAGS) -c -o $@ $(@F:.o=.c)
 
 $(NATIVE)/zic.o: $(NATIVE)/tzfile.h

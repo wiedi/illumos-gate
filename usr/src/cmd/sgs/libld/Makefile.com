@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2010 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -82,7 +83,7 @@ OBJECTS =	$(BLTOBJ) $(G_MACHOBJS32) $(G_MACHOBJS64) \
 		$(COMOBJS) $(COMOBJS32) $(COMOBJS64) \
 		$(TOOLOBJS) $(E_TOOLOBJS) $(AVLOBJ) $(ELFCAPOBJ)
 
-include 	$(SRC)/lib/Makefile.lib
+include ../../../../lib/Makefile.lib
 include 	$(SRC)/cmd/sgs/Makefile.com
 
 SRCDIR =	../common
@@ -93,6 +94,7 @@ CERRWARN += -_gcc=-Wno-uninitialized
 CERRWARN += -_gcc=-Wno-switch
 CERRWARN += -_gcc=-Wno-char-subscripts
 CERRWARN += -_gcc=-Wno-type-limits
+CERRWARN += -_gcc=-Wno-unused-but-set-variable
 
 # Location of the shared relocation engines maintained under usr/src/uts.
 #
@@ -110,7 +112,7 @@ LDLIBS +=	$(CONVLIBDIR) $(CONV_LIB) $(LDDBGLIBDIR) $(LDDBG_LIB) \
 LINTFLAGS +=	-u -D_REENTRANT
 LINTFLAGS64 +=	-u -D_REENTRANT
 
-DYNFLAGS +=	$(VERSREF) $(CC_USE_PROTO) '-R$$ORIGIN'
+DYNFLAGS +=	$(VERSREF) #$(CC_USE_PROTO) '-R$$ORIGIN'
 
 native: 	DYNFLAGS	+= $(CONVLIBDIR)
 
@@ -131,7 +133,7 @@ SGSMSGTARG =	$(SGSMSGCOM) $(SGSMSGSPARC) $(SGSMSGINTEL)
 SGSMSGALL =	$(SGSMSGCOM) $(SGSMSGSPARC) $(SGSMSGINTEL)
 
 SGSMSGFLAGS1 =	$(SGSMSGFLAGS) -m $(BLTMESG)
-SGSMSGFLAGS2 =	$(SGSMSGFLAGS) -h $(BLTDEFS) -d $(BLTDATA) -n libld_msg
+SGSMSGFLAGS2 =	$(SGSMSGFLAGS) -h $(BLTDEFS) -d $(BLTDATA)  -i ../../messages/sgs.ident -n libld_msg
 
 CHKSRCS =	$(SRCBASE)/uts/common/krtld/reloc.h \
 		$(COMOBJS32:%32.o=../common/%.c) \

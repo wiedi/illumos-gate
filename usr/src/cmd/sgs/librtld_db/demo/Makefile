@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 # Copyright (c) 1995, 2010, Oracle and/or its affiliates. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 
 include		$(SRC)/Makefile.master
 
@@ -81,7 +82,7 @@ ROOTDEMODIRS=	$(ROOTDEMODIRBASE) \
 
 ROOTDEMOFILES=	$(DEMOFILES:%=$(ROOTDEMODIRBASE)/%)
 
-$(ROOTDEMODIRS) : 	DIRMODE =	755
+$(ROOTDEMODIRS) :=	DIRMODE =	755
 
 SED=		sed -e "/DEMO DELETE START/,/DEMO DELETE END/d"
 

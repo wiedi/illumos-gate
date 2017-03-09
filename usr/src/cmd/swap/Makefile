@@ -22,6 +22,7 @@
 #
 #ident	"%Z%%M%	%I%	%E% SMI"
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2003 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -33,6 +34,8 @@ include ../Makefile.cmd
 
 $(64ONLY)SUBDIRS= $(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
+
+.NOTPARALLEL:
 
 CPPFLAGS += -D_LARGEFILE64_SOURCE
 

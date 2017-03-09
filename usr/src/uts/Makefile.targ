@@ -21,6 +21,7 @@
 #
 # Copyright (c) 1991, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2016 Hans Rosenfeld <rosenfeld@grumpf.hope-2000.org>
+# Copyright 2017 Hayashi Naoyuki
 #
 #	This Makefiles contains the common targets and definitions for
 #	all kernels. It is to be included in the Makefiles for specific
@@ -52,7 +53,7 @@ $(OBJECTS): $(INLINES)
 #	and will sign the ELF objects using elfsign(1).
 #
 $(BINARY):		$(OBJECTS)
-	$(LD) -r $(LDFLAGS) -o $@ $(OBJECTS)
+	$(LD) $(LDFLAGS) -o $@ $(OBJECTS)
 	$(CTFMERGE_UNIQUIFY_AGAINST_GENUNIX)
 	$(POST_PROCESS)
 	$(ELFSIGN_MOD)
@@ -128,12 +129,19 @@ $(LINTS_DIR)/vers.ln: $(SRC)/uts/common/os/vers.c
 #
 #	Installation targets and rules:
 #
+.PHONY: $(ROOT_MOD_DIR) $(USR_MOD_DIR)
 $(ROOT_MOD_DIR) $(USR_MOD_DIR):
 	-$(INS.dir)
 
+.PHONY: $(ROOT_MOD_DIRS_64)
+.PHONY: $(ROOT_MOD_DIRS_32)
+$(ROOT_MOD_DIRS_64) \
 $(ROOT_MOD_DIRS_32):	$(ROOT_MOD_DIR)
 	-$(INS.dir)
 
+.PHONY: $(USR_MOD_DIRS_64)
+.PHONY: $(USR_MOD_DIRS_32)
+$(USR_MOD_DIRS_64) \
 $(USR_MOD_DIRS_32):	$(USR_MOD_DIR)
 	-$(INS.dir)
 
@@ -255,6 +263,7 @@ $(ROOT_FIRMWARE_DIR)/$(MODULE)/%: $(ROOT_FIRMWARE_DIR)/$(MODULE) $(FWDIR)/%
 
 include $(SRC)/Makefile.psm.targ
 
+ifneq ($(MACH),$(MACH64))
 #
 #	Target for 64b modules
 #
@@ -266,6 +275,7 @@ $(ROOT_KERN_DIR_64)/%:	$(OBJS_DIR)/% $(ROOT_KERN_DIR_64) FRC
 
 %/$(SUBDIR64):		%
 	-$(INS.dir)
+endif
 
 #
 #	Targets for '.conf' file installation.

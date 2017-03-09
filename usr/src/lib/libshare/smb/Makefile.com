@@ -23,6 +23,7 @@
 # Use is subject to license terms.
 #
 # Copyright 2013 Nexenta Systems, Inc.  All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 LIBRARY =	libshare_smb.a
@@ -52,13 +53,15 @@ CERRWARN +=	-_gcc=-Wno-char-subscripts
 CERRWARN +=	-_gcc=-Wno-switch
 CPPFLAGS +=	-D_REENTRANT -I$(ADJUNCT_PROTO)/usr/include/libxml2 \
   		-I$(SRCDIR)/../common
-$(ENABLE_SMB_PRINTING) CPPFLAGS += -DHAVE_CUPS
+$(ENABLE_SMB_PRINTING)CPPFLAGS += -DHAVE_CUPS
 
 .KEEP_STATE:
 
 all: $(LIBS)
 
 install: all
+$(ROOTLIBS) $(ROOTLINKS): $(ROOTLIBDIR)
+$(ROOTLIBS64) $(ROOTLINKS64): $(ROOTLIBDIR64)
 
 lint: lintcheck
 
@@ -77,5 +80,11 @@ pics/smb_cfg.o:       $(SMBBASE_DIR)/smb_cfg.c
 pics/smb_scfutil.o:       $(SMBBASE_DIR)/smb_scfutil.c
 	$(COMPILE.c) -o $@ $(SMBBASE_DIR)/smb_scfutil.c
 	$(POST_PROCESS_O)
+
+$(ROOTLIBDIR):
+	$(INS.dir)
+ 
+$(ROOTLIBDIR64):
+	$(INS.dir)
 
 include ../../../Makefile.targ

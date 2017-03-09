@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2015 Gary Mills
 # Copyright (c) 1990, 2010, Oracle and/or its affiliates. All rights reserved.
 #
@@ -48,7 +49,7 @@ MISCOBJS64=	nlist.o
 
 OBJECTS=	$(BLTOBJS)  $(MACHOBJS)  $(COMOBJS)  $(CLASSOBJS) $(MISCOBJS)
 
-include $(SRC)/lib/Makefile.lib
+include ../../../../lib/Makefile.lib
 
 # Use the value of M4 set in Makefile.master via Makefile.lib
 
@@ -73,9 +74,9 @@ LINTFLAGS64 +=	-u -erroff=E_CAST_INT_TO_SMALL_INT
 CERRWARN +=	-_gcc=-Wno-parentheses
 CERRWARN +=	-_gcc=-Wno-uninitialized
 
-BUILD.AR=	$(RM) $@ ; \
-		$(AR) q $@ `$(LORDER) $(OBJECTS:%=$(DIR)/%)| $(TSORT)`
-		$(POST_PROCESS_A)
+#BUILD.AR=	$(RM) $@ ; \
+#		$(AR) q $@ `$(LORDER) $(OBJECTS:%=$(DIR)/%)| $(TSORT)`
+#		$(POST_PROCESS_A)
 
 
 BLTDEFS=	msg.h
@@ -90,7 +91,7 @@ SGSMSGTARG=	$(SGSMSGCOM)
 SGSMSGALL=	$(SGSMSGCOM) $(SGSMSG32)
 
 SGSMSGFLAGS1=	$(SGSMSGFLAGS) -m $(BLTMESG)
-SGSMSGFLAGS2=	$(SGSMSGFLAGS) -h $(BLTDEFS) -d $(BLTDATA) -n libelf_msg
+SGSMSGFLAGS2=	$(SGSMSGFLAGS) -h $(BLTDEFS) -d $(BLTDATA) -n libelf_msg  -i ../../messages/sgs.ident
 
 BLTSRCS=	$(BLTOBJS:%.o=%.c)
 LIBSRCS=	$(COMOBJS:%.o=../common/%.c)  $(MISCOBJS:%.o=../misc/%.c) \
@@ -111,4 +112,4 @@ LIBS =		$(DYNLIB) $(LINTLIB)
 
 CLEANFILES +=	$(LINTOUTS) $(BLTSRCS) $(BLTFILES) $(WARLOCKFILES)
 
-.PARALLEL:	$(LIBS)
+all: $(LIBS)

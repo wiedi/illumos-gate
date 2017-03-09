@@ -32,11 +32,35 @@
  * - LZ4 source repository : http://code.google.com/p/lz4/
  */
 
+#ifdef __linux__
+#include <stdlib.h>
+#include <strings.h>
+#include <stdint.h>
+#include <assert.h>
+#include <arpa/inet.h>
+#define UMEM_DEFAULT 0
+void *umem_zalloc(size_t size, int flags)
+{
+	return calloc(1, size);
+}
+void umem_free(void *buf, size_t size)
+{
+	free(buf);
+}
+#define	BE_32(x) htonl(x)
+#define	BE_IN32(xa) ( \
+    (((uint32_t)*((volatile uint8_t *)(xa) + 0)) << 24) | \
+    (((uint32_t)*((volatile uint8_t *)(xa) + 1)) << 16) | \
+    (((uint32_t)*((volatile uint8_t *)(xa) + 2)) << 8) | \
+    (((uint32_t)*((volatile uint8_t *)(xa) + 3)) << 0))
+
+#else
 #include <sys/types.h>
 #include <sys/byteorder.h>
 #include <assert.h>
 #include <string.h>
 #include <umem.h>
+#endif
 
 size_t lz4_compress(void *, void *, size_t, size_t, int);
 int lz4_decompress(void *, void *, size_t, size_t, int);

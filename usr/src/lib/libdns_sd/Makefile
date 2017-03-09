@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -37,9 +38,9 @@ lint	:  	TARGET = lint
 
 .KEEP_STATE:
 
-all install: install_h $(SUBDIRS) .WAIT java
+all install: install_h $(SUBDIRS)
 
-clean clobber: $(SUBDIRS) java
+clean clobber: $(SUBDIRS)
 
 ROOTHDRDIR=	$(ROOT)/usr/include
 ROOTHDRS=	$(HDR:%=$(ROOTHDRDIR)/%)
@@ -50,7 +51,7 @@ check:
 
 lint: $(SUBDIRS)
 
-$(SUBDIRS) java: FRC
+$(SUBDIRS): FRC
 	@cd $@; pwd; $(MAKE) $(TARGET)
 
 FRC:

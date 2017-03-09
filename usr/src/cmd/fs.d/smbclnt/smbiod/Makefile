@@ -21,6 +21,7 @@
 
 #
 # Copyright (c) 2009, 2010, Oracle and/or its affiliates. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 #
@@ -47,7 +48,7 @@ CPPFLAGS += -I$(SRC)/lib/libsmbfs \
 	-I$(SRC)/uts/common/smbclnt -I$(SRC)/uts/common
 
 # Debugging
-${NOT_RELEASE_BUILD} CPPFLAGS += -DDEBUG
+${NOT_RELEASE_BUILD}CPPFLAGS += -DDEBUG
 
 # uncomment these for dbx debugging
 #COPTFLAG = -g

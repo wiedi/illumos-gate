@@ -1,0 +1,122 @@
+Binary files ../postfix-2.10.2-orig/.postfix-install.swp and ./.postfix-install.swp differ
+diff -cNr ../postfix-2.10.2-orig/makedefs ./makedefs
+*** ../postfix-2.10.2-orig/makedefs	2013-02-04 10:33:13.000000000 +0900
+--- ./makedefs	2014-01-11 19:57:51.157056007 +0900
+***************
+*** 102,119 ****
+     exit 1
+  }
+  
+! case $# in
+!  # Officially supported usage.
+!  0) SYSTEM=`(uname -s) 2>/dev/null`
+!     RELEASE=`(uname -r) 2>/dev/null`
+!     VERSION=`(uname -v) 2>/dev/null`
+!     case "$VERSION" in
+!      dcosx*) SYSTEM=$VERSION;;
+!     esac;;
+!  # Unsupported debug-only mode. Not suitable for cross-platform tests.
+!  2) SYSTEM="$1"; RELEASE="$2";;
+!  *) echo usage: $0 [system release] 1>&2; exit 1;;
+! esac
+  
+  case "$SYSTEM.$RELEASE" in
+     SCO_SV.3.2)	SYSTYPE=SCO5
+--- 102,110 ----
+     exit 1
+  }
+  
+! SYSTEM=SunOS
+! RELEASE=5.11
+! VERSION=oi_151a8
+  
+  case "$SYSTEM.$RELEASE" in
+     SCO_SV.3.2)	SYSTYPE=SCO5
+diff -cNr ../postfix-2.10.2-orig/postfix-install ./postfix-install
+*** ../postfix-2.10.2-orig/postfix-install	2012-05-23 04:40:29.000000000 +0900
+--- ./postfix-install	2014-01-11 21:22:56.243781745 +0900
+***************
+*** 206,212 ****
+  }
+  
+  test -x bin/postconf || {
+!     echo $0: Error: no bin/postconf file. Did you forget to run \"make\"? 1>&2
+      exit 1
+  }
+  
+--- 206,212 ----
+  }
+  
+  test -x bin/postconf || {
+!     echo $0: Error: no postconf file. Did you forget to run \"make\"? 1>&2
+      exit 1
+  }
+  
+***************
+*** 368,374 ****
+  
+  : ${install_root=/}
+  : ${tempdir=`pwd`}
+! : ${config_directory=`bin/postconf -c conf -h -d config_directory`}
+  
+  # Find out the location of installed configuration files.
+  
+--- 368,374 ----
+  
+  : ${install_root=/}
+  : ${tempdir=`pwd`}
+! : ${config_directory=`postconf -c conf -h -d config_directory`}
+  
+  # Find out the location of installed configuration files.
+  
+***************
+*** 438,444 ****
+  	case "$junk" in
+  	"") eval unset $name;;
+  	esac
+! 	eval : \${$name=\`bin/postconf -c $CONFIG_DIRECTORY -h $name\`} ||
+  	    exit 1
+      done
+  }
+--- 438,444 ----
+  	case "$junk" in
+  	"") eval unset $name;;
+  	esac
+! 	eval : \${$name=\`postconf -c $CONFIG_DIRECTORY -h $name\`} ||
+  	    exit 1
+      done
+  }
+***************
+*** 451,457 ****
+      case "$junk" in
+      "") eval unset $name;;
+      esac
+!     eval : \${$name=\`bin/postconf -c conf -d -h $name\`} || exit 1
+  done
+  
+  # Override settings manually.
+--- 451,457 ----
+      case "$junk" in
+      "") eval unset $name;;
+      esac
+!     eval : \${$name=\`postconf -c conf -d -h $name\`} || exit 1
+  done
+  
+  # Override settings manually.
+***************
+*** 729,735 ****
+  # Postfix releases, and software should not suddenly be installed in
+  # the wrong place when Postfix is being upgraded.
+  
+! bin/postconf -c $CONFIG_DIRECTORY -e \
+      "daemon_directory = $daemon_directory" \
+      "data_directory = $data_directory" \
+      "command_directory = $command_directory" \
+--- 729,735 ----
+  # Postfix releases, and software should not suddenly be installed in
+  # the wrong place when Postfix is being upgraded.
+  
+! postconf -c $CONFIG_DIRECTORY -e \
+      "daemon_directory = $daemon_directory" \
+      "data_directory = $data_directory" \
+      "command_directory = $command_directory" \

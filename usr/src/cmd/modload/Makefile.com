@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -37,6 +38,10 @@ MODCOMMONSRC = $(MODCOMMONOBJ:%.o=../%.c)
 
 PLCYOBJ = plcysubr.o
 PLCYSRC = $(PLCYOBJ:%.o=../%.c)
+
+OBJS=$(PROG:%=%.o) $(MODCOMMONOBJ) $(PLCYOBJ) drvsubr.o
+include ../../Makefile.cmd
+ROOTCMDDIR=$(ROOT)/usr/sbin
 
 $(PLCYOBJ) :  CPPFLAGS += -D_REENTRANT
 

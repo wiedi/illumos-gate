@@ -20,6 +20,7 @@
 
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -28,7 +29,8 @@
 
 include     ../../../Makefile.master
 
-FILES_SUBDIRS=    $(MACH) $(BUILD64) $(MACH64)
+SUBDIRS=$(MACH)
+$(BUILD64)SUBDIRS+= $(MACH64)
 
 all: 		TARGET= all
 clean: 		TARGET= clean
@@ -38,9 +40,9 @@ lint: 		TARGET= lint
 
 .KEEP_STATE:
 
-all clean clobber install lint: $(FILES_SUBDIRS)
+all clean clobber install lint: $(SUBDIRS)
 
-$(MACH) $(MACH64): FRC
+$(SUBDIRS): FRC
 	@cd $@; pwd; $(MAKE) $(TARGET)
 
 FRC:

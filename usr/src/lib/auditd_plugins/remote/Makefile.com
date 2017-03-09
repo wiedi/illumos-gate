@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -28,9 +29,9 @@ LIBRARY=	audit_remote.a
 VERS=		.1
 OBJECTS=	audit_remote.o transport.o
 
-LIBBSM=		$(SRC)/lib/libbsm/common
+LIBBSM=		../../../libbsm/common
 
-include		$(SRC)/lib/Makefile.lib
+include		../../../Makefile.lib
 
 LIBS=		$(DYNLIB)
 LDLIBS		+= -lbsm -lsecdb -lc -lnsl -lsocket -lgss -lmtmalloc

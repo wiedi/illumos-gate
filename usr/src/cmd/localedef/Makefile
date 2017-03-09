@@ -14,6 +14,7 @@
 # Copyright 2011 EveryCity Ltd. All rights reserved.
 # Copyright 2013 DEY Storage Systems, Inc.
 # Copyright 2016 Joyent, Inc.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 PROG=localedef
@@ -22,6 +23,7 @@ NDIR=native
 NPROG=$(NDIR)/localedef
 
 include ../Makefile.cmd
+include ../../Makefile.native
 
 OBJS = 	charmap.o collate.o ctype.o messages.o monetary.o numeric.o time.o \
 	scanner.o localedef.o wide.o parser.tab.o

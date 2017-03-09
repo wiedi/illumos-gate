@@ -22,6 +22,7 @@
 #
 # Copyright (c) 1994, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2016 RackTop Systems.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 LIBRARY =	liblddbg.a
@@ -51,7 +52,7 @@ TOOLOBJ =	alist.o
 OBJECTS =	$(BLTOBJ) $(COMOBJS) $(COMOBJS32) $(COMOBJS64) $(TOOLOBJ)
 
 
-include		$(SRC)/lib/Makefile.lib
+include ../../../../lib/Makefile.lib
 include		$(SRC)/cmd/sgs/Makefile.com
 
 SRCDIR =	../common
@@ -64,7 +65,7 @@ CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-parentheses
 
 CPPFLAGS +=	-I$(SRCBASE)/lib/libc/inc
-DYNFLAGS +=	$(VERSREF) $(CC_USE_PROTO) '-R$$ORIGIN'
+DYNFLAGS +=	$(VERSREF) #$(CC_USE_PROTO) '-R$$ORIGIN'
 LDLIBS +=	$(CONVLIBDIR) $(CONV_LIB) -lc
 
 native :	DYNFLAGS	+= $(CONVLIBDIR)
@@ -79,7 +80,7 @@ BLTFILES =	$(BLTDEFS) $(BLTDATA) $(BLTMESG)
 SGSMSGCOM =	../common/liblddbg.msg
 SGSMSGALL =	$(SGSMSGCOM)
 SGSMSGTARG =	$(SGSMSGCOM)
-SGSMSGFLAGS +=	-h $(BLTDEFS) -d $(BLTDATA) -m $(BLTMESG) -n liblddbg_msg
+SGSMSGFLAGS +=	-h $(BLTDEFS) -d $(BLTDATA) -m $(BLTMESG) -i ../../messages/sgs.ident -n liblddbg_msg
 
 CHKSRCS =	$(COMOBJS32:%32.o=../common/%.c)
 

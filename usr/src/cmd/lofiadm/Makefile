@@ -20,6 +20,7 @@
 #
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -30,7 +31,7 @@ LZMAOBJS= LzmaEnc.o LzFind.o
 
 SRCS= $(OBJS:%.o=%.c)
 
-POFILES= $(OBJS:%.o=%.po) 
+POFILES= $(OBJS:%.o=%.po)
 
 include ../Makefile.cmd
 
@@ -39,12 +40,13 @@ LDLIBS += -ldevinfo -lpkcs11 -lcryptoutil
 
 CERRWARN += -_gcc=-Wno-parentheses
 CERRWARN += -_gcc=-Wno-uninitialized
+CERRWARN += -_gcc=-Wno-unused-but-set-variable
 
 LINTFLAGS += -erroff=E_NAME_USED_NOT_DEF2
 
 .KEEP_STATE:
 
-all: $(LZMAOBJS) $(PROG) $(POFILE)
+all: $(LZMAOBJS) $(PROG) #$(POFILE)
 
 LzmaEnc.o:	$(SRC)/common/lzma/LzmaEnc.c
 	$(COMPILE.c) -o $@ $(SRC)/common/lzma/LzmaEnc.c
@@ -54,7 +56,7 @@ LzFind.o:	$(SRC)/common/lzma/LzFind.c
 	$(COMPILE.c) -o $@ $(SRC)/common/lzma/LzFind.c
 	$(POST_PROCESS)
 
-$(PROG): $(OBJS)
+$(PROG): $(OBJS) $(LZMAOBJS)
 	$(LINK.c) -o $@ $(OBJS) $(LZMAOBJS) $(LDLIBS)
 	$(POST_PROCESS)
 
@@ -64,6 +66,7 @@ $(POFILE): $(POFILES)
 	$(RM) $@
 	cat $(POFILES) > $@
 
+clobber: clean
 clean:
 	$(RM) $(PROG) $(OBJS) $(LZMAOBJS) $(POFILE) $(POFILES)
 

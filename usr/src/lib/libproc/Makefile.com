@@ -22,6 +22,7 @@
 # Copyright (c) 1997, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2012 DEY Storage Systems, Inc.  All rights reserved.
 # Copyright (c) 2013 by Delphix. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 LIBRARY = libproc.a
@@ -104,7 +105,7 @@ CERRWARN +=	-_gcc=-Wno-unused-label
 # to directly bind to its dependencies (ie. map -Bdirect -> -zdirect).  Ensure
 # lazy loading is established (which is enabled automatically with -Bdirect).
 BDIRECT =
-DYNFLAGS +=	$(BNODIRECT) $(ZDIRECT) $(ZLAZYLOAD)
+#DYNFLAGS +=	$(BNODIRECT) $(ZDIRECT) $(ZLAZYLOAD)
 
 .KEEP_STATE:
 

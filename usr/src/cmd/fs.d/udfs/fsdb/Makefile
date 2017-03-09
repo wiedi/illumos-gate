@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -31,8 +32,8 @@ include		../../Makefile.fstype
 # fsdb has a name clash with main() and libl.so.1.  However, fsdb must
 # still export a number of "yy*" (libl) interfaces.  Reduce all other symbols
 # to local scope.
-MAPFILES +=	$(MAPFILE.INT) $(MAPFILE.LEX) $(MAPFILE.NGB)
-MAPOPTS =	$(MAPFILES:%=-M%)
+#MAPFILES +=	$(MAPFILE.INT) $(MAPFILE.LEX) $(MAPFILE.NGB)
+#MAPOPTS =	$(MAPFILES:%=-M%)
 
 CPPFLAGS +=	-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
 LDLIBS +=	-lmalloc -ll -ladm
@@ -48,6 +49,7 @@ CERRWARN +=	-_gcc=-Wno-unused-variable
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-unused-value
 CERRWARN +=	-_gcc=-Wno-unused-function
+CERRWARN +=	-_gcc=-Wno-pointer-sign
 
 SRCS=	fsdb.c ud_lib.c
 
@@ -75,7 +77,7 @@ ud_lib.h : ../fstyp/ud_lib.h
 y.tab.c : fsdb_yacc.y
 	$(YACC.y) fsdb_yacc.y
 
-fsdb_yacc.o : y.tab.c
+fsdb_yacc.o : y.tab.c ud_lib.h
 	$(COMPILE.c) -o $@ y.tab.c
 	$(POST_PROCESS_O)
 
@@ -86,6 +88,7 @@ fsdb_lex.o : lex.yy.c
 	$(COMPILE.c) -o $@ lex.yy.c
 	$(POST_PROCESS_O)
 
+clobber: clean
 clean :
 	$(RM) ud_lib.c ud_lib.h fsdb.o ud_lib.o fsdb_yacc.o fsdb_lex.o
 	$(RM) fsdb_yacc.c fsdb_lex.c y.tab.c y.tab.h lex.yy.c

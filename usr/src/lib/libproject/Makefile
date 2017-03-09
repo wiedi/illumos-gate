@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -39,7 +40,7 @@ lint: 		TARGET= lint
 .KEEP_STATE:
 
 all clean clobber delete install lint package: $(SUBDIRS)
-
+install_h:
 _msg:
 
 $(SUBDIRS):	FRC

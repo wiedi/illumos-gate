@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2015 Gary Mills
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
@@ -59,19 +60,26 @@ $(ROOTLIBDIR64)/$(LIBLINKSCCC): $(ROOTLIBDIR64)/$(LIBLINKSCCC)$(VERS)
 objs pics:
 	-@mkdir -p $@
 
-$(LIBRARY): objs .WAIT $$(OBJS)
+$(LIBRARY): objs .WAIT $(OBJS)
 	$(BUILD.AR)
 	$(POST_PROCESS_A)
 
-$(DYNLIB): pics .WAIT $$(PICS)
+$(DYNLIB): pics .WAIT $(PICS)
 	$(BUILD.SO)
 	$(POST_PROCESS_SO)
 
-$(DYNLIBCCC): pics .WAIT $$(PICS)
+$(DYNLIBCCC): pics .WAIT $(PICS)
 	$(BUILDCCC.SO)
 	$(POST_PROCESS_SO)
 
-objs/%_w.o pics/%_w.o objs/%_e.o pics/%_e.o:	../common/%.c
+$(OBJS): | objs
+$(PICS): | pics
+
+objs/%_e.o pics/%_e.o:	../common/%.c
+	$(COMPILE.c) -o $@ $<
+	$(POST_PROCESS_O)
+
+objs/%_w.o pics/%_w.o:	../common/%.c
 	$(COMPILE.c) -o $@ $<
 	$(POST_PROCESS_O)
 
@@ -86,6 +94,7 @@ $(ROOTLINTDIR)/%: ../common/%
 $(DYNLINKLIBDIR)/%: %$(VERS)
 	$(INS.liblink)
 
+clobber: clean
 clean:
 	$(RM) $(POBJS) $(OBJS) $(PICS) $(CLEANFILES)
 

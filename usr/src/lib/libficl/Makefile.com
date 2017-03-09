@@ -11,6 +11,7 @@
 
 #
 # Copyright 2016 Toomas Soome <tsoome@me.com>
+# Copyright 2017 Hayashi Naoyuki
 #
 
 LIBRARY=libficl-sys.a
@@ -23,7 +24,7 @@ OBJECTS= dictionary.o system.o fileaccess.o float.o double.o prefix.o search.o \
 	hash.o callback.o word.o loader.o pager.o extras.o \
 	loader_emu.o lz4.o
 
-include $(SRC)/lib/Makefile.lib
+include ../../Makefile.lib
 
 LIBS=	$(DYNLIB) $(LINTLIB)
 

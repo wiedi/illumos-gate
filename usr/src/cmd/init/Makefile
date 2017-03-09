@@ -20,11 +20,12 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
 
-PROG= init 
+PROG= init
 ROOTFS_PROG= $(PROG)
 
 DEFAULTFILES= init.dfl
@@ -38,6 +39,7 @@ LINTFLAGS += -erroff=E_NAME_USED_NOT_DEF2
 CLOBBERFILES= $(STATIC)
 
 .KEEP_STATE:
+.NOTPARALLEL:
 
 all: $(ROOTFS_PROG)
 

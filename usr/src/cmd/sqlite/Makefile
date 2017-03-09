@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -41,6 +42,9 @@ $(OBJS) : 	CTFCONVERT_POST = $(CTFCONVERT_O)
 CERRWARN +=	-_gcc=-Wno-empty-body
 
 LDLIBS +=	-lsqlite-sys
+
+MAPFILE.NES=
+MAPFILE.NED=
 
 .KEEP_STATE:
 

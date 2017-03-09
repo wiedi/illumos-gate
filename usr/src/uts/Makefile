@@ -21,6 +21,7 @@
 #
 # Copyright (c) 1989, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2012 Nexenta Systems, Inc. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 # include global definitions
 include ../Makefile.master
@@ -38,6 +39,12 @@ sparc_ARCHITECTURES = sun4v sun4u sparc
 
 i386_ARCHITECTURES = i86pc i86xpv intel
 
+alpha_ARCHITECTURES = alphapf alpha modules
+alphapf: alpha modules
+
+aarch64_ARCHITECTURES = aarch64pf aarch64 modules
+aarch64pf: aarch64 modules
+
 #
 # For i386 all architectures can be compiled in parallel.
 #
@@ -54,6 +61,12 @@ i386_PARALLEL = $(i386_ARCHITECTURES)
 #
 sparc_PREREQ = sun4
 sparc_PARALLEL = $(sparc_ARCHITECTURES)
+
+alpha_PREREQ =
+alpha_PARALLEL = $(alpha_ARCHITECTURES)
+
+aarch64_PREREQ =
+aarch64_PARALLEL = $(aarch64_ARCHITECTURES)
 
 #
 # Platforms defined in $(MACH)_PARALLEL are built in parallel. DUMMY is placed
@@ -83,14 +96,15 @@ modlist		: 	TARGET= modlist
 modlist		: 	NO_STATE= -K $$MODSTATE$$$$
 
 .KEEP_STATE:
+.NOTPARALLEL:
 
 def all lint: all_h $(PMTMO_FILE) $($(MACH)_ARCHITECTURES)
 
 install: all_h install_dirs $(PMTMO_FILE) $($(MACH)_ARCHITECTURES)
 
 install_dirs:
-	@cd ..; pwd; $(MAKE) rootdirs
-	@pwd
+#	@cd ..; pwd; $(MAKE) rootdirs
+#	@pwd
 
 #
 # Rule to build prerequisites. The left part of the pattern will match

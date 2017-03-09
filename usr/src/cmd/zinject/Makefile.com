@@ -23,9 +23,10 @@
 # Use is subject to license terms.
 #
 # Copyright (c) 2016 by Delphix. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
-PROG:sh=	cd ..; basename `pwd`
+PROG=zinject
 OBJS= $(PROG).o translate.o
 SRCS= $(OBJS:%.o=../%.c)
 

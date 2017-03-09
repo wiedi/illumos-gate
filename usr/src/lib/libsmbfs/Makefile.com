@@ -25,6 +25,7 @@
 # Copyright 2015 Igor Kozhukhov <ikozhukhov@gmail.com>
 #
 # Copyright 2013 Nexenta Systems, Inc.  All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 #
@@ -81,7 +82,7 @@ OBJ_CMN= smbfs_ntacl.o
 
 OBJECTS= $(OBJ_LIB) $(OBJ_CMN)
 
-include $(SRC)/lib/Makefile.lib
+include ../../Makefile.lib
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 
@@ -97,11 +98,15 @@ C99MODE=	$(C99_ENABLE)
 
 LDLIBS += -lsocket -lnsl -lc -lmd -lpkcs11 -lkrb5 -lsec -lidmap
 
+CPPFLAGS += -I$(ROOT)/usr/sfw/include
+LDLIBS   += -L$(ROOT)/usr/sfw/lib -Wl,-rpath,/usr/sfw/lib -liconv
+
 # normal warnings...
 CFLAGS	+=	$(CCVERBOSE) 
 
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-unused-variable
+CERRWARN +=	-_gcc=-Wno-unused-but-set-variable
 
 CPPFLAGS += -D__EXTENSIONS__ -D_REENTRANT -DMIA \
 	-I$(SRCDIR) -I.. -I../netsmb \
@@ -109,7 +114,7 @@ CPPFLAGS += -D__EXTENSIONS__ -D_REENTRANT -DMIA \
 	-I$(SRC)/common/smbclnt
 
 # Debugging
-${NOT_RELEASE_BUILD} CPPFLAGS += -DDEBUG
+${NOT_RELEASE_BUILD}CPPFLAGS += -DDEBUG
 
 # uncomment these for dbx debugging
 #COPTFLAG = -g

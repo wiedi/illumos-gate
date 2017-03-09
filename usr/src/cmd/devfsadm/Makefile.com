@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -177,7 +178,7 @@ $(POFILE):      $(POFILES)
 	$(RM) $@; cat $(POFILES) > $@
 
 $(DEVFSADM_MOD): $(DEVFSADM_OBJ)
-	$(LINK.c) -o $@ $< $(DEVFSADM_OBJ) $(LDLIBS)
+	$(LINK.c) -o $@ $(DEVFSADM_OBJ) $(LDLIBS)  -_gcc=-Wl,--export-dynamic
 	$(POST_PROCESS)
 
 SUNW_%.so: %.o $(MAPFILES)
@@ -191,7 +192,7 @@ SUNW_%.so: %.o $(MAPFILES)
 
 $(DEVLINKTAB): $(DEVLINKTAB_SRC)
 	$(RM) $(DEVLINKTAB)
-	/bin/sh $(DEVLINKTAB_SRC) > $(DEVLINKTAB)
+	MACH=$(MACH) /bin/sh $(DEVLINKTAB_SRC) > $(DEVLINKTAB)
 
 $(ROOTUSRSBIN):
 	$(INS.dir)

@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -38,7 +39,7 @@ include ../../Makefile.lib
 SRCDIR =	../common
 LIBS =		$(DYNLIB) $(LINTLIB)
 $(LINTLIB) : 	SRCS = $(SRCDIR)/$(LINTSRC)
-LDLIBS +=	-lmd5 -lc
+LDLIBS +=	-lmd -lc
 
 CFLAGS +=	$(CCVERBOSE)
 CPPFLAGS +=	-DOS='"solaris"' -D__OS_solaris -DNDEBUG

@@ -22,6 +22,7 @@
 # Use is subject to license terms.
 #
 # Copyright (c) 2013 RackTop Systems.
+# Copyright 2017 Hayashi Naoyuki
 #
 # cmd/oamuser/group/Makefile
 #
@@ -65,7 +66,7 @@ $(GROUPMOD) : 	LDLIBS += $(LIBUSRGRP)
 
 all: 		$(PROG)
 
-$(PROG):	$$(OBJS) $(LIBUSRGRP)
+$(PROG):	$(OBJS) $(LIBUSRGRP)
 	$(LINK.c) $(OBJS) -o $@ $(LDLIBS)
 	$(POST_PROCESS)
 
@@ -75,6 +76,7 @@ $(GROUPDEL):	$(DEL_OBJ)
 
 install:	all $(INSSBINPROG)
 
+clobber: clean
 clean:
 	$(RM) $(OBJECTS)
 

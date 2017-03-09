@@ -19,11 +19,12 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
 
-include $(SRC)/lib/Makefile.lib
+include ../Makefile.lib
 
 SUBDIRS	=	$(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
@@ -39,6 +40,8 @@ lint : 		TARGET = lint
 all clean clobber install lint: $(SUBDIRS)
 
 check:		$(CHECKHDRS)
+
+install_h:
 
 $(SUBDIRS): FRC
 	@cd $@; pwd; $(MAKE) $(TARGET)

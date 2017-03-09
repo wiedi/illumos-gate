@@ -3,6 +3,7 @@
 # Use is subject to license terms.
 #
 # Copyright 2011 Nexenta Systems, Inc. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 PROG=		safe_finger tcpd tcpdchk tcpdmatch try-from
@@ -31,9 +32,9 @@ CERRWARN +=	-_gcc=-Wno-clobbered
 
 # Various components must export interfaces, but also contain name-space
 # clashes with system libraries.
-MAPFILE.INT.D=	$(MAPFILE.NGB) mapfile-intf-tcpdchk
-MAPFILE.INT.M=	$(MAPFILE.NGB) mapfile-intf-tcpdmatch
-MAPFILE.INT.F=	$(MAPFILE.NGB) mapfile-intf-tryfrom
+#MAPFILE.INT.D=	$(MAPFILE.NGB) mapfile-intf-tcpdchk
+#MAPFILE.INT.M=	$(MAPFILE.NGB) mapfile-intf-tcpdmatch
+#MAPFILE.INT.F=	$(MAPFILE.NGB) mapfile-intf-tryfrom
 
 tcpdchk : 	LDFLAGS +=$(MAPFILE.INT.D:%=-M%)
 tcpdmatch : 	LDFLAGS +=$(MAPFILE.INT.M:%=-M%)
@@ -45,6 +46,7 @@ all:		$(PROG)
 
 install:	all $(ROOTUSRSBINPROG)
 
+clobber: clean
 clean:
 		$(RM) *.o
 

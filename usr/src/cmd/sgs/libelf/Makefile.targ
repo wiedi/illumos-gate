@@ -21,6 +21,7 @@
 #
 # Copyright (c) 1994, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2016 RackTop Systems.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 objs/%.o \
@@ -50,7 +51,7 @@ install:	all .WAIT $(ROOTFS_LIBS) $(ROOTFS_LINKS) \
 		.WAIT $(ROOTDEMODIRS) .WAIT $(ROOTDEMOFILES) \
 		$(ROOTFS_LIBDIR)/$(LINTLIBSRC)
 
-$(ROOTFS_LIBDIR)/$(LINTLIBSRC): ../common/$(LINTLIBSRC)
+$(LINTLIBSRC:%=$(ROOTFS_LIBDIR)/%): ../common/$(LINTLIBSRC)
 		$(VAR_POUND_1)  $(INS.file) ../common/$(LINTLIBSRC)
 
 lint:		$(LINTLIB) $(LINTOUT32) $(LINTOUT64) $(SGSLINTOUT)
@@ -160,8 +161,8 @@ $(BLTDATA):	$(SGSMSG) $(SGSMSGTARG)
 $(BLTMESG):	$(SGSMSG) $(SGSMSGALL) xlate.c xlate64.c
 		$(SGSMSG) $(SGSMSGFLAGS1) $(SGSMSGALL)
 
-$(SGSMSG):	FRC
-		@ cd $(SGSTOOLS)/$(MACH); pwd; $(MAKE) catalog
-		@ pwd
+#$(SGSMSG):	FRC
+#		@ cd $(SGSTOOLS)/$(MACH); pwd; $(MAKE) catalog
+#		@ pwd
 
 FRC:

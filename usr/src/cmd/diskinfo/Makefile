@@ -17,7 +17,7 @@ PROG=		diskinfo
 OBJS=		diskinfo.o
 SRCS=		$(OBJS:%.o=%.c)
 
-include		$(SRC)/cmd/Makefile.cmd
+include		../Makefile.cmd
 include		$(SRC)/cmd/Makefile.ctf
 
 C99MODE=	$(C99_ENABLE)

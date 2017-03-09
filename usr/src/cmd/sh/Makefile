@@ -20,6 +20,7 @@
 #
 #
 # Copyright (c) 1990, 2010, Oracle and/or its affiliates. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 PROG =		sh
@@ -45,8 +46,11 @@ CERRWARN += -_gcc=-Wno-implicit-function-declaration
 CERRWARN += -_gcc=-Wno-parentheses
 CERRWARN += -_gcc=-Wno-extra
 CERRWARN += -_gcc=-Wno-unused-variable
-MAPFILES = $(MAPFILE.INT) $(MAPFILE.NGB)
-LDFLAGS += $(MAPFILES:%=-M%)
+CERRWARN += -_gcc=-Wno-unused-but-set-variable
+CERRWARN += -_gcc=-Wno-pointer-to-int-cast
+CERRWARN += -_gcc=-Wno-int-to-pointer-cast
+#MAPFILES = $(MAPFILE.INT) $(MAPFILE.NGB)
+#LDFLAGS += $(MAPFILES:%=-M%)
 LDLIBS += -lgen
 
 .KEEP_STATE:

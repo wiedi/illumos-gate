@@ -20,6 +20,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 1995,1997, by Sun Microsystems, Inc.
 # All rights reserved.
 #
@@ -27,7 +28,8 @@
 #
 include ../../Makefile.master
 
-SUBDIRS= $(MACH) $(BUILD64) $(MACH64)
+SUBDIRS= $(MACH)
+$(BUILD64)SUBDIRS+= $(MACH64)
 
 # include library definitions
 include ../Makefile.lib
@@ -62,7 +64,7 @@ all: .WAIT $(SUBDIRS)
 
 lint:   .WAIT $(SUBDIRS)
 
-install: all .WAIT $(SUBDIRS)
+install: .WAIT $(SUBDIRS)
 
 install_h:
 
@@ -73,7 +75,7 @@ check: $(CHECKHDRS)
 # include library targets
 include ../Makefile.targ
 
-$(MACH) $(MACH64):	FRC
+$(SUBDIRS):	FRC
 	@cd $@; pwd; $(MAKE) $(TARGET)
 
 _msg:	$(MSGDOMAIN) $(POFILE)

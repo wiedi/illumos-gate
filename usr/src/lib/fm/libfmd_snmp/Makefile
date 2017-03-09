@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 2006, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 #
@@ -55,6 +56,7 @@ install: install_h install_mibs .WAIT $(SUBDIRS)
 install_h: $(ROOTFMHDRS)
 
 install_mibs: $(ROOTNETSNMPMIBDIR) $(ROOTMIBS)
+$(ROOTMIBS): $(ROOTNETSNMPMIBDIR)
 
 check: $(CHECKHDRS)
 

@@ -22,6 +22,7 @@
 #
 # Copyright (c) 1997, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2011 Nexenta Systems, Inc. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 LIBRARY= libnsl.a
@@ -153,8 +154,8 @@ pics/%.o: ../nis/gen/%.c ../nis/gen/nis_clnt.h
 	$(POST_PROCESS_O)
 
 
-pics/%.o: ../nis/gen/nis_clnt.h
-	$(COMPILE.cc) -o $@ $<
+pics/%.o: %.c ../nis/gen/nis_clnt.h
+	$(COMPILE.c) -o $@ $<
 	$(POST_PROCESS_O)
 
 # include library definitions
@@ -206,7 +207,7 @@ CERRWARN +=	-_gcc=-Wno-switch
 CERRWARN +=	-_gcc=-Wno-char-subscripts
 CERRWARN +=	-_gcc=-Wno-empty-body
 CERRWARN +=	-_gcc=-Wno-unused-variable
-CERRWARN +=	-_gcc=-Wno-clobbered
+CERRWARN +=	-_gcc=-Wno-unused-but-set-variable
 
 LIBMP =		-lmp
 lint : 		LIBMP =

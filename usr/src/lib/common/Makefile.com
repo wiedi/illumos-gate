@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -38,14 +39,22 @@ include ../../Makefile.lib
 POST_PROCESS_O = $(PROCESS_COMMENT) $@ ; $(STRIP) -x $@
 
 OBJECTS = $(VALUES) $(CRTI) $(CRTN)
-$(INTEL_BLD)OBJECTS += $(CRT1) $(GCRT1)
+OBJECTS_i386=		$(CRT1) $(GCRT1)
+OBJECTS_amd64=		$(CRT1) $(GCRT1)
+OBJECTS_alpha=		$(CRT1)
+OBJECTS_aarch64=	$(CRT1)
+OBJECTS += $(OBJECTS_$(MACH))
 
 ROOTLIB=	$(ROOT)/usr/lib
 ROOTLIB64=	$(ROOTLIB)/$(MACH64)
 ROOTOBJECTS=	$(OBJECTS:%=$(ROOTLIB)/%)
 ROOTOBJECTS64=	$(OBJECTS:%=$(ROOTLIB64)/%)
 
-ASFLAGS +=	-P -D__STDC__ -D_ASM -DPIC
+ASFLAGS_i386	+= -P -D__STDC__
+ASFLAGS_sparc	+= -P -D__STDC__
+ASFLAGS_alpha	+= -c
+ASFLAGS_aarch64	+= -c
+ASFLAGS		+= $(ASFLAGS_$(MACH)) -D_ASM -DPIC
 
 values-xpg6.o :  CPPFLAGS += -I$(SRC)/lib/libc/inc
 $(VALUES) :  CFLAGS += $(C_PICFLAGS)

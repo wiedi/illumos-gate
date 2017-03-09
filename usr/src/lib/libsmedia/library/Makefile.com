@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -80,6 +81,8 @@ $(ROOTLINTDIR)/%: ../common/%
 #
 # Derived files
 #
+
+pics/l_misc.o: ../common/smed.h
 
 ../common/smed.h:	$(SRC)/cmd/smserverd/smed.x
 	$(RPCGEN) -C -h $(SRC)/cmd/smserverd/smed.x | \

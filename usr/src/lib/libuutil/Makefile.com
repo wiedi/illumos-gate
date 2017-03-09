@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 2004, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -43,9 +44,9 @@ include ../../Makefile.rootfs
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 
-$(NOT_NATIVE)NATIVE_BUILD = $(POUND_SIGN)
-$(NATIVE_BUILD)VERS =
-$(NATIVE_BUILD)LIBS = $(DYNLIB)
+#$(NOT_NATIVE)NATIVE_BUILD = $(POUND_SIGN)
+#$(NATIVE_BUILD)VERS =
+#$(NATIVE_BUILD)LIBS = $(DYNLIB)
 
 SRCS =	\
 	../../../common/avl/avl.c \

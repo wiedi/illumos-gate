@@ -18,6 +18,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -90,7 +91,7 @@ $(ROOTHDRDIR)/spcs_etrinkets.h: $(MACH)/spcs_etrinkets.h
 $(MACH)/spcs_etrinkets.h:	FRC
 	@ cd $(MACH); pwd; $(MAKE) spcs_etrinkets.h
 
-$(MACH) $(MACH64):	FRC
+$(SUBDIRS):	FRC
 	@cd $@; pwd; $(MAKE) $(TARGET)
 
 FRC:

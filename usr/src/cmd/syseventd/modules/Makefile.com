@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -32,7 +33,7 @@
 SRCS =		$(LIBRARY:%=%.c)
 OBJECTS =	$(LIBRARY:%=%.o)
 
-include $(SRC)/lib/Makefile.lib
+include ../../../../lib/Makefile.lib
 include $(SRC)/cmd/syseventd/Makefile.com
 
 SRCDIR =	.

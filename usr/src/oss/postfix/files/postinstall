@@ -1,0 +1,7 @@
+#! /bin/bash
+
+groupadd -g 26 postdrop
+useradd  -u 26 -d / -c 'Postfix pseudo-user' -s /bin/false postfix
+postfix set-permissions upgrade-configuration setgid_group=postdrop mail_owner=postfix
+
+svccfg import /var/svc/manifest/network/postfix.xml

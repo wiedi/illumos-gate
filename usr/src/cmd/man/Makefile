@@ -12,6 +12,7 @@
 #
 # Copyright 2012 Nexenta Systems, Inc. All rights reserved.
 # Copyright 2014 Garrett D'Amore <garrett@damore.org>
+# Copyright 2017 Hayashi Naoyuki
 #
 
 PROG=		man
@@ -20,7 +21,7 @@ LIBLINKS =	makewhatis
 OBJS=		makewhatis.o man.o stringlist.o
 SRCS=		$(OBJS:%.o=%.c)
 
-include		$(SRC)/cmd/Makefile.cmd
+include		../Makefile.cmd
 
 CFLAGS +=	$(CCVERBOSE)
 

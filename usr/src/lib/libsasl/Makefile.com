@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -41,6 +42,8 @@ include ../../Makefile.lib
 LIBS=		$(DYNLIB) $(LINTLIB)
 SRCS=		$(SASLOBJS:%.o=../lib/%.c) $(COMMONOBJS:%.o=$(PLUGDIR)/%.c)
 $(LINTLIB):  	SRCS = $(SRCDIR)/$(LINTSRC)
+CPPFLAGS +=	-I$(ROOT)/usr/sfw/include
+LDLIBS +=	-L$(ROOT)/usr/sfw/lib -Wl,-rpath,/usr/sfw/lib -liconv
 LDLIBS +=	-lsocket -lc -lmd
 LINTFLAGS +=	-DPIC
 LINTFLAGS64 +=	-DPIC

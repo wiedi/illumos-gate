@@ -1,4 +1,5 @@
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -90,7 +91,7 @@ FILEMODE=	04555
 
 all:		$(PRODUCT) 
 
-$(PROG):	$(OBJECTS) $$(LIBDUMP)
+$(PROG):	$(OBJECTS) $(LIBDUMP)
 	$(LINK.c) -o $@ $(OBJECTS) $(LDLIBS)
 	$(POST_PROCESS)
 
@@ -125,6 +126,7 @@ check:	FRC
 	$(CSTYLE) $(CSTYLEFLAGS) $(SRCS) $(ROLLSRCS) $(HEADERS)
 	$(HDRCHK) $(HDRCHKFLAGS) $(HEADERS)
 
+clobber: clean
 clean:
 	$(RM) $(OBJECTS) $(ROLLOBJS) $(DEBUGOBJS) *.ln
 

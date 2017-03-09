@@ -21,6 +21,7 @@
 
 #
 # Copyright (c) 2004, 2010, Oracle and/or its affiliates. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 MYPROG =	svccfg
@@ -68,8 +69,9 @@ $(NATIVE_BUILD)OBJS = $(MYOBJS:%.o=%-native.o)
 # to local scope.
 MAPFILES +=	$(MAPFILE.LEX) $(MAPFILE.NGB)
 MAPOPTS =	$(MAPFILES:%=-M%)
+MAPFILES=
 
-MYCPPFLAGS =	-I ../common -I$(ADJUNCT_PROTO)/usr/include/libxml2
+MYCPPFLAGS =	-I ../common -I$(ADJUNCT_PROTO)/usr/include/libxml2 -DYY_NO_INPUT
 CPPFLAGS +=	$(MYCPPFLAGS)
 LDFLAGS +=	$(MAPOPTS)
 
@@ -86,7 +88,7 @@ YFLAGS = -d
 CLOBBERFILES += svccfg_lex.c svccfg_grammar.c svccfg_grammar.h \
     $(MYPROG:%=%-native)
 
-SVCCFG_EXTRA_LIBS = -lxml2 -lscf -ll -luutil -lumem -lmd5 -lnvpair
+SVCCFG_EXTRA_LIBS = -lxml2 -lscf -ll -luutil -lumem -lmd -lnvpair
 $(NOT_NATIVE)SVCCFG_EXTRA_LIBS += -ltecla
 
 LIBSCF		= $(SRC)/lib/libscf
@@ -121,6 +123,7 @@ svccfg_lex.o svccfg_grammar.o :  CCVERBOSE =
 svccfg_help.po :  XGETFLAGS =	-a
 
 .KEEP_STATE:
+.NOTPARALLEL:
 .PARALLEL: $(OBJS) $(LNTS)
 
 all debug: $(PROG)

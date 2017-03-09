@@ -21,6 +21,7 @@
 # Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 # Copyright 2016 Toomas Soome <tsoome@me.com>
+# Copyright 2017 Hayashi Naoyuki
 #
 
 LIBRARY =	libdns_sd.a
@@ -39,7 +40,7 @@ LDLIBS +=	-lsocket -lnsl -lc
 C99MODE =	$(C99_ENABLE)
 CPPFLAGS +=	-I$(SRCDIR) -DNOT_HAVE_SA_LEN -D_XPG4_2 -D__EXTENSIONS__
 CPPFLAGS +=	-DMDNS_VERSIONSTR_NODTS
-
+CERRWARN +=	-_gcc=-Wno-unused-but-set-variable
 .PARALLEL =     $(OBJECTS)
 .KEEP_STATE:
 

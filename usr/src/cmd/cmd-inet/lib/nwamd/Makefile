@@ -20,6 +20,7 @@
 #
 #
 # Copyright (c) 2007, 2010, Oracle and/or its affiliates. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 # usr/src/cmd/cmd-inet/lib/nwamd/Makefile
 #
@@ -98,10 +99,10 @@ $(ROOTLOCDIR): $(ROOTCFGDIR)
 $(LOCDIRS): $(ROOTLOCDIR)
 	$(INS.dir) 
 
-$(ROOTLOCDIR)/%: $(ROOTLOCDIR) %
+$(ROOTLOCDIR)/%: % $(ROOTLOCDIR)
 	$(INS.file)
 
-$(NONETLOCDIR)/%: $(NONETLOCDIR) %
+$(NONETLOCDIR)/%: % $(NONETLOCDIR)
 	$(INS.file)
 
 include		../../../Makefile.targ

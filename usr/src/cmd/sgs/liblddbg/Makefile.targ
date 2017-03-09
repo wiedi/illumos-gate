@@ -23,6 +23,7 @@
 # Use is subject to license terms.
 #
 # Copyright 2016 RackTop Systems.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 pics/%.o:	../common/%.c
@@ -78,6 +79,6 @@ chkmsg:		$(LIBSRCS) $(CHKSRCS)
 		sh $(CHKMSG) $(CHKMSGFLAGS) $(LIBSRCS) $(CHKSRCS)
 
 $(BLTDEFS) + \
-$(BLTDATA) + \
+$(BLTDATA)  \
 $(BLTMESG):	$(SGSMSGALL)
 		$(SGSMSG) $(SGSMSGFLAGS) $(SGSMSGALL)

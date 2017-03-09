@@ -22,6 +22,7 @@
 # Copyright (c) 1990, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright (c) 2013 RackTop Systems.
 # Copyright (c) 2013 Gary Mills
+# Copyright 2017 Hayashi Naoyuki
 #
 # cmd/oamuser/user/Makefile
 #
@@ -96,7 +97,7 @@ LDLIBS +=	-lbsm -lnsl -lsecdb -lproject -lzfs -ltsol
 
 all:	$(PRODUCT)
 
-$(PROG):	$$(OBJS) $$(LIBS)
+$(PROG):	$(OBJS) $(LIBS)
 	$(LINK.c) $(OBJS) -o $@ $(LIBS) $(LDLIBS)
 	$(POST_PROCESS)
 
@@ -113,6 +114,7 @@ install:	all $(ROOTETCDEFAULTFILES) .WAIT \
 		$(RM) $(ROOTUSRSBIN)/$(ROLEMOD)
 		$(LN) $(ROOTUSRSBIN)/$(USERMOD) $(ROOTUSRSBIN)/$(ROLEMOD)
 
+clobber: clean
 clean:
 	$(RM) $(OBJECTS)
 

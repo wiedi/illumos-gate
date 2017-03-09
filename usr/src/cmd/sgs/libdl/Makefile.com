@@ -19,12 +19,24 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 1994, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
 LIBRARY =	libdl.a
 VERS =		.1
 
-include		$(SRC)/lib/Makefile.rootfs
+OBJECTS= filter_symbols.o
 
-LIBS +=		$(LINTLIB)
+include ../../../../lib/Makefile.lib
+include $(SRC)/lib/Makefile.rootfs
+
+LIBS=		$(DYNLIB) $(LINTLIB)
+SRCDIR=		../common
+MAPFILES=	$(SRCDIR)/mapfile-vers
+
+all: $(LIBS)
+include		$(SRC)/lib/Makefile.targ
+
+pics/%.o: $(SRCDIR)/%.s
+	$(COMPILE.s) -o $@ -c $<

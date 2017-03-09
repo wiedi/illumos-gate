@@ -20,8 +20,10 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 2008, 2010, Oracle and/or its affiliates. All rights reserved.
 #
+include ../../../../Makefile.master
 
 # AES
 AES_DIR =		$(SRC)/common/crypto/aes

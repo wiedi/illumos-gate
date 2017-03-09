@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 2009, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -38,7 +39,7 @@ ROOTLIBDIR64=   $(ROOTFS_LIBDIR)/fm/$(MACH64)
 FMHDRS = libfmevent.h libfmevent_ruleset.h
 HDRDIR = common
 
-SUBDIRS = $(MACH) 
+SUBDIRS = $(MACH)
 $(BUILD64)SUBDIRS += $(MACH64)
 
 all :  TARGET = all
@@ -51,7 +52,8 @@ lint :  TARGET = lint
 
 all clean clobber lint: $(SUBDIRS)
 
-install: install_h .WAIT $(SUBDIRS)
+all: install_h
+install: install_h $(SUBDIRS)
 
 install_h: $(ROOTFMHDRS)
 

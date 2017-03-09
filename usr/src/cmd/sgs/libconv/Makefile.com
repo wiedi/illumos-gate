@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright (c) 1994, 2010, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -84,7 +85,7 @@ OBJECTS =	$(COMOBJS) $(COMOBJS32) $(COMOBJS64) $(ELFCAP_OBJS) \
 NOCTFOBJS =	$(OBJECTS)
 CTFMERGE_LIB =	:
 
-include 	$(SRC)/lib/Makefile.lib
+include ../../../../lib/Makefile.lib
 include 	$(SRC)/cmd/sgs/Makefile.com
 
 CERRWARN	+= -_gcc=-Wno-type-limits
@@ -100,9 +101,9 @@ PICS=		$(OBJECTS:%=pics/%)
 CPPFLAGS +=	-I$(SRCBASE)/lib/libc/inc -I$(ELFCAP) \
 		-I$(SRC)/common/sgsrtcid
 
-ARFLAGS=	cr
+ARFLAGS=	crs
 
-AS_CPPFLAGS=	-P -D_ASM $(CPPFLAGS)
+AS_CPPFLAGS=	-D_ASM $(CPPFLAGS)
 
 BLTDATA=	$(BLTOBJS:%.o=%.c) $(BLTOBJS:%.o=%.h) report_bufsize.h
 

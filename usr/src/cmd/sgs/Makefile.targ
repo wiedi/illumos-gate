@@ -22,6 +22,7 @@
 #
 # Copyright (c) 1998, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2016 RackTop Systems.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 # Standard install rules
@@ -220,16 +221,16 @@ $(SGSLINTOUT): FRC
 $(ROOTLIBDIR)/$(LINTLIBSRC): ../common/$(LINTLIBSRC)
 	$(INS.file) ../common/$(LINTLIBSRC)
 
-$(ROOTFS_LIBDIR)/$(LIBLINKS): $(ROOTFS_LIBDIR)/$(LIBLINKS)$(VERS)
+$(LIBLINKS:%=$(ROOTFS_LIBDIR)/%): $(ROOTFS_LIBDIR)/$(LIBLINKS)$(VERS)
 	$(INS.liblink)
 
-$(ROOTFS_LIBDIR64)/$(LIBLINKS): $(ROOTFS_LIBDIR64)/$(LIBLINKS)$(VERS)
+$(LIBLINKS:%=$(ROOTFS_LIBDIR64)/%): $(ROOTFS_LIBDIR64)/$(LIBLINKS)$(VERS)
 	$(INS.liblink64)
 
-$(ROOTFS_LIBDIR)/$(LIBLINKSCCC): $(ROOTFS_LIBDIR)/$(LIBLINKSCCC)$(VERS)
+$(LIBLINKSCCC:%=$(ROOTFS_LIBDIR)/%): $(ROOTFS_LIBDIR)/$(LIBLINKSCCC)$(VERS)
 	$(INS.liblinkccc)
 
-$(ROOTFS_LIBDIR64)/$(LIBLINKSCCC): $(ROOTFS_LIBDIR64)/$(LIBLINKSCCC)$(VERS)
+$(LIBLINKSCCC:%=$(ROOTFS_LIBDIR64)/%): $(ROOTFS_LIBDIR64)/$(LIBLINKSCCC)$(VERS)
 	$(INS.liblinkccc64)
 
 #

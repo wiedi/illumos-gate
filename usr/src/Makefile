@@ -20,269 +20,109 @@
 #
 
 #
-# Copyright (c) 1989, 2010, Oracle and/or its affiliates. All rights reserved.
-# Copyright (c) 2012 by Delphix. All rights reserved.
-# Copyright 2014 Garrett D'Amore <garrett@damore.org>
-# Copyright 2015 OmniTI Computer Consulting, Inc. All rights reserved.
-# Copyright 2016 Toomas Soome <tsoome@me.com>
-# Copyright 2016 Joyent, Inc.
+# Copyright 2017 Hayashi Naoyuki
 #
 
-#
-# Makefile for system source
-#
-# include global definitions
 include Makefile.master
-#
-# the Targetdirs file is the AT&T target.dirs file in a makefile format.
-# it defines TARGETDIRS and ROOTDIRS.
 include Targetdirs
 
-COMMON_SUBDIRS=	uts lib cmd ucblib ucbcmd psm man test
-sparc_SUBDIRS= stand
-i386_SUBDIRS= grub boot
+.DEFAULT_GOAL := def
 
-#
-# sparc needs to build stand before psm
-#
-$(SPARC_BLD)psm: stand
+.PHONY: pre_build def install_h clean post_install clean_head tools
+def: pre_build cross post_install
 
-SUBDIRS= $(COMMON_SUBDIRS) $($(MACH)_SUBDIRS)
-
-HDRSUBDIRS=	uts head lib cmd
-
-# UCB headers are bug-for-bug compatible and not checkable against the header
-# standards.
-#
-CHKHDRSUBDIRS=	head uts lib
-
-#
-# Headers that can be built in parallel
-#
-PARALLEL_HEADERS = sysheaders userheaders libheaders cmdheaders
-
-#
-# Directories that can be built in parallel
-#
-PARALLEL_DIRS = uts lib man
-
-# The check target also causes smf(5) service manifests to be validated.
-CHKMFSTSUBDIRS=	cmd
-
-# And man page formats
-CHKMANSUBDIRS = man
-
-MSGSUBDIRS=	cmd ucbcmd lib
-DOMAINS= \
-	SUNW_OST_ADMIN \
-	SUNW_OST_NETRPC \
-	SUNW_OST_OSCMD \
-	SUNW_OST_OSLIB \
-	SUNW_OST_UCBCMD \
-	SUNW_OST_ZONEINFO
-
-MSGDDIRS=       $(DOMAINS:%=$(MSGROOT)/%)
-MSGDIRS=        $(MSGROOT) $(MSGDDIRS) $(MSGROOT)/LC_TIME
-
-all : 			TARGET= all
-install : 		TARGET= install
-install1 : 		TARGET= install
-install2 : 		TARGET= install
-install_h : 		TARGET= install_h
-clean : 		TARGET= clean
-clobber : 		TARGET= clobber
-check : 		TARGET= check
-
-.KEEP_STATE:
-
-#
-# Note: install does not cause a build in pkg.  To build packages,
-#	cd pkg and do a 'make install'
-#
-
-all: mapfiles closedbins sgs .WAIT $(SUBDIRS) pkg
-
-#
-# The _msg build is a two-step process.  First, the _msg dependency
-# causes recursive makes in $(MSGSUBDIRS), which stages raw message
-# files in $(ROOT)/catalog.  Second, the action from the install
-# target rule causes those messages to be post-processed from where
-# they were staged in $(ROOT)/catalog, and the results placed into the
-# proto area.
-#
-# The stage-licenses target causes the license files needed for
-# packaging to be pulled from $(SRC) and $(CLOSED) and staged in
-# $(ROOT)/licenses.
-#
-install: install1 install2 _msg stage-licenses
-	@cd msg; pwd; $(MAKE) _msg
-	@rm -rf "$(ROOT)/catalog"
-
-stage-licenses: install2
-	@cd pkg; pwd; $(MAKE) stage-licenses
-
-install1: mapfiles closedbins sgs
-
-install2: install1 $(SUBDIRS)
-
-_msg: _msgdirs rootdirs FRC
-	@for m in $(MSGSUBDIRS); do \
-		cd $$m; pwd; $(MAKE) _msg; cd ..; \
-	done
-
-mapfiles: bldtools
-	@cd common/mapfiles; pwd; $(MAKE) install
-
-clean: $(SUBDIRS) head pkg
-clobber: $(SUBDIRS) head pkg clobber_local
-clobber_local:
-	@cd tools; pwd; $(MAKE) clobber
-	@cd common/mapfiles; pwd; $(MAKE) clobber
-	@cd msg; pwd; $(MAKE) clobber
-
-# If the tarballs are included inside ON_CLOSED_BINS, use those to extract and
-# preserve the permissions (in case a distro ships them).
-
-closedbins: bldtools $(ROOTDIRS) FRC
-	@CLOSED_ROOT="$$ON_CLOSED_BINS/root_$(MACH)$${RELEASE_BUILD+-nd}"; \
-	if [ -f "$$ON_CLOSED_BINS/on-closed-bins$${RELEASE_BUILD+-nd}.$(MACH).tar.bz2" ]; then \
-		$(ECHO) "Extracting tarball $$ON_CLOSED_BINS/on-closed-bins$${RELEASE_BUILD+-nd}.$(MACH).tar.bz2"; \
-		(cd $(CODEMGR_WS); \
-		   $(TAR) xjpf $$ON_CLOSED_BINS/on-closed-bins$${RELEASE_BUILD+-nd}.$(MACH).tar.bz2); \
-		CLOSED_ROOT="$(CODEMGR_WS)/closed/root_$(MACH)$${RELEASE_BUILD+-nd}"; \
-	fi; \
-	if [ ! -d "$$CLOSED_ROOT" ]; then \
-		$(ECHO) "Error: ON_CLOSED_BINS must point to closed" \
-		    "binaries."; \
-		$(ECHO) "root_$(MACH)$${RELEASE_BUILD+-nd} is not" \
-		    "present in $$ON_CLOSED_BINS."; \
-		exit 1; \
-	fi; \
-	$(ECHO) "Copying closed binaries from $$CLOSED_ROOT"; \
-	(cd $$CLOSED_ROOT; \
-	    $(TAR) cfX - $(CODEMGR_WS)/exception_lists/closed-bins .) | \
-	    (cd $(ROOT); $(TAR) xBpf -); \
-	( cd $(ROOT); $(CTFSTRIP) $$(cd $$CLOSED_ROOT; $(FIND) \
-	    ./kernel ./usr/kernel ./platform/*/kernel -type f -a -perm -u+x | \
-	    $(EGREP) -vf $(CODEMGR_WS)/exception_lists/closed-bins) )
-
-#
-# Declare what parts can be built in parallel
-# DUMMY at the end is used in case macro expansion produces an empty string to
-# prevent everything going in parallel
-#
-.PARALLEL: $(PARALLEL_HEADERS) DUMMY
-.PARALLEL: $(PARALLEL_DIRS) DUMMY
-
-$(SUBDIRS) head pkg: FRC
-	@cd $@; pwd; $(MAKE) $(TARGET)
-
-# librpcsvc has a dependency on headers installed by
-# userheaders, hence the .WAIT before libheaders.
-sgs: rootdirs .WAIT sysheaders userheaders .WAIT \
-	libheaders cmdheaders
-
-#
-# Top-level setup target to setup the development environment that includes
-# headers, tools and generated mapfiles.  For open-only builds (i.e.: source
-# trees w/o usr/closed), this also depends on the closedbins target (above)
-# in order to properly seed the proto area.  Note, although the tools are
-# dependent on a number of constant mapfiles, the tools themselves are
-# required to build the generated mapfiles.
-#
-setup: closedbins bldtools sgs mapfiles
-
-bldtools:
-	@cd tools; pwd; $(MAKE) install
-
-# /var/mail/:saved is a special case because of the colon in the name.
-#
-rootdirs: $(ROOTDIRS)
+pre_build: $(ROOTDIRS)
 	$(INS) -d -m 775 $(ROOT)/var/mail/:saved
 
-lint: FRC
-	$(MAKE) -f Makefile.lint
+tools:
+	$(MAKE) -C $(CROSS_SRCS) install
 
-_msgdirs:       $(MSGDIRS)
+.PHONY: install_h install_h.head install_h.uts install_h.lib
+install_h: install_h.head install_h.uts install_h.lib
+install_h.head install_h.uts install_h.lib: tools
+
+install_h.head:
+	make install_h -C head
+
+install_h.lib:
+	make install_h -C lib
+
+install_h.uts:
+	make install_h -C uts
+	make install_h -C uts
+
+cross: install_h
+	$(MAKE) -C $(CROSS_SRCS)/binutils install
+	$(MAKE) -C $(CROSS_SRCS)/gcc install
+	$(MAKE) -C $(CROSS_SRCS)/file install
+
+
+.PHONY: install install.stand install.uts install.psm install.cmd install.lib
+
+install.stand install.uts install.psm install.cmd install.lib: cross install_h
+install.psm: install.stand
+install.cmd: install.lib
+install: install.stand install.uts install.psm install.cmd install.lib
+
+install.stand:
+	$(MAKE) -C stand install
+
+install.psm:
+	$(MAKE) -C psm install
+
+install.cmd:
+	$(MAKE) -C cmd install
+
+install.lib:
+	$(MAKE) -C lib install
+
+install.uts:
+	$(MAKE) -C uts install
+
+
+.PHONY: clobber clobber.stand clobber.uts clobber.psm clobber.cmd clobber.lib clobber.tools clobber.head
+clobber: clobber.stand clobber.uts clobber.psm clobber.cmd clobber.lib clobber.tools clobber.head
+
+clobber.head:
+	$(MAKE) -C head clobber
+
+clobber.tools:
+	$(MAKE) -C cross clobber
+
+clobber.stand:
+	$(MAKE) -C stand clobber
+
+clobber.psm:
+	$(MAKE) -C psm clobber
+
+clobber.cmd:
+	$(MAKE) -C cmd clobber
+
+clobber.lib:
+	$(MAKE) -C lib clobber
+
+clobber.uts:
+	$(MAKE) -C uts clobber
+
+post_install: ${ROOT}/var/svc/profile/name_service.xml
+post_install: ${ROOT}/var/svc/profile/generic.xml
+post_install: ${ROOT}/var/svc/profile/inetd_services.xml
+
+.PHONY: ns_dns.xml
+${ROOT}/var/svc/profile/name_service.xml: ns_dns.xml install
+	${INS.symlink}
+
+.PHONY: generic_minimum.xml
+${ROOT}/var/svc/profile/generic.xml: generic_minimum.xml install
+	${INS.symlink}
+
+.PHONY: inetd_generic.xml
+${ROOT}/var/svc/profile/inetd_services.xml: inetd_generic.xml install
+	${INS.symlink}
+
+post_install: install
+	tar czf ${ROOT}/../illumos-`date -I`.tar.gz -C ${ROOT} .
+	cp ${ROOT}/../illumos-`date -I`.tar.gz  ${ROOT}/var/illumos.tar.gz
 
 $(ROOTDIRS) $(MSGDIRS):
 	$(INS.dir)
-
-userheaders: FRC
-	@cd head; pwd; $(MAKE) install_h
-
-libheaders: bldtools
-	@cd lib; pwd; $(MAKE) install_h
-
-sysheaders: FRC
-	@cd uts; pwd; $(MAKE) install_h
-
-cmdheaders: FRC
-	@cd cmd/devfsadm; pwd; $(MAKE) install_h
-	@cd cmd/fm; pwd; $(MAKE) install_h
-	@cd cmd/mdb; pwd; $(MAKE) install_h
-
-check:	$(CHKHDRSUBDIRS) $(CHKMFSTSUBDIRS) $(CHKMANSUBDIRS)
-
-#
-# Cross-reference customization: skip all of the subdirectories that
-# don't contain actual source code.
-#
-XRPRUNE = pkg prototypes
-XRINCDIRS = uts/common head ucbhead
-
-cscope.out tags: FRC
-	$(XREF) -f -x $@
-
-FRC:
-
-#
-# Targets for reporting compiler versions; nightly uses these.
-#
-
-cc-version:
-	@if $($(MACH)_CC) -_versions >/dev/null 2>/dev/null; then \
-		$(ECHO) 32-bit compiler;			\
-		$(ECHO) $($(MACH)_CC);				\
-		$($(MACH)_CC) -_versions 2>&1 |			\
-		    $(EGREP) '^(cw|cc|gcc|primary|shadow)';	\
-	else							\
-		__COMPILER=`$($(MACH)_CC) -_compiler 2>/dev/null || $(TRUE)`;\
-		if [ -z "$$__COMPILER" ]; then			\
-			$(ECHO) No 32-bit compiler found;	\
-			exit 1;					\
-		else						\
-			$(ECHO) 32-bit compiler;		\
-			$(ECHO) $($(MACH)_CC);			\
-			$(ECHO) $$__COMPILER;			\
-			$($(MACH)_CC) -V 2>&1 | head -1;	\
-		fi;						\
-	fi
-
-cc64-version:
-	@if $($(MACH64)_CC) -_versions >/dev/null 2>/dev/null; then \
-		$(ECHO) 64-bit compiler;			\
-		$(ECHO) $($(MACH64)_CC);			\
-		$($(MACH64)_CC) -_versions 2>&1 |		\
-		    $(EGREP) '^(cw|cc|gcc|primary|shadow)';	\
-	else							\
-		__COMPILER=`$($(MACH64)_CC) -_compiler 2>/dev/null || $(TRUE)`;\
-		if [ -z "$$__COMPILER" ]; then			\
-			$(ECHO) No 64-bit compiler found;	\
-			exit 1;					\
-		else						\
-			$(ECHO) 64-bit compiler;		\
-			$(ECHO) $($(MACH64)_CC);		\
-			$(ECHO) $$__COMPILER;			\
-			$($(MACH64)_CC) -V 2>&1 | head -1;	\
-		fi;						\
-	fi
-
-java-version:
-	@if [ -x "$(JAVAC)" ]; then			\
-		$(ECHO) $(JAVAC);			\
-		$(JAVA_ROOT)/bin/java -fullversion 2>&1 | head -1;	\
-	else						\
-		$(ECHO) No Java compiler found;		\
-		exit 1;					\
-	fi

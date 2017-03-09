@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2015 Gary Mills
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
@@ -164,6 +165,7 @@ $(UVAR_PICS) :  CERRWARN += -_gcc=-Wno-unused-variable
 # Correcting these might alter logic
 CERRWARN +=	-_gcc=-Wno-uninitialized
 CERRWARN +=	-_gcc=-Wno-switch
+CERRWARN +=	-_gcc=-Wno-unused-but-set-variable
 
 # Extra includes, from yp, for yptol files.
 CPPFLAGS += -I$(SRC)/cmd/ypcmd
@@ -185,7 +187,7 @@ LDLIBS += -lnsl -lldap -lc
 # libnisdb interposes on socket(), so tag this library as an interposer.
 # dependencies (lazyload).
 BDIRECT =
-DYNFLAGS +=	$(BNODIRECT) $(ZINTERPOSE) $(ZDIRECT) $(ZLAZYLOAD)
+#DYNFLAGS +=	$(BNODIRECT) $(ZINTERPOSE) $(ZDIRECT) $(ZLAZYLOAD)
 
 all : 		TARGET= all
 clean : 	TARGET= clean

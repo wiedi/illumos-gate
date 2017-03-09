@@ -22,6 +22,7 @@
 # Copyright (c) 2005, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2016 Igor Kozhukhov <ikozhukhov@gmail.com>.
 # Copyright (c) 2015 by Delphix. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 PROG= zpool
@@ -70,6 +71,7 @@ $(POFILE): $(POFILES)
 	$(RM) $@
 	$(CAT) $(POFILES) > $@
 
+clobber: clean
 clean:
 	$(RM) $(OBJS) $(STAT_COMMON_OBJS)
 

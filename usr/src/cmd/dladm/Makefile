@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2010 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -32,7 +33,7 @@ CFGFILES=	secobj.conf
 ROOTCFGDIR=	$(ROOTETC)/dladm
 ROOTCFGFILES=	$(CFGFILES:%=$(ROOTCFGDIR)/%)
 
-include		$(SRC)/cmd/Makefile.cmd
+include 	../Makefile.cmd
 include		$(SRC)/cmd/Makefile.ctf
 
 XGETFLAGS +=	-a -x $(PROG).xcl
@@ -47,8 +48,8 @@ CERRWARN +=	-_gcc=-Wno-uninitialized
 
 # For headers from librstp.
 LINTFLAGS +=	-erroff=E_TRAILING_COMMA_IN_ENUM
-lint :=		ZLAZYLOAD=
-lint :=		ZNOLAZYLOAD=
+lint :		ZLAZYLOAD=
+lint :		ZNOLAZYLOAD=
 
 $(ROOTCFGDIR)/secobj.conf : FILEMODE= 660
 
@@ -72,7 +73,7 @@ lint:		lint_PROG
 $(ROOTCFGDIR):
 		$(INS.dir)
 
-$(ROOTCFGDIR)/%: $(ROOTCFGDIR) %
+$(ROOTCFGDIR)/%: % $(ROOTCFGDIR)
 		$(INS.file)
 
 include		$(SRC)/cmd/Makefile.targ

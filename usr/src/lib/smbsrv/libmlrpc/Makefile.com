@@ -19,6 +19,7 @@
 # CDDL HEADER END
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -45,7 +46,7 @@ include ../../Makefile.lib
 INCS += -I$(SRC)/common/smbsrv
 
 LDLIBS +=	$(MACH_LDLIBS)
-LDLIBS +=	-lsmb -luuid -lc
+LDLIBS +=	-L$(ROOT)/usr/lib/smbsrv -lsmb -luuid -lc
 
 CPPFLAGS += $(INCS) -D_REENTRANT
 

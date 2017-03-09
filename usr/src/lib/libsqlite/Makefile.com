@@ -3,6 +3,7 @@
 # Use is subject to license terms.
 # Copyright 2015 Igor Kozhukhov <ikozhukhov@gmail.com>
 # Copyright 2016 Nexenta Systems, Inc.  All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 # Make the SO name unlikely to conflict with any other
@@ -43,7 +44,8 @@ OBJECTS = \
 	vdbeaux.o	\
 	where.o
 
-include $(SRC)/lib/Makefile.lib
+include ../../Makefile.lib
+include ../../../Makefile.native
 
 # install this library in the root filesystem
 include $(SRC)/lib/Makefile.rootfs
@@ -51,7 +53,7 @@ include $(SRC)/lib/Makefile.rootfs
 SRCDIR = ../src
 TOOLDIR = ../tool
 $(DYNLIB) :  LDLIBS += -lc
-LIBS = $(DYNLIB) $(LINTLIB) $(NATIVERELOC)
+LIBS = $(DYNLIB) $(LINTLIB) #$(NATIVERELOC)
 
 $(LINTLIB) : 	SRCS = ../$(LINTSRC)
 
@@ -184,18 +186,11 @@ CLEANFILES += \
 
 ENCODING  = ISO8859
 
-
-.PARALLEL: $(OBJS) $(OBJS:%.o=%-native.o)
-.KEEP_STATE:
-
+.NOTPARALLEL:
 # This is the default Makefile target.  The objects listed here
 # are what get build when you type just "make" with no arguments.
 #
 all:		$(LIBS)
-install:	all \
-		$(ROOTLIBDIR)/$(DYNLIB) \
-		$(ROOTLIBDIR)/$(LINTLIB) \
-		$(ROOTLIBDIR)/$(NATIVERELOC)
 
 lint:
 

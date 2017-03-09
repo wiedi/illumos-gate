@@ -23,13 +23,14 @@
 #ident	"%Z%%M%	%I%	%E% SMI"
 #
 # Copyright (c) 1989 by Sun Microsystems, Inc.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 PROG= ul
 
 include ../Makefile.cmd
 
-LDLIBS += -lcurses
+LDLIBS += -lncurses
 
 .KEEP_STATE:
 

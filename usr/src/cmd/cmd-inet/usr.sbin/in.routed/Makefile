@@ -1,5 +1,6 @@
 #
 #
+# Copyright 2017 Hayashi Naoyuki
 # Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
 # Use is subject to license terms.
 #
@@ -39,7 +40,7 @@ CPPFLAGS +=	$(_D_XOPEN_EXTN)
 CFLAGS +=	$(CCVERBOSE)
 CERRWARN +=	-_gcc=-Wno-parentheses
 CERRWARN +=	-_gcc=-Wno-uninitialized
-LDLIBS +=	-lxnet -lmd -lsocket
+LDLIBS +=	-lxnet -lmd -lsocket -lnsl
 CLEAN_FILES +=	$(ROUTEDOBJS) $(RTQUERYOBJS)
 CLOBBERFILES +=	$(ROUTEDPROG) $(RTQUERYPROG)
 #
@@ -89,6 +90,7 @@ install:	all $(ROOTUSRSBINPROG) $(ROOTMANIFEST) $(ROOTSVCMETHOD)
 
 check:		$(CHKMANIFEST)
 
+clobber: clean
 clean:
 	$(RM) $(CLEAN_FILES)
 

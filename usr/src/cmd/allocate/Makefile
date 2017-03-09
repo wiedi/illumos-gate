@@ -21,6 +21,7 @@
 
 #
 # Copyright (c) 1992, 2010, Oracle and/or its affiliates. All rights reserved.
+# Copyright 2017 Hayashi Naoyuki
 #
 
 ETCTSOLFILES =	devalloc_defaults
@@ -149,6 +150,12 @@ $(ROOTSECLIB)/%: %
 		$(RM) $@
 		$(INS.file)
 
+$(ROOTETCTSOL):
+		$(INS.dir)
+
+$(ROOTETCTSOL)/%: % $(ROOTETCTSOL)
+		$(INS.file)
+
 $(ROOTLINKalloc) :	$(PROGalloc:%=$(ROOTUSRSBIN)/%)
 			$(RM) $@
 			$(LN) $(PROGalloc:%=$(ROOTUSRSBIN)/%) $@
@@ -178,6 +185,7 @@ $(POFILE):      $(POFILES)
 $(ALLSCRIPTS):	$(SCRIPTS:%=%.sh)
 		$(CAT) $(SCRIPTS:%=%.sh) > $@
 
+clobber: clean
 clean :
 		$(RM) $(PROG) $(RTLCKS) $(OBJS) \
 		$(SCRIPTS) $(ALLSCRIPTS) $(POFILE) $(POFILES)
