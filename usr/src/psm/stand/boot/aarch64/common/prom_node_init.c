@@ -81,7 +81,7 @@ prom_node_init(void)
 			}
 		}
 	}
-	if (prom_getproplen(chosen, "__bootpath") == 0) {
+	if (prom_getproplen(chosen, "__bootpath") <= 0) {
 		str = get_default_bootpath();
 		prom_setprop(chosen, "__bootpath", (caddr_t)str, strlen(str) + 1);
 	}
