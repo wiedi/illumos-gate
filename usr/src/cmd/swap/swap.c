@@ -36,7 +36,9 @@
  * contributors.
  */
 
-#pragma ident	"%Z%%M%	%I%	%E% SMI"
+/*
+ * Copyright 2017 Jason King.
+ */
 
 /*
  * 	Swap administrative interface
@@ -64,6 +66,8 @@
 #include	<libintl.h>
 #include	<libdiskmgt.h>
 #include	<sys/fs/zfs.h>
+#include	<libcmdutils.h>
+#include	<sys/debug.h>
 
 #define	LFLAG	0x01	/* swap -l (list swap devices) */
 #define	DFLAG	0x02	/* swap -d (delete swap device) */
@@ -75,6 +79,8 @@
 #define	KFLAG	0x80	/* swap -k (size in kilobytes) */
 
 #define	NUMBER_WIDTH	64
+/* make sure nicenum_scale() has enough space */
+CTASSERT(NUMBER_WIDTH >= NN_NUMBUF_SZ);
 typedef char numbuf_t[NUMBER_WIDTH];
 
 static char *prognamep;
@@ -85,9 +91,6 @@ static void usage(void);
 static int doswap(int flag);
 static int valid(char *, off_t, off_t);
 static int list(int flag);
-static char *number_to_scaled_string(numbuf_t buf, unsigned long long number,
-		unsigned long long unit_from, unsigned long long scale);
-
 
 int
 main(int argc, char **argv)
@@ -305,7 +308,6 @@ doswap(int flag)
 	struct anoninfo ai;
 	pgcnt_t allocated, reserved, available;
 	numbuf_t numbuf;
-	unsigned long long scale = 1024L;
 
 	/*
 	 * max = total amount of swap space including physical memory
@@ -339,18 +341,19 @@ doswap(int flag)
 
 	if (flag & HFLAG) {
 		int factor = (int)(sysconf(_SC_PAGESIZE));
-		(void) printf(gettext("total: %s allocated + "),
-				number_to_scaled_string(numbuf, allocated,
-				factor, scale));
-		(void) printf(gettext("%s reserved = "),
-				number_to_scaled_string(numbuf, reserved,
-				factor, scale));
-		(void) printf(gettext("%s used, "),
-				number_to_scaled_string(numbuf,
-				allocated + reserved, factor, scale));
-		(void) printf(gettext("%s available\n"),
-				number_to_scaled_string(numbuf, available,
-				factor, scale));
+
+		nicenum_scale(allocated, factor, numbuf, sizeof (numbuf), 0);
+		(void) printf(gettext("total: %s allocated + "), numbuf);
+
+		nicenum_scale(reserved, factor, numbuf, sizeof (numbuf), 0);
+		(void) printf(gettext("%s reserved = "), numbuf);
+
+		nicenum_scale(allocated + reserved, factor, numbuf,
+		    sizeof (numbuf), 0);
+		(void) printf(gettext("%s used, "), numbuf);
+
+		nicenum_scale(available, factor, numbuf, sizeof (numbuf), 0);
+		(void) printf(gettext("%s available\n"), numbuf);
 	} else {
 		(void) printf(gettext("total: %luk bytes allocated + %luk"
 				" reserved = %luk used, %luk available\n"),
@@ -373,7 +376,6 @@ list(int flag)
 	char		fullpath[MAXPATHLEN+1];
 	int		num;
 	numbuf_t numbuf;
-	unsigned long long scale = 1024L;
 
 	if ((num = swapctl(SC_GETNSWP, NULL)) == -1) {
 		perror(prognamep);
@@ -457,20 +459,17 @@ list(int flag)
 		int diskblks_per_page =
 			(int)(sysconf(_SC_PAGESIZE) >> DEV_BSHIFT);
 		if (flag & HFLAG) {
-			(void) printf(gettext(" %8s"),
-					number_to_scaled_string(numbuf,
-					swapent->ste_start, DEV_BSIZE,
-					scale));
-			(void) printf(gettext(" %8s"),
-					number_to_scaled_string(numbuf,
-					swapent->ste_pages *
-						diskblks_per_page,
-					DEV_BSIZE, scale));
-			(void) printf(gettext(" %8s"),
-					number_to_scaled_string(numbuf,
-					swapent->ste_free *
-						diskblks_per_page,
-					DEV_BSIZE, scale));
+			nicenum_scale(swapent->ste_start, DEV_BSIZE, numbuf,
+			    sizeof (numbuf), 0);
+			(void) printf(gettext(" %8s"), numbuf);
+
+			nicenum_scale(swapent->ste_pages, DEV_BSIZE *
+			    diskblks_per_page, numbuf, sizeof (numbuf), 0);
+			(void) printf(gettext(" %8s"), numbuf);
+
+			nicenum_scale(swapent->ste_free, DEV_BSIZE *
+			    diskblks_per_page, numbuf, sizeof (numbuf), 0);
+			(void) printf(gettext(" %8s"), numbuf);
 		} else if (flag & KFLAG) {
 			(void) printf(gettext(" %7luK %7luK %7luK"),
 					swapent->ste_start * DEV_BSIZE / 1024,
@@ -492,64 +491,6 @@ list(int flag)
 	}
 	return (0);
 }
-
-/* Copied from du.c */
-static char *
-number_to_scaled_string(
-	numbuf_t buf,			/* put the result here */
-	unsigned long long number,	/* convert this number */
-	unsigned long long unit_from,	/* number of byes per input unit */
-	unsigned long long scale)	/* 1024 (-h) or 1000 (-H) */
-{
-	unsigned long long save = 0;
-	char *M = "KMGTPE"; /* Measurement: kilo, mega, giga, tera, peta, exa */
-	char *uom = M;	/* unit of measurement, initially 'K' (=M[0]) */
-
-	if ((long long)number == (long long) -1) {
-		(void) strcpy(buf, "-1");
-		return (buf);
-	}
-
-	/*
-	 * Convert number from unit_from to given scale (1024 or 1000)
-	 * This means multiply number with unit_from and divide by scale.
-	 * if number is large enough, we first divide and then multiply
-	 * to avoid an overflow (large enough here means 100 (rather arbitrary
-	 * value) times scale in order to reduce rounding errors)
-	 * otherwise, we first multiply and then divide to avoid an underflow.
-	 */
-	if (number >= 100L * scale) {
-		number = number / scale;
-		number = number * unit_from;
-	} else {
-		number = number * unit_from;
-		number = number / scale;
-	}
-
-	/*
-	 * Now we have number as a count of scale units.
-	 * Stop scaling when we reached exa bytes, then something is
-	 * probably wrong with our number.
-	 */
-	while ((number >= scale) && (*uom != 'E')) {
-		uom++;	/* Next unit of measurement */
-		save = number;
-		number = (number + (scale / 2)) / scale;
-	}
-
-	/* Check if we should output a decimal place after the point */
-	if (save && ((save / scale) < 10)) {
-		/* sprintf() will round for us */
-		float fnum = (float)save / scale;
-		(void) sprintf(buf, "%.1f%c", fnum, *uom);
-	} else {
-		(void) sprintf(buf, "%llu%c", number, *uom);
-	}
-	return (buf);
-}
-
-
-
 
 static void
 dumpadm_err(const char *warning)
