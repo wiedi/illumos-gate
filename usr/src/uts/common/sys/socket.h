@@ -428,6 +428,7 @@ struct msghdr32 {
 /* End of XPGv2 compliance */
 #define	MSG_DONTWAIT	0x80		/* Don't block for this recv */
 #define	MSG_NOTIFICATION 0x100		/* Notification, not data */
+#define	MSG_NOSIGNAL	0x200		/* Don't generate SIGPIPE */
 #define	MSG_XPG4_2	0x8000		/* Private: XPG4.2 flag */
 
 #define	MSG_MAXIOVLEN	16
