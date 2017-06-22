@@ -1,0 +1,49 @@
+.\"
+.\" This file and its contents are supplied under the terms of the
+.\" Common Development and Distribution License ("CDDL"), version 1.0.
+.\" You may only use this file in accordance with the terms of version
+.\" 1.0 of the CDDL.
+.\"
+.\" A full copy of the text of the CDDL should have accompanied this
+.\" source.  A copy of the CDDL is also available via the Internet at
+.\" http://www.illumos.org/license/CDDL.
+.\"
+.\"
+.\" Copyright 2017 Sebastian Wiedenroth
+.\"
+.Dd $Mdocdate: June 18 2017 $
+.Dt FREE 1
+.Os
+.Sh NAME
+.Nm free
+.Nd report free and used memory
+.Sh SYNOPSIS
+.Nm free
+.Op -b | -k | -m | -g | -h
+.Sh DESCRIPTION
+The
+.Nm
+utility shows free and used physical and swap memory.
+It also reports the amount of memory the system has locked, uses for the kernel,
+and is used for cache in the ZFS ARC.
+.Pp
+For zones with \fBcapped-memory\fR (see \fBzonecfg\fR(1M)) usage is calculated
+relative to these limits.
+.Sh OPTIONS
+.Bl -tag -width Ds
+.It Fl b
+Display numbers in bytes.
+.It Fl g
+Display numbers in gigabytes.
+.It Fl h
+Display numbers in human-readable form with a suffix of K, M, G, T, P, E (for
+kilobytes, megabytes, gigabytes, terabytes, petabytes or exabytes,
+respectively). This is the default format.
+.It Fl k
+Display numbers in kilbytes.
+.It Fl m
+Display numbers in megabytes.
+.El
+.Sh SEE ALSO
+.Xr swap 1M ,
+.Xr vmstat 1M

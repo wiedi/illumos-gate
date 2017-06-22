@@ -82,6 +82,7 @@ file path=usr/share/man/man1/find.1
 file path=usr/share/man/man1/fmt.1
 file path=usr/share/man/man1/fmtmsg.1
 file path=usr/share/man/man1/fold.1
+file path=usr/share/man/man1/free.1
 file path=usr/share/man/man1/getconf.1
 file path=usr/share/man/man1/getfacl.1
 file path=usr/share/man/man1/getopt.1
