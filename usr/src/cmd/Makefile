@@ -169,6 +169,7 @@ COMMON_SUBDIRS=		\
 	fmtmsg		\
 	fold		\
 	format		\
+	free		\
 	fs.d		\
 	fstyp		\
 	fuser		\

@@ -665,6 +665,7 @@ file path=sbin/zonename mode=0555
 $(i386_ONLY)file path=usr/bin/$(ARCH32)/amt mode=0555
 file path=usr/bin/$(ARCH32)/decrypt mode=0555
 file path=usr/bin/$(ARCH32)/digest mode=0555
+file path=usr/bin/$(ARCH32)/free mode=0555
 file path=usr/bin/$(ARCH32)/ksh93 mode=0555
 $(i386_ONLY)file path=usr/bin/$(ARCH32)/newtask group=sys mode=4555
 $(i386_ONLY)file path=usr/bin/$(ARCH32)/nohup mode=0555
@@ -678,6 +679,7 @@ file path=usr/bin/$(ARCH64)/amt mode=0555
 file path=usr/bin/$(ARCH64)/crle mode=0555
 file path=usr/bin/$(ARCH64)/decrypt mode=0555
 file path=usr/bin/$(ARCH64)/digest mode=0555
+file path=usr/bin/$(ARCH64)/free mode=0555
 file path=usr/bin/$(ARCH64)/ksh93 mode=0555
 file path=usr/bin/$(ARCH64)/ls mode=0555
 file path=usr/bin/$(ARCH64)/moe mode=0555
@@ -1502,6 +1504,7 @@ hardlink path=usr/bin/edit target=../has/bin/edit
 hardlink path=usr/bin/encrypt target=../../usr/lib/isaexec
 hardlink path=usr/bin/fc target=../../usr/bin/alias
 hardlink path=usr/bin/fg target=../../usr/bin/alias
+hardlink path=usr/bin/free target=../../usr/lib/isaexec
 hardlink path=usr/bin/getopts target=../../usr/bin/alias
 hardlink path=usr/bin/hash target=../../usr/bin/alias
 hardlink path=usr/bin/jobs target=../../usr/bin/alias

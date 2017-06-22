@@ -136,6 +136,7 @@ MANFILES=	acctcom.1			\
 	 	fmt.1				\
 	 	fmtmsg.1			\
 	 	fold.1				\
+		free.1				\
 	 	ftp.1				\
 	 	gcore.1				\
 	 	gencat.1			\
