@@ -20,6 +20,7 @@
  */
 /*
  * Copyright (c) 2010, Oracle and/or its affiliates. All rights reserved.
+ * Copyright 2017 Sebastian Wiedenroth
  */
 #ifndef _IFADDRS_H
 #define	_IFADDRS_H
@@ -63,6 +64,15 @@ struct ifaddrs {
 #define	ifa_dstaddr	ifa_ifu.ifu_dstaddr	/* other end of p-to-p link */
 #endif
 };
+#endif
+
+#ifndef NO_GETIFADDRS_REDEFINE
+#ifdef __PRAGMA_REDEFINE_EXTNAME
+#pragma redefine_extname getifaddrs _getifaddrs
+#else
+extern int _getifaddrs(struct ifaddrs **);
+#define	getifaddrs _getifaddrs
+#endif
 #endif
 
 /*
