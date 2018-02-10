@@ -132,6 +132,7 @@ SUBDIRS +=				\
 	libfruutils	\
 	libfsmgt	\
 	libfstyp	\
+	libfuse		\
 	libgen		\
 	libgrubmgmt	\
 	libgss		\

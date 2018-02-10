@@ -526,6 +526,10 @@ DLCOSMK_OBJS +=	dlcosmk.o dlcosmkddi.o
 
 FLOWACCT_OBJS +=	flowacctddi.o flowacct.o
 
+FUSEFS_OBJS +=	fusefs_vfsops.o fusefs_vnops.o  fusefs_client.o \
+		fusefs_node.o fusefs_subr.o fusefs_calls.o  \
+		fusefs_rwlock.o
+
 TOKENMT_OBJS +=	tokenmt.o tokenmtddi.o
 
 TSWTCL_OBJS +=	tswtcl.o tswtclddi.o

@@ -839,6 +839,9 @@ FSHDRS=				\
 	dv_node.h		\
 	sdev_impl.h		\
 	fifonode.h		\
+	fuse_door.h		\
+	fuse_ktypes.h		\
+	fusefs_mount.h		\
 	hsfs_isospec.h		\
 	hsfs_node.h		\
 	hsfs_rrip.h		\
