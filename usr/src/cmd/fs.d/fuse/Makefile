@@ -20,7 +20,7 @@
 include $(SRC)/Makefile.master
 
 SUBDIRS_CATALOG=	fuse-dmn mount umount
-SUBDIRS=		$(SUBDIRS_CATALOG) config dtrace example fuse-cli
+SUBDIRS=		$(SUBDIRS_CATALOG) config fuse-cli
 
 # for messaging catalog files
 #

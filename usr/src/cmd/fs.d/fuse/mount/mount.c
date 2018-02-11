@@ -168,9 +168,8 @@ int
 main(int argc, char *argv[])
 {
 	struct stat st;
-	int fd, opt, error, err2;
+	int fd, opt, err2;
 	static char *fstype = FUSEFS_VFSNAME;
-	char *env, *state;
 
 	(void) setlocale(LC_ALL, "");
 #if !defined(TEXT_DOMAIN)
@@ -211,7 +210,7 @@ main(int argc, char *argv[])
 			fuse_debug = 1;
 	}
 
-	error = fuse_lib_init();
+	int error = fuse_lib_init();
 	if (error)
 		exit(RET_ERR);
 #endif
@@ -270,7 +269,7 @@ main(int argc, char *argv[])
 	if (mntflags & MS_RDONLY) {
 		char *p;
 		/* convert "rw"->"ro" */
-		if (p = strstr(optbuf, "rw")) {
+		if ((p = strstr(optbuf, "rw"))) {
 			if (*(p+2) == ',' || *(p+2) == '\0')
 				*(p+1) = 'o';
 		}
@@ -540,7 +539,6 @@ setsubopt(struct fusefs_args *mdatap, char *subopt)
 		break;
 
 	default:
-	badopt:
 		if (!qflg)
 			warnx(gettext("unknown option %s"), subopt);
 		rc = EX_OPT;

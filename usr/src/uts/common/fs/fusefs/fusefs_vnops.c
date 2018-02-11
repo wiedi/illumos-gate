@@ -38,7 +38,7 @@
 #include <sys/vnode.h>
 #include <sys/vfs.h>
 #include <sys/filio.h>
-#include <sys/fs_subr.h>
+#include <fs/fs_subr.h>
 #include <sys/errno.h>
 #include <sys/dirent.h>
 #include <sys/sunddi.h>
@@ -522,7 +522,7 @@ fusefs_read(vnode_t *vp, struct uio *uiop, int ioflag, cred_t *cr,
 
 	/* get vnode attributes from server */
 	va.va_mask = AT_SIZE | AT_MTIME;
-	if (error = fusefsgetattr(vp, &va, cr))
+	if ((error = fusefsgetattr(vp, &va, cr)))
 		return (error);
 
 	/* Update mtime with mtime from server here? */
@@ -642,7 +642,7 @@ fusefs_write(vnode_t *vp, struct uio *uiop, int ioflag, cred_t *cr,
 		 * File size can be changed by another client
 		 */
 		va.va_mask = AT_SIZE;
-		if (error = fusefsgetattr(vp, &va, cr))
+		if ((error = fusefsgetattr(vp, &va, cr)))
 			return (error);
 		uiop->uio_loffset = va.va_size;
 	}
@@ -1812,7 +1812,7 @@ fusefsrename(vnode_t *odvp, char *onm, vnode_t *ndvp, char *nnm, cred_t *cr,
 	vnode_t		*nvp = NULL;
 	vnode_t		*ovp = NULL;
 	fusenode_t	*onp;
-	fusenode_t	*nnp;
+	fusenode_t	*nnp = NULL;
 	fusenode_t	*odnp;
 	fusenode_t	*ndnp;
 	int		error;
@@ -2305,8 +2305,8 @@ fusefs_readvdir(vnode_t *vp, uio_t *uio, cred_t *cr, int *eofp,
 		 * but fusefslookup can get it for us.
 		 */
 		newvp = NULL;
-		if (dp->d_name[0] == '.' && (nmlen == 1 ||
-		    dp->d_name[1] == '.' && nmlen == 2)) {
+		if ((dp->d_name[0] == '.' && (nmlen == 1 ||
+		    (dp->d_name[1] == '.' && nmlen == 2)))) {
 			/* name is "." or ".." */
 			(void) fusefslookup(vp,
 			    dp->d_name, &newvp, cr, 1, ct);

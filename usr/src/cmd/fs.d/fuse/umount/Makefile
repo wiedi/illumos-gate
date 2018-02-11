@@ -48,7 +48,8 @@ CFLAGS += $(CCVERBOSE)
 
 all:	$(ROOTFS_PROG)
 
-include		$(SRC)/cmd/fs.d/Makefile.mount.targ
+# XXX sw
+#include		$(SRC)/cmd/fs.d/Makefile.mount.targ
 
 #
 # Message catalog
@@ -60,7 +61,9 @@ POFILE= umount.po
 #
 catalog: $(POFILE)
 
-install:	$(ROOTLIBFSTYPEPROG)
+$(LIBPROG):	$(OBJS)
+		$(LINK.c) -o $@ $(OBJS) $(LDLIBS)
+		$(POST_PROCESS)
 
 lint:	lint_SRCS
 
