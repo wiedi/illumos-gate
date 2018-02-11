@@ -62,7 +62,7 @@ SRCS=	$(COBJS:%.o=$(SRCDIR)/%.c) \
 
 $(LINTLIB) :=	SRCS = $(SRCDIR)/$(LINTSRC)
 
-C99MODE=	$(C99_ENABLE)
+CSTD=	$(CSTD_GNU99)
 
 LDLIBS += -lc
 
@@ -100,7 +100,7 @@ lintcheck_t: $$(SRCS)
 	$(LINT.c) $(LINTCHECKFLAGS) $(SRCS) $(LDLIBS) $(LTAIL)
 
 objs/%.o pics/%.o: $(MODDIR)/%.c
-	$(COMPILE.c) -W0,-xc99=pragma -o $@ $<
+	$(COMPILE.c) -o $@ $<
 	$(POST_PROCESS_O)
 
 .KEEP_STATE:

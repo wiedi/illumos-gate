@@ -3290,6 +3290,7 @@ static void fuse_lib_poll(fuse_req_t req, fuse_ino_t ino,
 		reply_err(req, ret);
 }
 
+#if !defined(__SOLARIS__)
 static struct fuse_lowlevel_ops fuse_path_ops = {
 	.init = fuse_lib_init,
 	.destroy = fuse_lib_destroy,
@@ -3328,6 +3329,7 @@ static struct fuse_lowlevel_ops fuse_path_ops = {
 	.ioctl = fuse_lib_ioctl,
 	.poll = fuse_lib_poll,
 };
+#endif
 
 int fuse_notify_poll(struct fuse_pollhandle *ph)
 {
