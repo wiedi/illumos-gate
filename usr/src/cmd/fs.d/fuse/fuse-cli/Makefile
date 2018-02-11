@@ -24,7 +24,10 @@ include		../../Makefile.fstype
 
 OBJS=	cli_main.o cli_calls.o
 SRCS=	$(OBJS:%.o=%.c)
-POFILE=	$(TYPEPROG).po
+
+POFILE=		$(TYPEPROG).po
+POFILES=	$(OBJS:%.o=%.po)
+CLOBBERFILES+=	$(POFILE) $(POFILES)
 
 CFLAGS += $(CCVERBOSE)
 CSTD=	$(CSTD_GNU99)
@@ -50,6 +53,10 @@ $(TYPEPROG):	$(OBJS)
 	$(POST_PROCESS)
 
 catalog:	$(POFILE)
+
+$(POFILE):	$(POFILES)
+	$(RM) $@
+	$(CAT) $(POFILES) > $@
 
 lint:	lint_SRCS
 
