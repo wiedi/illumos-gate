@@ -130,7 +130,6 @@ main(int argc, char **argv)
 	/*
 	 * Main thread just waits for signals.
 	 */
-again:
 	sig = sigwait(&tmpmask);
 	DPRINT("main: sig=%d\n", sig);
 
