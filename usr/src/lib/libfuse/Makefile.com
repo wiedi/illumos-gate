@@ -68,6 +68,7 @@ LDLIBS += -lc
 
 # normal warnings...
 CFLAGS +=	$(CCVERBOSE) 
+CERRWARN +=	-_gcc=-Wno-unused-function
 
 CPPFLAGS += \
 	-D__SOLARIS__ \

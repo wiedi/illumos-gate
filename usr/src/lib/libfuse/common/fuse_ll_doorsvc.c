@@ -625,7 +625,7 @@ do_readdir(sol_ll_t *ll, void *vargp, size_t argsz)
 	struct stat st = { 0 };
 	struct fuse_dh *dh;
 	struct fuse_dirent *de;
-	char *fmt, *p, *path = NULL;
+	char *p, *path = NULL;
 	size_t off, size;
 	int err = 0;
 	int nmlen, pathlen;
@@ -684,8 +684,8 @@ do_readdir(sol_ll_t *ll, void *vargp, size_t argsz)
 	/* XXX nmlen = strnlen(de->d_name, 255); */
 	nmlen = de->d_nmlen;
 
-	if (de->d_name[0] == '.' && (nmlen == 1 ||
-	    de->d_name[1] == '.' && nmlen == 2)) {
+	if ((de->d_name[0] == '.' && (nmlen == 1 ||
+	    (de->d_name[1] == '.' && nmlen == 2)))) {
 		/* Don't get stat for . or .. */
 	} else {
 		/* Need the full path for stat */
@@ -1683,9 +1683,8 @@ FUSE_SYMVER(".symver fuse_lowlevel_new_compat25,fuse_lowlevel_new@FUSE_2.5");
 static int
 fuse_session_loop_solaris(struct fuse_session *se)
 {
-	int res = 0;
 	struct fuse_chan *ch = fuse_session_next_chan(se, NULL);
-	size_t bufsize = fuse_chan_bufsize(ch);
+	(void) fuse_chan_bufsize(ch);
 	sigset_t sigmask;
 	int sig;
 
@@ -1695,7 +1694,6 @@ fuse_session_loop_solaris(struct fuse_session *se)
 	sigwait(&sigmask, &sig);
 	/* XXX: Any special signals? */
 
-out:
 	fuse_session_reset(se);
 	return (0);
 }
