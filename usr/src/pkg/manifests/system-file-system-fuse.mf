@@ -42,19 +42,19 @@ dir path=usr/lib/fs group=sys
 dir path=usr/lib/fs/fusefs group=sys
 dir path=usr/lib/fuse
 driver name=fusefs perms="* 0666 root sys"
-file path=usr/include/sys/fs/fusefs_mount.h
 file path=usr/include/sys/fs/fuse_door.h
 file path=usr/include/sys/fs/fuse_ktypes.h
-file path=usr/lib/libfuse.so.2.8
+file path=usr/include/sys/fs/fusefs_mount.h
 file path=usr/lib/$(ARCH64)/libfuse.so.2.8
-file path=usr/lib/llib-lfuse
-file path=usr/lib/llib-lfuse.ln
 file path=usr/lib/$(ARCH64)/llib-lfuse.ln
 file path=usr/lib/fs/fusefs/mount mode=4555
 file path=usr/lib/fs/fusefs/umount mode=4555
 file path=usr/lib/fuse/fuse-cli mode=0555
 file path=usr/lib/fuse/fuse-dmn mode=0555
 file path=usr/lib/fuse/pkg-config mode=0555
+file path=usr/lib/libfuse.so.2.8
+file path=usr/lib/llib-lfuse
+file path=usr/lib/llib-lfuse.ln
 license cr_Sun license=cr_Sun
 license lic_CDDL license=lic_CDDL
 # XXX sw
