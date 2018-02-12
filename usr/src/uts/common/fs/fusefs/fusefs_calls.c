@@ -82,11 +82,11 @@ fusefs_ssn_kill(fusefs_ssn_t *ssn)
 	struct fuse_generic_arg arg;
 	struct fuse_generic_ret ret;
 
-	memset(&arg, 0, sizeof (arg));
+	(void) memset(&arg, 0, sizeof (arg));
 	arg.arg_opcode = FUSE_OP_DESTROY;
-	memset(&ret, 0, sizeof (ret));
+	(void) memset(&ret, 0, sizeof (ret));
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)&arg;
 	da.data_size = sizeof (arg);
 	da.rbuf = (void *) &ret;
@@ -115,12 +115,12 @@ fusefs_call_init(fusefs_ssn_t *ssn, int want)
 	struct fuse_generic_ret ret;
 	int rc;
 
-	memset(&arg, 0, sizeof (arg));
+	(void) memset(&arg, 0, sizeof (arg));
 	arg.arg_opcode = FUSE_OP_INIT;
 	arg.arg_flags = want;
-	memset(&ret, 0, sizeof (ret));
+	(void) memset(&ret, 0, sizeof (ret));
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)&arg;
 	da.data_size = sizeof (arg);
 	da.rbuf = (void *) &ret;
@@ -147,11 +147,11 @@ fusefs_call_statvfs(fusefs_ssn_t *ssn, statvfs64_t *stv)
 	struct fuse_statvfs_ret ret;
 	int rc;
 
-	memset(&arg, 0, sizeof (arg));
+	(void) memset(&arg, 0, sizeof (arg));
 	arg.arg_opcode = FUSE_OP_STATVFS;
-	memset(&ret, 0, sizeof (ret));
+	(void) memset(&ret, 0, sizeof (ret));
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)&arg;
 	da.data_size = sizeof (arg);
 	da.rbuf = (void *) &ret;
@@ -188,12 +188,12 @@ fusefs_call_fgetattr(fusefs_ssn_t *ssn,
 	struct fuse_getattr_ret ret;
 	int rc;
 
-	memset(&arg, 0, sizeof (arg));
+	(void) memset(&arg, 0, sizeof (arg));
 	arg.arg_opcode = FUSE_OP_FGETATTR;
 	arg.arg_fid = fid;
-	memset(&ret, 0, sizeof (ret));
+	(void) memset(&ret, 0, sizeof (ret));
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)&arg;
 	da.data_size = sizeof (arg);
 	da.rbuf = (void *) &ret;
@@ -227,10 +227,10 @@ fusefs_call_getattr(fusefs_ssn_t *ssn,
 
 	argp->arg_opcode = FUSE_OP_GETATTR;
 	argp->arg_pathlen = rplen;
-	memcpy(argp->arg_path, rpath, rplen);
-	memset(&ret, 0, sizeof (ret));
+	(void) memcpy(argp->arg_path, rpath, rplen);
+	(void) memset(&ret, 0, sizeof (ret));
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -277,14 +277,14 @@ fusefs_call_getattr2(fusefs_ssn_t *ssn,
 
 	/* Fill in path from two parts. */
 	p = argp->arg_path;
-	memcpy(p, dname, dnlen);
+	(void) memcpy(p, dname, dnlen);
 	p += dnlen;
 	if (dnlen > 1)
 		*p++ = '/';
-	memcpy(p, cname, cnlen);
+	(void) memcpy(p, cname, cnlen);
 
-	memset(&ret, 0, sizeof (ret));
-	memset(&da, 0, sizeof (da));
+	(void) memset(&ret, 0, sizeof (ret));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -318,10 +318,10 @@ fusefs_call_opendir(fusefs_ssn_t *ssn,
 
 	argp->arg_opcode = FUSE_OP_OPENDIR;
 	argp->arg_pathlen = rplen;
-	memcpy(argp->arg_path, rpath, rplen);
-	memset(&ret, 0, sizeof (ret));
+	(void) memcpy(argp->arg_path, rpath, rplen);
+	(void) memset(&ret, 0, sizeof (ret));
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -347,12 +347,12 @@ fusefs_call_closedir(fusefs_ssn_t *ssn, uint64_t fid)
 	struct fuse_generic_ret ret;
 	int rc;
 
-	memset(&arg, 0, sizeof (arg));
+	(void) memset(&arg, 0, sizeof (arg));
 	arg.arg_opcode = FUSE_OP_CLOSEDIR;
 	arg.arg_fid = fid;
-	memset(&ret, 0, sizeof (ret));
+	(void) memset(&ret, 0, sizeof (ret));
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)&arg;
 	da.data_size = sizeof (arg);
 	da.rbuf = (void *) &ret;
@@ -377,14 +377,14 @@ fusefs_call_readdir(fusefs_ssn_t *ssn, uint64_t fid, int offset,
 	uint32_t nmlen;
 	int rc;
 
-	memset(&arg, 0, sizeof (arg));
+	(void) memset(&arg, 0, sizeof (arg));
 	arg.arg_opcode = FUSE_OP_READDIR;
 	arg.arg_fid = fid;
 	arg.arg_offset = offset;
 
 	retp = kmem_alloc(sizeof (*retp), KM_SLEEP);
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)&arg;
 	da.data_size = sizeof (arg);
 	da.rbuf = (void *) retp;
@@ -418,7 +418,7 @@ fusefs_call_readdir(fusefs_ssn_t *ssn, uint64_t fid, int offset,
 	 * Copy the whole d_name field which actually
 	 * extends into the ret_name field following.
 	 */
-	memcpy(de->d_name, retp->ret_de.d_name, nmlen + 1);
+	(void) memcpy(de->d_name, retp->ret_de.d_name, nmlen + 1);
 
 	if (retp->ret_flags & 1)
 		*eofp = 1;
@@ -445,10 +445,10 @@ fusefs_call_open(fusefs_ssn_t *ssn,
 	argp->arg_opcode = FUSE_OP_OPEN;
 	argp->arg_val[0] = oflags;
 	argp->arg_pathlen = rplen;
-	memcpy(argp->arg_path, rpath, rplen);
-	memset(&ret, 0, sizeof (ret));
+	(void) memcpy(argp->arg_path, rpath, rplen);
+	(void) memset(&ret, 0, sizeof (ret));
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -474,12 +474,12 @@ fusefs_call_close(fusefs_ssn_t *ssn, uint64_t fid)
 	struct fuse_generic_ret ret;
 	int rc;
 
-	memset(&arg, 0, sizeof (arg));
+	(void) memset(&arg, 0, sizeof (arg));
 	arg.arg_opcode = FUSE_OP_CLOSE;
 	arg.arg_fid = fid;
-	memset(&ret, 0, sizeof (ret));
+	(void) memset(&ret, 0, sizeof (ret));
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)&arg;
 	da.data_size = sizeof (arg);
 	da.rbuf = (void *) &ret;
@@ -518,13 +518,13 @@ fusefs_call_read(fusefs_ssn_t *ssn,
 	if (rplen > (MAXPATHLEN - 1))
 		rplen = MAXPATHLEN - 1;
 	argp->arg_pathlen = rplen;
-	memcpy(argp->arg_path, rpath, rplen+1);
+	(void) memcpy(argp->arg_path, rpath, rplen+1);
 
 	/* XXX: Later, make allocsize dynamic. */
 	allocsize = sizeof (*retp);
 	retp = kmem_alloc(allocsize, KM_SLEEP);
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) retp;
@@ -573,14 +573,14 @@ fusefs_call_write(fusefs_ssn_t *ssn,
 	if (rplen > (MAXPATHLEN - 1))
 		rplen = MAXPATHLEN - 1;
 	argp->arg_pathlen = rplen;
-	memcpy(argp->arg_path, rpath, rplen+1);
+	(void) memcpy(argp->arg_path, rpath, rplen+1);
 
 	/* XXX: Undo changes to uiop on error? */
 	rc = uiomove(argp->arg_data, *rlen, UIO_WRITE, uiop);
 	if (rc != 0)
 		goto out;
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = allocsize;
 	da.rbuf = (void *) &ret;
@@ -608,12 +608,12 @@ fusefs_call_flush(fusefs_ssn_t *ssn, uint64_t fid)
 	struct fuse_generic_ret ret;
 	int rc;
 
-	memset(&arg, 0, sizeof (arg));
+	(void) memset(&arg, 0, sizeof (arg));
 	arg.arg_opcode = FUSE_OP_FLUSH;
 	arg.arg_fid = fid;
-	memset(&ret, 0, sizeof (ret));
+	(void) memset(&ret, 0, sizeof (ret));
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)&arg;
 	da.data_size = sizeof (arg);
 	da.rbuf = (void *) &ret;
@@ -658,14 +658,14 @@ fusefs_call_create(fusefs_ssn_t *ssn,
 
 	/* Fill in path from two parts. */
 	p = argp->arg_path;
-	memcpy(p, dname, dnlen);
+	(void) memcpy(p, dname, dnlen);
 	p += dnlen;
 	if (dnlen > 1)
 		*p++ = '/';
-	memcpy(p, cname, cnlen);
+	(void) memcpy(p, cname, cnlen);
 
-	memset(&ret, 0, sizeof (ret));
-	memset(&da, 0, sizeof (da));
+	(void) memset(&ret, 0, sizeof (ret));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -701,9 +701,9 @@ fusefs_call_ftruncate(fusefs_ssn_t *ssn, uint64_t fid, u_offset_t off,
 	if (rplen > (MAXPATHLEN - 1))
 		rplen = MAXPATHLEN - 1;
 	argp->arg_pathlen = rplen;
-	memcpy(argp->arg_path, rpath, rplen+1);
+	(void) memcpy(argp->arg_path, rpath, rplen+1);
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -741,9 +741,9 @@ fusefs_call_utimes(fusefs_ssn_t *ssn,
 	if (rplen > (MAXPATHLEN - 1))
 		rplen = MAXPATHLEN - 1;
 	argp->arg_pathlen = rplen;
-	memcpy(argp->arg_path, rpath, rplen+1);
+	(void) memcpy(argp->arg_path, rpath, rplen+1);
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -777,9 +777,9 @@ fusefs_call_chmod(fusefs_ssn_t *ssn,
 	if (rplen > (MAXPATHLEN - 1))
 		rplen = MAXPATHLEN - 1;
 	argp->arg_pathlen = rplen;
-	memcpy(argp->arg_path, rpath, rplen+1);
+	(void) memcpy(argp->arg_path, rpath, rplen+1);
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -814,9 +814,9 @@ fusefs_call_chown(fusefs_ssn_t *ssn,
 	if (rplen > (MAXPATHLEN - 1))
 		rplen = MAXPATHLEN - 1;
 	argp->arg_pathlen = rplen;
-	memcpy(argp->arg_path, rpath, rplen+1);
+	(void) memcpy(argp->arg_path, rpath, rplen+1);
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -849,9 +849,9 @@ fusefs_call_delete(fusefs_ssn_t *ssn,
 	if (rplen > (MAXPATHLEN - 1))
 		rplen = MAXPATHLEN - 1;
 	argp->arg_pathlen = rplen;
-	memcpy(argp->arg_path, rpath, rplen+1);
+	(void) memcpy(argp->arg_path, rpath, rplen+1);
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -897,18 +897,18 @@ fusefs_call_rename(fusefs_ssn_t *ssn,
 
 	/* Old name */
 	argp->arg_p1len = oldplen;
-	memcpy(argp->arg_path1, oldpath, oldplen+1);
+	(void) memcpy(argp->arg_path1, oldpath, oldplen+1);
 
 	/* New name (two parts) */
 	argp->arg_p2len = plen;
 	p = argp->arg_path2;
-	memcpy(p, dname, dnlen);
+	(void) memcpy(p, dname, dnlen);
 	p += dnlen;
 	if (dnlen > 1)
 		*p++ = '/';
-	memcpy(p, cname, cnlen);
+	(void) memcpy(p, cname, cnlen);
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -953,14 +953,14 @@ fusefs_call_mkdir(fusefs_ssn_t *ssn,
 
 	/* Fill in path from two parts. */
 	p = argp->arg_path;
-	memcpy(p, dname, dnlen);
+	(void) memcpy(p, dname, dnlen);
 	p += dnlen;
 	if (dnlen > 1)
 		*p++ = '/';
-	memcpy(p, cname, cnlen);
+	(void) memcpy(p, cname, cnlen);
 
-	memset(&ret, 0, sizeof (ret));
-	memset(&da, 0, sizeof (da));
+	(void) memset(&ret, 0, sizeof (ret));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
@@ -993,9 +993,9 @@ fusefs_call_rmdir(fusefs_ssn_t *ssn,
 	if (rplen > (MAXPATHLEN - 1))
 		rplen = MAXPATHLEN - 1;
 	argp->arg_pathlen = rplen;
-	memcpy(argp->arg_path, rpath, rplen+1);
+	(void) memcpy(argp->arg_path, rpath, rplen+1);
 
-	memset(&da, 0, sizeof (da));
+	(void) memset(&da, 0, sizeof (da));
 	da.data_ptr = (void *)argp;
 	da.data_size = sizeof (*argp);
 	da.rbuf = (void *) &ret;
