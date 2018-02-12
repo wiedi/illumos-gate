@@ -16,6 +16,10 @@
 #ifndef	_FUSEFS_MOUNT_H
 #define	_FUSEFS_MOUNT_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * This file defines the interface used by mount_fusefs.
  * Bump the version if fusefs_args changes.
@@ -66,4 +70,9 @@ struct fusefs_args32 {
 };
 
 #endif /* _SYSCALL32 */
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif	/* _FUSEFS_MOUNT_H */

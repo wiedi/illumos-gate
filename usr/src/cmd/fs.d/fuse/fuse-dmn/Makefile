@@ -32,7 +32,8 @@ CLOBBERFILES+=	$(POFILE) $(POFILES)
 CFLAGS += $(CCVERBOSE)
 CSTD=	$(CSTD_GNU99)
 
-LDLIBS += -lumem
+# XXX sw unused?
+#LDLIBS += -lumem
 
 CPPFLAGS += -I$(SRC)/lib/libfuse \
 	-I$(SRC)/uts/common/fs/fusefs -I$(SRC)/uts/common

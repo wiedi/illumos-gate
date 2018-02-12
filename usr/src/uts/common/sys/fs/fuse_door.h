@@ -13,12 +13,16 @@
  * Copyright 2012 Nexenta Systems, Inc.  All rights reserved.
  */
 
-#ifndef _FS_FUSEFS_FUSE_DOOR_H_
-#define	_FS_FUSEFS_FUSE_DOOR_H_
+#ifndef _SYS_FS_FUSEFS_FUSE_DOOR_H
+#define	_SYS_FS_FUSEFS_FUSE_DOOR_H
 
 #include <sys/param.h>
 #include <sys/time.h>
 #include <sys/fs/fuse_ktypes.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*
  * Door call arg/ret formats used by fuse-dmn and libfuse
@@ -187,4 +191,8 @@ struct fuse_utimes_arg {
 	char arg_path[MAXPATHLEN];
 };
 
-#endif /* !_FS_FUSEFS_FUSE_DOOR_H_ */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* !_SYS_FS_FUSEFS_FUSE_DOOR_H */

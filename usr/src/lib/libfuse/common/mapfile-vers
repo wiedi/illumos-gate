@@ -40,7 +40,7 @@
 
 $mapfile_version 2
 
-SYMBOL_VERSION FUSE_2.8 {
+SYMBOL_VERSION ILLUMOS_2.8 {
 	global:
 		cuse_lowlevel_new;
 		cuse_lowlevel_main;
@@ -63,14 +63,14 @@ SYMBOL_VERSION FUSE_2.8 {
 		fuse_req_ctx;
 		fuse_req_getgroups;
 		fuse_session_data;
-} FUSE_2.7.5;
+} ILLUMOS_2.7.5;
 
-SYMBOL_VERSION FUSE_2.7.5 {
+SYMBOL_VERSION ILLUMOS_2.7.5 {
 	global:
 		fuse_reply_bmap;
-} FUSE_2.7;
+} ILLUMOS_2.7;
 
-SYMBOL_VERSION FUSE_2.7 {
+SYMBOL_VERSION ILLUMOS_2.7 {
 	global:
 		fuse_fs_access;
 		fuse_fs_bmap;
@@ -112,9 +112,9 @@ SYMBOL_VERSION FUSE_2.7 {
 		fuse_register_module;
 		fuse_reply_iov;
 		fuse_version;
-} FUSE_2.6;
+} ILLUMOS_2.6;
 
-SYMBOL_VERSION FUSE_2.6 {
+SYMBOL_VERSION ILLUMOS_2.6 {
 	global:
 		fuse_add_direntry;
 #		fuse_chan_new;		# also in 2.4
@@ -142,9 +142,9 @@ SYMBOL_VERSION FUSE_2.6 {
 		fuse_teardown_compat22;
 		fuse_unmount;
 		fuse_unmount_compat22;
-} FUSE_2.5;
+} ILLUMOS_2.5;
 
-SYMBOL_VERSION FUSE_2.5 {
+SYMBOL_VERSION ILLUMOS_2.5 {
 	global:
 		fuse_lowlevel_new_compat;
 		fuse_main_real_compat22;
@@ -164,9 +164,9 @@ SYMBOL_VERSION FUSE_2.5 {
 		fuse_reply_statfs_compat;
 		fuse_setup_compat22;
 		fuse_set_signal_handlers;
-} FUSE_2.4;
+} ILLUMOS_2.4;
 
-SYMBOL_VERSION FUSE_2.4 {
+SYMBOL_VERSION ILLUMOS_2.4 {
 	global:
 		fuse_add_dirent;
 		fuse_chan_bufsize;
@@ -199,9 +199,9 @@ SYMBOL_VERSION FUSE_2.4 {
 		fuse_session_next_chan;
 		fuse_session_process;
 		fuse_session_reset;
-} FUSE_2.2;
+} ILLUMOS_2.2;
 
-SYMBOL_VERSION FUSE_2.2 {
+SYMBOL_VERSION ILLUMOS_2.2 {
 	global:
 		fuse_destroy;
 		fuse_exit;

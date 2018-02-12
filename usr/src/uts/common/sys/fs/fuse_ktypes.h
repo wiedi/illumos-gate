@@ -13,8 +13,12 @@
  * Copyright 2011 Nexenta Systems, Inc.  All rights reserved.
  */
 
-#ifndef _FS_FUSEFS_FUSE_KTYPES_H_
-#define	_FS_FUSEFS_FUSE_KTYPES_H_
+#ifndef _SYS_FS_FUSEFS_FUSE_KTYPES_H
+#define	_SYS_FS_FUSEFS_FUSE_KTYPES_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*
  * We need representations of stat, statvfs, dirent that are
@@ -67,4 +71,8 @@ struct fuse_dirent {
 	char		d_name[4];
 };
 
-#endif /* !_FS_FUSEFS_FUSE_KTYPES_H_ */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* !_SYS_FS_FUSEFS_FUSE_KTYPES_H */
