@@ -401,6 +401,7 @@ HDRSUBDIRS=				\
 	libfcoe		\
 	libfru		\
 	libfstyp	\
+	libfuse		\
 	libgen		\
 	libgrubmgmt	\
 	libidmap	\

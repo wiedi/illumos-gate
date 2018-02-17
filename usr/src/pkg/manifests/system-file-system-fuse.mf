@@ -31,6 +31,7 @@ set name=info.classification \
 set name=variant.arch value=$(ARCH)
 dir path=usr group=sys
 dir path=usr/include
+dir path=usr/include/fuse
 dir path=usr/include/sys
 dir path=usr/include/sys/fs
 dir path=usr/kernel group=sys
@@ -42,9 +43,17 @@ dir path=usr/lib/fs group=sys
 dir path=usr/lib/fs/fusefs group=sys
 dir path=usr/lib/fuse
 driver name=fusefs perms="* 0666 root sys"
+file path=usr/include/fuse/fuse.h
+file path=usr/include/fuse/fuse_common.h
+file path=usr/include/fuse/fuse_common_compat.h
+file path=usr/include/fuse/fuse_compat.h
+file path=usr/include/fuse/fuse_lowlevel.h
+file path=usr/include/fuse/fuse_lowlevel_compat.h
+file path=usr/include/fuse/fuse_opt.h
 file path=usr/include/sys/fs/fuse_door.h
 file path=usr/include/sys/fs/fuse_ktypes.h
 file path=usr/include/sys/fs/fusefs_mount.h
+file path=usr/kernel/fs/$(ARCH64)/fusefs group=sys mode=0755
 file path=usr/lib/$(ARCH64)/libfuse.so.2.8
 file path=usr/lib/$(ARCH64)/llib-lfuse.ln
 file path=usr/lib/fs/fusefs/mount mode=4555
