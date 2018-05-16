@@ -120,7 +120,7 @@ static void usage(void);
 int
 main(int argc, char *argv[])
 {
-	int c, fflag;
+	int i, j, c, fflag;
 	char *temp_arg;
 
 	(void) setlocale(LC_ALL, "");
@@ -132,6 +132,24 @@ main(int argc, char *argv[])
 
 	fflag = 0;
 	inplace = NULL;
+
+	/*
+	* Coalesce |-i ''| into |-i| so that we're compatible with earlier
+	* illumos sed, whilst remaining compatible with GNU sed by using
+	* getopt_long.
+	*/
+	for (i = 2; i < argc; i++) {
+		if (strcmp("-i", argv[i - 1]) == 0 && argv[i][0] == '\0') {
+			/* We have:  -i '' */
+			for (j = i; j < argc - 1; j++) {
+				/* move the arguments back by one */
+				argv[j] = argv[j + 1];
+			}
+			argv[j] = (char *)NULL;
+			argc--;
+		}
+	}
+
 
 	while ((c = getopt_long(argc, argv, "EI::ae:f:i::lnr", lopts, NULL)) !=
 	    -1)
