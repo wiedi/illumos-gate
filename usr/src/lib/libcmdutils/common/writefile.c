@@ -25,7 +25,7 @@
  */
 
 /*	Copyright (c) 1984, 1986, 1987, 1988, 1989 AT&T	*/
-/*	  All Rights Reserved  	*/
+/*	All Rights Reserved	*/
 
 /*
  * University Copyright- Copyright (c) 1982, 1986, 1988
@@ -37,20 +37,20 @@
  * contributors.
  */
 
+#include <sys/sendfile.h>
 #include "libcmdutils.h"
 
+#define	MIN(a, b)	((a) < (b) ? (a) : (b))
+#define	MAX_CHUNK	(64 * 1024 * 1024)
 
 int
 writefile(int fi, int fo, char *infile, char *outfile, char *asfile,
     char *atfile, struct stat *s1p, struct stat *s2p)
 {
-	int mapsize, munmapsize;
-	caddr_t cp;
 	off_t filesize = s1p->st_size;
 	off_t offset;
-	int nbytes;
-	int remains;
-	int n;
+	off_t remains;
+	int n, chunk_size;
 	size_t src_size;
 	size_t targ_size;
 	char *srcbuf;
@@ -96,102 +96,26 @@ writefile(int fi, int fo, char *infile, char *outfile, char *asfile,
 		(void) snprintf(targbuf, targ_size, "%s", outfile);
 	}
 
-	if (S_ISREG(s1p->st_mode) && s1p->st_size > SMALLFILESIZE) {
-		/*
-		 * Determine size of initial mapping.  This will determine the
-		 * size of the address space chunk we work with.  This initial
-		 * mapping size will be used to perform munmap() in the future.
-		 */
-		mapsize = MAXMAPSIZE;
-		if (s1p->st_size < mapsize) mapsize = s1p->st_size;
-		munmapsize = mapsize;
-
-		/*
-		 * Mmap time!
-		 */
-		if ((cp = mmap((caddr_t)NULL, mapsize, PROT_READ,
-		    MAP_SHARED, fi, (off_t)0)) == MAP_FAILED)
-			mapsize = 0;   /* can't mmap today */
-	} else
-		mapsize = 0;
-
-	if (mapsize != 0) {
+	if (S_ISREG(s1p->st_mode)) {
 		offset = 0;
+		remains = filesize;
+		while (remains > 0) {
+			ssize_t res;
+			chunk_size = MIN(remains, MAX_CHUNK);
+			res = sendfile(fo, fi, &offset, chunk_size);
+			if (res == -1) {
+				if (errno == EINTR)
+					continue;
 
-		for (;;) {
-			nbytes = write(fo, cp, mapsize);
-			/*
-			 * if we write less than the mmaped size it's due to a
-			 * media error on the input file or out of space on
-			 * the output file.  So, try again, and look for errno.
-			 */
-			if ((nbytes >= 0) && (nbytes != (int)mapsize)) {
-				remains = mapsize - nbytes;
-				while (remains > 0) {
-					nbytes = write(fo,
-					    cp + mapsize - remains, remains);
-					if (nbytes < 0) {
-						if (errno == ENOSPC)
-							perror(targbuf);
-						else
-							perror(srcbuf);
-						(void) close(fi);
-						(void) close(fo);
-						(void) munmap(cp, munmapsize);
-						if (S_ISREG(s2p->st_mode))
-							(void) unlink(targbuf);
-						return (1);
-					}
-					remains -= nbytes;
-					if (remains == 0)
-						nbytes = mapsize;
-				}
-			}
-			/*
-			 * although the write manual page doesn't specify this
-			 * as a possible errno, it is set when the nfs read
-			 * via the mmap'ed file is accessed, so report the
-			 * problem as a source access problem, not a target file
-			 * problem
-			 */
-			if (nbytes < 0) {
-				if (errno == EACCES)
-					perror(srcbuf);
-				else
-					perror(targbuf);
-				(void) close(fi);
-				(void) close(fo);
-				(void) munmap(cp, munmapsize);
-				if (S_ISREG(s2p->st_mode))
-					(void) unlink(targbuf);
-				if (srcbuf != NULL)
-					free(srcbuf);
-				if (targbuf != NULL)
-					free(targbuf);
-				return (1);
-			}
-			filesize -= nbytes;
-			if (filesize == 0)
-				break;
-			offset += nbytes;
-			if (filesize < mapsize)
-				mapsize = filesize;
-			if (mmap(cp, mapsize, PROT_READ, MAP_SHARED |
-			    MAP_FIXED, fi, offset) == MAP_FAILED) {
 				perror(srcbuf);
 				(void) close(fi);
 				(void) close(fo);
-				(void) munmap(cp, munmapsize);
 				if (S_ISREG(s2p->st_mode))
 					(void) unlink(targbuf);
-				if (srcbuf != NULL)
-					free(srcbuf);
-				if (targbuf != NULL)
-					free(targbuf);
 				return (1);
 			}
+			remains -= res;
 		}
-		(void) munmap(cp, munmapsize);
 	} else {
 		char buf[SMALLFILESIZE];
 		for (;;) {

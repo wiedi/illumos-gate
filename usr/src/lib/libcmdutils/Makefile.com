@@ -36,7 +36,7 @@ include ../../Makefile.rootfs
 
 LIBS =		$(DYNLIB) $(LINTLIB)
 
-LDLIBS +=	-lc -lavl -lnvpair
+LDLIBS +=	-lc -lavl -lnvpair -lsendfile
 
 SRCDIR =	../common
 
