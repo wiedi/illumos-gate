@@ -27,6 +27,7 @@
 
 /*
  * Copyright 2020 OmniOS Community Edition (OmniOSce) Association.
+ * Copyright 2022 Sebastian Wiedenroth
  */
 
 #include <sys/types.h>
@@ -96,6 +97,7 @@
 #define	BAD_TZ	"Timezone unrecognized in: %s"
 #define	BAD_SHELL	"Invalid shell specified: %s"
 #define	BAD_HOME	"Unable to access directory: %s\t%s\n"
+#define	BAD_RAND_DELAY	"Invalid delay: %s"
 
 extern int	per_errno;
 
@@ -428,6 +430,7 @@ copycron(FILE *fp)
 	char pid[6], *tnam_end;
 	int t;
 	char buf[LINE_MAX];
+	const char *errstr;
 	cferror_t cferr;
 
 	sprintf(pid, "%-5d", getpid());
@@ -501,6 +504,25 @@ copycron(FILE *fp)
 			} else {
 				err = 1;
 				fprintf(stderr, BAD_HOME, &line[cursor],
+				    strerror(errno));
+				continue;
+			}
+		} else if (strncmp(&line[cursor], ENV_RANDOM_DELAY,
+		    strlen(ENV_RANDOM_DELAY)) == 0) {
+			char *x;
+
+			strncpy(buf,
+			    &line[cursor + strlen(ENV_RANDOM_DELAY)],
+			    sizeof (buf));
+			if ((x = strchr(buf, '\n')) != NULL)
+				*x = '\0';
+
+			(void) strtonum(buf, 0, INT_MAX, &errstr);
+			if (errstr == NULL) {
+				goto cont;
+			} else {
+				err = 1;
+				fprintf(stderr, BAD_RAND_DELAY, &line[cursor],
 				    strerror(errno));
 				continue;
 			}
