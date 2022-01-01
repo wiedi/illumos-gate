@@ -25,6 +25,7 @@
 
 /*
  * Copyright 2019 OmniOS Community Edition (OmniOSce) Association.
+ * Copyright 2021 Sebastian Wiedenroth
  */
 
 #ifndef	_CRON_H
@@ -101,9 +102,10 @@ typedef enum {
 
 #define	SHELL		"/usr/bin/sh"	/* shell to execute */
 
-#define	ENV_SHELL	"SHELL="
-#define	ENV_TZ		"TZ="
-#define	ENV_HOME	"HOME="
+#define	ENV_SHELL		"SHELL="
+#define	ENV_TZ			"TZ="
+#define	ENV_HOME		"HOME="
+#define	ENV_RANDOMIZED_DELAY	"RANDOMIZED_DELAY="
 
 #define	CTLINESIZE	1000	/* max chars in a crontab line */
 
