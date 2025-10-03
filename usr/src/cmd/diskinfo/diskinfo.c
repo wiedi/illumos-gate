@@ -14,7 +14,7 @@
  * Copyright 2021 RackTop Systems, Inc.
  * Copyright 2021 Tintri by DDN, Inc. All rights reserved.
  * Copyright 2023 Oxide Computer Company
- * Copyright 2024 Sebastian Wiedenroth
+ * Copyright 2025 Sebastian Wiedenroth
  */
 
 #include <sys/types.h>
@@ -42,11 +42,14 @@
 #include <sys/fm/protocol.h>
 #include <modules/common/disk/disk.h>
 
+#define	INVALID_TEMP 0xFFFF
+
 typedef struct di_opts {
 	boolean_t di_scripted;
 	boolean_t di_parseable;
 	boolean_t di_physical;
 	boolean_t di_condensed;
+	boolean_t di_temperature;
 } di_opts_t;
 
 typedef struct di_phys {
@@ -62,7 +65,7 @@ typedef struct di_phys {
 static void
 usage(const char *execname)
 {
-	(void) fprintf(stderr, "Usage: %s [-Hp] [{-c|-P}]\n", execname);
+	(void) fprintf(stderr, "Usage: %s [-Hp] [{-c|-P|-t}]\n", execname);
 }
 
 static void
@@ -280,7 +283,9 @@ enumerate_disks(di_opts_t *opts)
 	for (i = 0; media != NULL && media[i] != 0; i++) {
 		dm_descriptor_t *disk, *controller;
 		nvlist_t *mattrs, *dattrs;
+		nvlist_t *drive_stats;
 		char *vid, *pid, *serial, *opath, *ctype, *pctype, *c;
+		uint32_t temp = INVALID_TEMP;
 		boolean_t removable, ssd;
 		char device[MAXPATHLEN];
 		di_phys_t phys;
@@ -291,6 +296,7 @@ enumerate_disks(di_opts_t *opts)
 		char sizestr[32];
 		char slotname[32];
 		char statestr[8];
+		char tempstr[8];
 
 		if ((disk = dm_get_associated_descriptors(media[i],
 		    DM_DRIVE, &e)) == NULL) {
@@ -326,6 +332,19 @@ enumerate_disks(di_opts_t *opts)
 
 			if (nvlist_lookup_boolean(dattrs, DM_SOLIDSTATE) == 0)
 				ssd = B_TRUE;
+		}
+
+		if ((drive_stats = dm_get_stats(disk[0],
+		    DM_DRV_STAT_TEMPERATURE, &e)) == NULL ||
+		    nvlist_lookup_uint32(drive_stats, DM_TEMPERATURE,
+		    &temp) != 0) {
+			temp = INVALID_TEMP;
+		}
+		if (temp == INVALID_TEMP) {
+			tempstr[0] = '-';
+			tempstr[1] = '\0';
+		} else {
+			(void) snprintf(tempstr, sizeof (tempstr), "%ld", temp);
 		}
 
 		pctype = "-";
@@ -442,6 +461,12 @@ enumerate_disks(di_opts_t *opts)
 				    display_string(phys.dp_serial),
 				    sizestr, statestr, slotname);
 			}
+		} else if (opts->di_temperature) {
+			if (opts->di_parseable) {
+				printf("%s\t%s\n", device, tempstr);
+			} else {
+				printf("%-22s %-2s °C\n", device, tempstr);
+			}
 		} else {
 			if (opts->di_scripted) {
 				printf("%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
@@ -479,17 +504,33 @@ main(int argc, char *argv[])
 		.di_condensed = B_FALSE,
 		.di_scripted = B_FALSE,
 		.di_physical = B_FALSE,
-		.di_parseable = B_FALSE
+		.di_parseable = B_FALSE,
+		.di_temperature = B_FALSE
 	};
 
-	while ((c = getopt(argc, argv, ":cHPp")) != EOF) {
+	while ((c = getopt(argc, argv, ":cHtPp")) != EOF) {
 		switch (c) {
 		case 'c':
 			if (opts.di_physical) {
 				usage(argv[0]);
 				errx(1, "-c and -P are mutually exclusive");
 			}
+			if (opts.di_temperature) {
+				usage(argv[0]);
+				errx(1, "-c and -t are mutually exclusive");
+			}
 			opts.di_condensed = B_TRUE;
+			break;
+		case 't':
+			if (opts.di_condensed) {
+				usage(argv[0]);
+				errx(1, "-c and -t are mutually exclusive");
+			}
+			if (opts.di_physical) {
+				usage(argv[0]);
+				errx(1, "-t and -P are mutually exclusive");
+			}
+			opts.di_temperature = B_TRUE;
 			break;
 		case 'H':
 			opts.di_scripted = B_TRUE;
@@ -498,6 +539,10 @@ main(int argc, char *argv[])
 			if (opts.di_condensed) {
 				usage(argv[0]);
 				errx(1, "-c and -P are mutually exclusive");
+			}
+			if (opts.di_temperature) {
+				usage(argv[0]);
+				errx(1, "-t and -P are mutually exclusive");
 			}
 			opts.di_physical = B_TRUE;
 			break;
@@ -521,6 +566,8 @@ main(int argc, char *argv[])
 			printf("TYPE    DISK                    VID      PID"
 			    "              SERIAL\n");
 			printf("\tSIZE          FLRS LOCATION\n");
+		} else if (opts.di_temperature) {
+			printf("DISK                   TEMPERATURE\n");
 		} else {
 			printf("TYPE    DISK                    VID      PID"
 			    "              SIZE          RMV SSD\n");

@@ -9907,7 +9907,7 @@ done:
 		lpp->param_code[1] = 0x01;	/* Reference Temperature */
 		lpp->param_ctrl_flags = LOG_CTRL_LP | LOG_CTRL_LBIN;
 		lpp->param_len = 2;
-		lpp->param_values[0] = 0;	/* Resreved */
+		lpp->param_values[0] = 0;	/* Reserved */
 		lpp->param_values[1] = ref_temp;
 
 		lpp = log_param_next(lpp);

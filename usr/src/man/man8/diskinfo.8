@@ -10,8 +10,9 @@
 .\"
 .\" Copyright 2014 Joyent, Inc.
 .\" Copyright 2016 Nexenta Systems, Inc.
+.\" Copyright 2025 Sebastian Wiedenroth
 .\"
-.Dd July 20, 2016
+.Dd October 3, 2025
 .Dt DISKINFO 8
 .Os
 .Sh NAME
@@ -20,16 +21,17 @@
 .Sh SYNOPSIS
 .Nm
 .Op Fl Hp
-.Op Fl c Ns | Ns Fl P
+.Op Fl c Ns | Ns Fl t Ns | Ns Fl P
 .Sh DESCRIPTION
 The diskinfo tool provides information about the disk devices in the system.
 Because it interacts with the kernel's device management subsystem, this tool
 can be used only from the global zone.
 If run in any other zone, its output will be incomplete and unreliable.
 .Pp
-There are three main modes.
+There are four main modes.
 The default mode, when neither the
-.Fl c
+.Fl c ,
+.Fl t
 nor
 .Fl P
 option is specified, provides a basic inventory of the disk devices in the
@@ -55,6 +57,11 @@ whether the locate or identification indicator is on for the device
 and the chassis and bay number containing the disk if known.
 .Pp
 The
+.Fl t
+option selects temperature mode.
+This mode provides the disk temperature if supported by the hardware.
+.Pp
+The
 .Fl c
 option selects compact mode.
 This mode provides all of the information provided by both the default mode and
@@ -68,8 +75,9 @@ below for a detailed description of each column.
 .It Fl c
 Select compact mode output.
 At most one of
-.Fl c
-and
+.Fl c ,
+.Fl t
+or
 .Fl P
 may be present on the command line.
 .It Fl H
@@ -78,9 +86,18 @@ This provides output suitable for passing into text processing tools.
 .It Fl P
 Select physical mode output.
 At most one of
+.Fl c ,
+.Fl t
+or
 .Fl P
-and
-.Fl c
+may be present on the command line.
+.It Fl t
+Temperature output.
+At most one of
+.Fl c ,
+.Fl t
+or
+.Fl P
 may be present on the command line.
 .It Fl p
 Parsable output.
@@ -184,6 +201,10 @@ This field is available in compact and default output modes.
 The vendor identification string reported by the device.
 .Pp
 This field is available in all output modes.
+.It Sy TEMPERATURE
+The temperature in degrees celsius reported by the device.
+.Pp
+This field is available only in temperature output modes.
 .El
 .Sh SEE ALSO
 .Xr sd 4D ,
