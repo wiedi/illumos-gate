@@ -24,7 +24,7 @@ CSTD=	$(CSTD_GNU99)
 
 CPPFLAGS +=	-I$(SRC)/lib/fm/topo
 
-LDLIBS +=	-L$(ROOT)/usr/lib/fm -R/usr/lib/fm -ldiskmgt -lnvpair -ltopo
+LDLIBS +=	-L$(ROOT)/usr/lib/fm -R/usr/lib/fm -ldiskmgt -lnvpair -ltopo  -lofmt
 
 .KEEP_STATE:
 

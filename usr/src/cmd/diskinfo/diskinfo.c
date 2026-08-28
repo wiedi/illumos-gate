@@ -35,6 +35,7 @@
 #include <sys/nvpair.h>
 #include <sys/param.h>
 #include <sys/ccompile.h>
+#include <ofmt.h>
 
 #include <fm/libtopo.h>
 #include <fm/topo_hc.h>
@@ -45,27 +46,75 @@
 #define	INVALID_TEMP 0xFFFF
 
 typedef struct di_opts {
-	boolean_t di_scripted;
-	boolean_t di_parseable;
-	boolean_t di_physical;
-	boolean_t di_condensed;
-	boolean_t di_temperature;
+	char *do_fields;
+	boolean_t do_fields_set;
+	boolean_t do_scripted;
+	boolean_t do_parseable;
+	boolean_t do_physical;
+	boolean_t do_condensed;
+	boolean_t do_temperature;
 } di_opts_t;
 
-typedef struct di_phys {
+typedef struct di_diskinfo {
 	const char *dp_dev;
 	const char *dp_serial;
 	const char *dp_slotname;
+	char *di_pctype;
+	char *di_vid;
+	char *di_pid;
 	int dp_chassis;
 	int dp_slot;
 	int dp_faulty;
 	int dp_locate;
-} di_phys_t;
+	uint32_t di_temperature;
+	boolean_t di_removable;
+	boolean_t di_ssd;
+	char di_slotname[32];
+	char di_sizestr[32];
+} di_diskinfo_t;
+
+
+typedef enum di_field {
+	DF_DISK,
+	DF_FLRS,
+	DF_FLT,
+	DF_LOC,
+	DF_LOCATION,
+	DF_PID,
+	DF_RMV,
+	DF_SERIAL,
+	DF_SIZE,
+	DF_SSD,
+	DF_TEMPERATURE,
+	DF_TYPE,
+	DF_VID,
+} di_field_t;
+
+static boolean_t
+fmt_diskinfo(ofmt_arg_t *arg, char *buf, uint_t buflen);
+
+static ofmt_field_t diskinfo_fields[] = {
+	{ "DISK",		24, DF_DISK, fmt_diskinfo},
+	{ "FLRS",		5, DF_FLRS, fmt_diskinfo},
+	{ "FLT",		4, DF_FLT, fmt_diskinfo},
+	{ "LOC",		4, DF_LOC, fmt_diskinfo},
+	{ "LOCATION",		33, DF_LOCATION, fmt_diskinfo},
+	{ "PID",		17, DF_PID, fmt_diskinfo},
+	{ "RMV",		4, DF_RMV, fmt_diskinfo},
+	{ "SERIAL",		21, DF_SERIAL, fmt_diskinfo},
+	{ "SIZE",		14, DF_SIZE, fmt_diskinfo},
+	{ "SSD",		4, DF_SSD, fmt_diskinfo},
+	{ "TEMPERATURE",	12, DF_TEMPERATURE, fmt_diskinfo},
+	{ "TYPE",		8, DF_TYPE, fmt_diskinfo},
+	{ "VID",		9, DF_VID, fmt_diskinfo},
+	{ NULL, 0, 0, NULL}
+};
+
 
 static void
 usage(const char *execname)
 {
-	(void) fprintf(stderr, "Usage: %s [-Hp] [{-c|-P|-t}]\n", execname);
+	(void) fprintf(stderr, "Usage: %s [-Hp] [{-c|-P|-o field[,field]...}]\n", execname);
 }
 
 static void
@@ -74,13 +123,13 @@ nvlist_query_string(nvlist_t *nvl, const char *label, char **val)
 	if (nvlist_lookup_string(nvl, label, val) != 0)
 		*val = "-";
 }
-
+/*
 static const char *
 display_string(const char *label)
 {
 	return ((label) ? label : "-");
 }
-
+*/
 static const char *
 display_tristate(int val)
 {
@@ -102,10 +151,73 @@ condensed_tristate(int val, char c)
 
 	return ('?');
 }
+
+static boolean_t
+fmt_diskinfo(ofmt_arg_t *arg, char *buf, uint_t buflen)
+{
+	di_diskinfo_t	*info = arg->ofmt_cbarg;
+	di_field_t	field = (di_field_t)arg->ofmt_id;
+
+	switch (field) {
+	case DF_DISK:
+		(void) snprintf(buf, buflen, "%s", info->dp_dev);
+		break;
+
+	case DF_FLRS:
+		(void) snprintf(buf, buflen, "%c%c%c%c",
+		    condensed_tristate(info->dp_faulty, 'F'),
+		    condensed_tristate(info->dp_locate, 'L'),
+		    condensed_tristate(info->di_removable, 'R'),
+		    condensed_tristate(info->di_ssd, 'S'));
+		break;
+	case DF_FLT:
+		(void) snprintf(buf, buflen, "%s", display_tristate(info->dp_faulty));
+		break;
+	case DF_LOC:
+		(void) snprintf(buf, buflen, "%s", display_tristate(info->dp_locate));
+		break;
+	case DF_LOCATION:
+		(void) snprintf(buf, buflen, "%s", info->di_slotname);
+		break;
+	case DF_PID:
+		(void) snprintf(buf, buflen, "%s", info->di_pid);
+		break;
+	case DF_RMV:
+		(void) snprintf(buf, buflen, "%s", display_tristate(info->di_removable));
+		break;
+	case DF_SERIAL:
+		(void) snprintf(buf, buflen, "%s", info->dp_serial);
+		break;
+	case DF_SIZE:
+		(void) snprintf(buf, buflen, "%s", info->di_sizestr);
+		break;
+	case DF_SSD:
+		(void) snprintf(buf, buflen, "%s", display_tristate(info->di_ssd));
+		break;
+	case DF_TEMPERATURE:
+		if (info->di_temperature == INVALID_TEMP) {
+			return (B_FALSE);
+		} else {
+			(void) snprintf(buf, buflen, "%ld °C", info->di_temperature);
+		}
+		break;
+	case DF_TYPE:
+		(void) snprintf(buf, buflen, "%s", info->di_pctype);
+		break;
+	case DF_VID:
+		(void) snprintf(buf, buflen, "%s", info->di_vid);
+		break;
+	default:
+		errx(-1, "%s: invalid field %d", __func__, field);
+	}
+
+	return (B_TRUE);
+}
+
 static int
 disk_walker(topo_hdl_t *hp, tnode_t *np, void *arg)
 {
-	di_phys_t *pp = arg;
+	di_diskinfo_t *pp = arg;
 	topo_faclist_t fl;
 	topo_faclist_t *lp;
 	int e;
@@ -220,7 +332,7 @@ disk_walker(topo_hdl_t *hp, tnode_t *np, void *arg)
 }
 
 static void
-populate_physical(topo_hdl_t *hp, di_phys_t *pp)
+populate_physical(topo_hdl_t *hp, di_diskinfo_t *pp)
 {
 	int e;
 	topo_walk_t *wp;
@@ -247,6 +359,9 @@ populate_physical(topo_hdl_t *hp, di_phys_t *pp)
 static void
 enumerate_disks(di_opts_t *opts)
 {
+	ofmt_handle_t	hdl;
+	ofmt_status_t	status;
+	uint_t		ofmtflags = 0;
 	topo_hdl_t *hp = NULL;
 	int filter[] = { DM_DT_FIXED, -1 };
 	dm_descriptor_t *media;
@@ -264,7 +379,7 @@ enumerate_disks(di_opts_t *opts)
 	 * condensed or physical information. If we don't need it, we leave
 	 * hp = NULL.
 	 */
-	if (opts->di_condensed || opts->di_physical) {
+	if (opts->do_condensed || opts->do_physical) {
 		e = 0;
 		hp = topo_open(TOPO_VERSION, NULL, &e);
 		if (hp == NULL) {
@@ -280,23 +395,31 @@ enumerate_disks(di_opts_t *opts)
 		}
 	}
 
+	if (opts->do_parseable) {
+		ofmtflags |= OFMT_PARSABLE;
+	}
+	if (opts->do_scripted) {
+		ofmtflags |= OFMT_NOHEADER;
+	}
+	status = ofmt_open(opts->do_fields, diskinfo_fields, ofmtflags, 0, &hdl);
+	if (status != OFMT_SUCCESS)
+		errx(-1, "kaputt");
+		//ofmt_fatal(hdl, templ, status);
+	ofmt_set_fs(hdl, '\t');
+
 	for (i = 0; media != NULL && media[i] != 0; i++) {
 		dm_descriptor_t *disk, *controller;
 		nvlist_t *mattrs, *dattrs;
 		nvlist_t *drive_stats;
 		char *vid, *pid, *serial, *opath, *ctype, *pctype, *c;
-		uint32_t temp = INVALID_TEMP;
-		boolean_t removable, ssd;
 		char device[MAXPATHLEN];
-		di_phys_t phys;
+		di_diskinfo_t info;
 		size_t len;
 		uint64_t size, total;
 		uint32_t blocksize;
 		double total_in_GiB;
 		char sizestr[32];
 		char slotname[32];
-		char statestr[8];
-		char tempstr[8];
 
 		if ((disk = dm_get_associated_descriptors(media[i],
 		    DM_DRIVE, &e)) == NULL) {
@@ -311,43 +434,46 @@ enumerate_disks(di_opts_t *opts)
 		if ((mattrs = dm_get_attributes(media[i], &e)) == NULL)
 			continue;
 
+		bzero(&info, sizeof (info));
+		info.di_temperature = INVALID_TEMP;
+
+
 		e = nvlist_lookup_uint64(mattrs, DM_SIZE, &size);
 		assert(e == 0);
 		e = nvlist_lookup_uint32(mattrs, DM_BLOCKSIZE, &blocksize);
 		assert(e == 0);
 
-		vid = pid = opath = "-";
-		removable = B_FALSE;
-		ssd = B_FALSE;
+		info.di_vid = info.di_pid = vid = pid = opath = "-";
+		
+		info.di_removable = B_FALSE;
+		info.di_ssd = B_FALSE;
 
 		dattrs = dm_get_attributes(disk[0], &e);
 		if (dattrs != NULL) {
 			nvlist_query_string(dattrs, DM_VENDOR_ID, &vid);
+			nvlist_query_string(dattrs, DM_VENDOR_ID, &info.di_vid);
 			nvlist_query_string(dattrs, DM_PRODUCT_ID, &pid);
+			nvlist_query_string(dattrs, DM_PRODUCT_ID, &info.di_pid);
 			nvlist_query_string(dattrs, DM_OPATH, &opath);
 			nvlist_query_string(dattrs, DM_SERIAL, &serial);
 
-			if (nvlist_lookup_boolean(dattrs, DM_REMOVABLE) == 0)
-				removable = B_TRUE;
+			if (nvlist_lookup_boolean(dattrs, DM_REMOVABLE) == 0) {
+				info.di_removable = B_TRUE;
+			}
 
-			if (nvlist_lookup_boolean(dattrs, DM_SOLIDSTATE) == 0)
-				ssd = B_TRUE;
+			if (nvlist_lookup_boolean(dattrs, DM_SOLIDSTATE) == 0) {
+				info.di_ssd = B_TRUE;
+			}
 		}
 
 		if ((drive_stats = dm_get_stats(disk[0],
 		    DM_DRV_STAT_TEMPERATURE, &e)) == NULL ||
 		    nvlist_lookup_uint32(drive_stats, DM_TEMPERATURE,
-		    &temp) != 0) {
-			temp = INVALID_TEMP;
-		}
-		if (temp == INVALID_TEMP) {
-			tempstr[0] = '-';
-			tempstr[1] = '\0';
-		} else {
-			(void) snprintf(tempstr, sizeof (tempstr), "%ld", temp);
+		    &info.di_temperature) != 0) {
+			info.di_temperature = INVALID_TEMP;
 		}
 
-		pctype = "-";
+		info.di_pctype = pctype = "-";
 		ctype = NULL;
 		if ((controller = dm_get_associated_descriptors(disk[0],
 		    DM_CONTROLLER, &e)) != NULL) {
@@ -363,6 +489,7 @@ enumerate_disks(di_opts_t *opts)
 					for (c = ctype; *c != '\0'; c++)
 						*c = toupper(*c);
 					pctype = ctype;
+					info.di_pctype = ctype;
 				}
 			}
 			dm_free_descriptors(controller);
@@ -382,30 +509,40 @@ enumerate_disks(di_opts_t *opts)
 		    (device[len - 1] >= '0' && device[len - 1] <= '9')) {
 			device[len - 2] = '\0';
 		}
-
+		
+		info.dp_dev = device;
+		
+		
 		if (hp != NULL) {
-			bzero(&phys, sizeof (phys));
-			phys.dp_dev = device;
-			populate_physical(hp, &phys);
+			populate_physical(hp, &info);
 
-			if (opts->di_parseable) {
+			if (opts->do_parseable) {
 				(void) snprintf(slotname, sizeof (slotname),
-				    "%d,%d", phys.dp_chassis, phys.dp_slot);
-			} else if (phys.dp_slotname != NULL &&
-			    phys.dp_chassis != -1) {
+				    "%d,%d", info.dp_chassis, info.dp_slot);
+				(void) snprintf(info.di_slotname, sizeof (slotname),
+				    "%d,%d", info.dp_chassis, info.dp_slot);
+			} else if (info.dp_slotname != NULL &&
+			    info.dp_chassis != -1) {
 				(void) snprintf(slotname, sizeof (slotname),
-				    "[%d] %s", phys.dp_chassis,
-				    phys.dp_slotname);
-			} else if (phys.dp_slotname != NULL) {
+				    "[%d] %s", info.dp_chassis,
+				    info.dp_slotname);
+				(void) snprintf(info.di_slotname, sizeof (slotname),
+				    "[%d] %s", info.dp_chassis,
+				    info.dp_slotname);
+			} else if (info.dp_slotname != NULL) {
 				(void) snprintf(slotname, sizeof (slotname),
-				    "%s", phys.dp_slotname);
+				    "%s", info.dp_slotname);
+				(void) snprintf(info.di_slotname, sizeof (slotname),
+				    "%s", info.dp_slotname);
 			} else {
 				slotname[0] = '-';
 				slotname[1] = '\0';
+				info.di_slotname[0] = '-';
+				info.di_slotname[1] = '\0';
 			}
 		}
-		if (phys.dp_serial == NULL) {
-			phys.dp_serial = serial;
+		if (info.dp_serial == NULL) {
+			info.dp_serial = serial;
 		}
 
 		/*
@@ -415,60 +552,60 @@ enumerate_disks(di_opts_t *opts)
 		 */
 		total = size * blocksize;
 
-		if (opts->di_parseable) {
+		if (opts->do_parseable) {
 			(void) snprintf(sizestr, sizeof (sizestr),
+			    "%llu", total);
+			(void) snprintf(info.di_sizestr, sizeof (sizestr),
 			    "%llu", total);
 		} else {
 			total_in_GiB = (double)total /
 			    1024.0 / 1024.0 / 1024.0;
 			(void) snprintf(sizestr, sizeof (sizestr),
 			    "%7.2f GiB", total_in_GiB);
+			(void) snprintf(info.di_sizestr, sizeof (sizestr),
+			    "%7.2f GiB", total_in_GiB);
+
 		}
 
-		if (opts->di_condensed) {
-			(void) snprintf(statestr, sizeof (statestr), "%c%c%c%c",
-			    condensed_tristate(phys.dp_faulty, 'F'),
-			    condensed_tristate(phys.dp_locate, 'L'),
-			    condensed_tristate(removable, 'R'),
-			    condensed_tristate(ssd, 'S'));
-		}
 
-		if (opts->di_physical) {
-			if (opts->di_scripted) {
+		ofmt_print(hdl, &info);
+		/*
+		if (opts->do_physical) {
+			if (opts->do_scripted) {
 				printf("%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
 				    device, vid, pid,
-				    display_string(phys.dp_serial),
-				    display_tristate(phys.dp_faulty),
-				    display_tristate(phys.dp_locate), slotname);
+				    display_string(info.dp_serial),
+				    display_tristate(info.dp_faulty),
+				    display_tristate(info.dp_locate), slotname);
 			} else {
 				printf("%-22s  %-8s %-16s "
 				    "%-20s %-3s %-3s %s\n",
 				    device, vid, pid,
-				    display_string(phys.dp_serial),
-				    display_tristate(phys.dp_faulty),
-				    display_tristate(phys.dp_locate), slotname);
+				    display_string(info.dp_serial),
+				    display_tristate(info.dp_faulty),
+				    display_tristate(info.dp_locate), slotname);
 			}
-		} else if (opts->di_condensed) {
-			if (opts->di_scripted) {
+		} else if (opts->do_condensed) {
+			if (opts->do_scripted) {
 				printf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
 				    pctype, device, vid, pid,
-				    display_string(phys.dp_serial),
+				    display_string(info.dp_serial),
 				    sizestr, statestr, slotname);
 			} else {
 				printf("%-7s %-22s  %-8s %-16s "
 				    "%-20s\n\t%-13s %-4s %s\n",
 				    pctype, device, vid, pid,
-				    display_string(phys.dp_serial),
+				    display_string(info.dp_serial),
 				    sizestr, statestr, slotname);
 			}
-		} else if (opts->di_temperature) {
-			if (opts->di_parseable) {
+		} else if (opts->do_temperature) {
+			if (opts->do_parseable) {
 				printf("%s\t%s\n", device, tempstr);
 			} else {
 				printf("%-22s %-2s °C\n", device, tempstr);
 			}
 		} else {
-			if (opts->di_scripted) {
+			if (opts->do_scripted) {
 				printf("%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
 				    pctype, device, vid, pid, sizestr,
 				    display_tristate(removable),
@@ -481,7 +618,7 @@ enumerate_disks(di_opts_t *opts)
 				    display_tristate(ssd));
 			}
 		}
-
+		*/
 		free(ctype);
 		nvlist_free(dattrs);
 		nvlist_free(mattrs);
@@ -501,53 +638,57 @@ main(int argc, char *argv[])
 	int c;
 
 	di_opts_t opts = {
-		.di_condensed = B_FALSE,
-		.di_scripted = B_FALSE,
-		.di_physical = B_FALSE,
-		.di_parseable = B_FALSE,
-		.di_temperature = B_FALSE
+		.do_fields = "TYPE,DISK,VID,PID,SIZE,RMV,SSD",
+		.do_fields_set = B_FALSE,
+		.do_condensed = B_FALSE,
+		.do_scripted = B_FALSE,
+		.do_physical = B_FALSE,
+		.do_parseable = B_FALSE,
 	};
 
-	while ((c = getopt(argc, argv, ":cHtPp")) != EOF) {
+	while ((c = getopt(argc, argv, ":cHPpo:")) != EOF) {
 		switch (c) {
 		case 'c':
-			if (opts.di_physical) {
+			if (opts.do_physical) {
 				usage(argv[0]);
 				errx(1, "-c and -P are mutually exclusive");
 			}
-			if (opts.di_temperature) {
+			if (opts.do_fields_set) {
 				usage(argv[0]);
-				errx(1, "-c and -t are mutually exclusive");
+				errx(1, "-c and -o are mutually exclusive");
 			}
-			opts.di_condensed = B_TRUE;
-			break;
-		case 't':
-			if (opts.di_condensed) {
-				usage(argv[0]);
-				errx(1, "-c and -t are mutually exclusive");
-			}
-			if (opts.di_physical) {
-				usage(argv[0]);
-				errx(1, "-t and -P are mutually exclusive");
-			}
-			opts.di_temperature = B_TRUE;
+			opts.do_condensed = B_TRUE;
+			opts.do_fields = "TYPE,DISK,VID,PID,SERIAL";
 			break;
 		case 'H':
-			opts.di_scripted = B_TRUE;
+			opts.do_scripted = B_TRUE;
+			break;
+		case 'o':
+			if (opts.do_condensed) {
+				usage(argv[0]);
+				errx(1, "-c and -o are mutually exclusive");
+			}
+			if (opts.do_physical) {
+				usage(argv[0]);
+				errx(1, "-o and -P are mutually exclusive");
+			}
+			opts.do_fields = optarg;
+			opts.do_fields_set = B_TRUE;
 			break;
 		case 'P':
-			if (opts.di_condensed) {
+			if (opts.do_condensed) {
 				usage(argv[0]);
 				errx(1, "-c and -P are mutually exclusive");
 			}
-			if (opts.di_temperature) {
+			if (opts.do_fields_set) {
 				usage(argv[0]);
-				errx(1, "-t and -P are mutually exclusive");
+				errx(1, "-c and -o are mutually exclusive");
 			}
-			opts.di_physical = B_TRUE;
+			opts.do_physical = B_TRUE;
+			opts.do_fields = "DISK,VID,PID,SERIAL,FLT,LOC,LOCATION";
 			break;
 		case 'p':
-			opts.di_parseable = B_TRUE;
+			opts.do_parseable = B_TRUE;
 			break;
 		case '?':
 			usage(argv[0]);
@@ -557,22 +698,22 @@ main(int argc, char *argv[])
 		}
 	}
 
-	if (!opts.di_scripted) {
-		if (opts.di_physical) {
+	/*
+	if (!opts.do_scripted) {
+		if (opts.do_physical) {
 			printf("DISK                    VID      PID"
 			    "              SERIAL               FLT LOC"
 			    " LOCATION\n");
-		} else if (opts.di_condensed) {
+		} else if (opts.do_condensed) {
 			printf("TYPE    DISK                    VID      PID"
 			    "              SERIAL\n");
 			printf("\tSIZE          FLRS LOCATION\n");
-		} else if (opts.di_temperature) {
-			printf("DISK                   TEMPERATURE\n");
 		} else {
 			printf("TYPE    DISK                    VID      PID"
 			    "              SIZE          RMV SSD\n");
 		}
 	}
+	*/
 
 	enumerate_disks(&opts);
 
