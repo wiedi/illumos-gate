@@ -662,19 +662,34 @@ static void
 tzmon_eval_zone(thermal_zone_t *tzp)
 {
 	int tmp, new_level, level;
+	ACPI_STATUS status;
 
 	mutex_enter(&tzp->lock);
 
 	/* get the current temperature from ACPI */
-	tzmon_eval_int(tzp->obj, "_TMP", &tmp);
+	status = acpica_eval_int(tzp->obj, "_TMP", &tmp);
+	if (status != AE_OK) {
+		tmp = -1;
+	}
 	DTRACE_PROBE4(tz__temp, int, tmp, int, tzp->crt, int, tzp->hot,
 	    char *, (char *)tzp->zone_name);
+
+	if (status == AE_NOT_FOUND) {
+		/* Some firmware is broken, so stop polling */
+		cmn_err(CE_NOTE,
+		    "?tzmon: Thermal zone (%s) has missing ACPI "
+		    "object in _TMP; polling disabled",
+		    (char *)tzp->zone_name);
+		tzp->polling_period = 0;
+		mutex_exit(&tzp->lock);
+		return;
+	}
 
 	/* _HOT handling */
 	if (tzp->hot > 0 && tmp >= tzp->hot) {
 		cmn_err(CE_WARN,
 		    "tzmon: Thermal zone (%s) is too hot (%d C); "
-		    "initiating shutdown\n",
+		    "initiating shutdown",
 		    (char *)tzp->zone_name, K_TO_C(tmp));
 
 		tzmon_do_shutdown();
@@ -684,7 +699,7 @@ tzmon_eval_zone(thermal_zone_t *tzp)
 	if (tzp->crt > 0 && tmp >= tzp->crt) {
 		cmn_err(CE_WARN,
 		    "tzmon: Thermal zone (%s) is critically hot (%d C); "
-		    "initiating rapid shutdown\n",
+		    "initiating rapid shutdown",
 		    (char *)tzp->zone_name, K_TO_C(tmp));
 
 		/* shut down (fairly) immediately */
