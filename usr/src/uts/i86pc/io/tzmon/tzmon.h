@@ -28,6 +28,8 @@
 #ifndef	_TZMON_H
 #define	_TZMON_H
 
+#include <sys/stdbool.h>
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -56,6 +58,7 @@ typedef struct thermal_zone {
 
 	int			polling_period;
 	int			current_level;
+	bool			is_broken;
 } thermal_zone_t;
 
 
