@@ -212,7 +212,8 @@ done:
  * Enable and disable promiscuous mode as requested. We have to toggle both
  * unicast and multicast. Note that multicast may already be enabled due to the
  * i40e_m_multicast may toggle it itself. See i40e_main.c for more information
- * on this.
+ * on this. Since enabling true unicast promisc mode would duplicate traffic
+ * already matched by non-default VSIs we toggle the default VSI.
  */
 static int
 i40e_m_promisc(void *arg, boolean_t on)
@@ -223,13 +224,19 @@ i40e_m_promisc(void *arg, boolean_t on)
 
 	mutex_enter(&i40e->i40e_general_lock);
 	if (i40e->i40e_state & I40E_SUSPENDED) {
-		ret = ECANCELED;
+		err = ECANCELED;
 		goto done;
 	}
 
 
-	ret = i40e_aq_set_vsi_unicast_promiscuous(hw, I40E_DEF_VSI_SEID(i40e),
-	    on ? true : false, NULL, false);
+	if (on) {
+		ret = i40e_aq_set_default_vsi(hw, I40E_DEF_VSI_SEID(i40e),
+		    NULL);
+	} else {
+		ret = i40e_aq_clear_default_vsi(hw, I40E_DEF_VSI_SEID(i40e),
+		    NULL);
+	}
+
 	if (ret != I40E_SUCCESS) {
 		i40e_error(i40e, "failed to %s unicast promiscuity on "
 		    "the default VSI: %d", on == B_TRUE ? "enable" : "disable",
@@ -258,8 +265,13 @@ i40e_m_promisc(void *arg, boolean_t on)
 		 * Try our best to put us back into a state that MAC expects us
 		 * to be in.
 		 */
-		ret = i40e_aq_set_vsi_unicast_promiscuous(hw,
-		    I40E_DEF_VSI_SEID(i40e), !on, NULL, false);
+		if (on) {
+			ret = i40e_aq_clear_default_vsi(hw,
+			    I40E_DEF_VSI_SEID(i40e), NULL);
+		} else {
+			ret = i40e_aq_set_default_vsi(hw,
+			    I40E_DEF_VSI_SEID(i40e), NULL);
+		}
 		if (ret != I40E_SUCCESS) {
 			i40e_error(i40e, "failed to %s unicast promiscuity on "
 			    "the default VSI after toggling multicast failed: "
